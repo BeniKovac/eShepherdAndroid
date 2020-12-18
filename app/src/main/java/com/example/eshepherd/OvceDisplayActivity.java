@@ -50,9 +50,12 @@ public class OvceDisplayActivity extends AppCompatActivity {
                 try {
                     JSONObject object = response.getJSONObject(i);
                     String ID  = object.getString("ovcaID");
+                    if(ID.equals("/"))
+                        continue;
                     String datumRojstva  = object.getString("datumRojstva");
 
                     data.add(ID + " " + datumRojstva);
+
                 }catch (JSONException e){
                     e.printStackTrace();
                     return;
