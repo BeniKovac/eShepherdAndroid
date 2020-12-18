@@ -3,7 +3,7 @@
     package="com.example.eshepherd">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EShepherd">
-        <activity android:name=".AddingActivity"></activity>
-        <activity android:name=".OvceActivity" />
+        <activity android:name=".OvceDisplayActivity"></activity>
+        <activity android:name=".EntityDisplaysActivity" />
+        <activity android:name=".AddingActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
