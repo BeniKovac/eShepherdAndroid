@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">eShepherd</string>
+    <string name="id_ovce">ID ovce</string>
+    <string name="vpisite_id_ovce">Vpišite ID ovce</string>
+    <string name="trenutna_creda">Trenutna čreda</string>
+    <string name="datum_rojstva">Datum rojstva</string>
+    <string name="pasma">Pasma</string>
+    <string name="id_oceta">ID očeta</string>
+    <string name="id_mame">ID mame</string>
+    <string name="stevilo_sorojencev">Število sorojencev</string>
+    <string name="trenutno_stanje">Trenutno stanje</string>
+    <string name="opombe">Opombe</string>
+    <string name="dodaj_ovco">Dodaj ovco</string>
 </resources>
