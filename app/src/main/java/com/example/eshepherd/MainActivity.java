@@ -18,4 +18,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, OvceDisplayActivity.class);
         startActivity(intent);
     }
+
+    public void launchOvniDisplay(View view) {
+        Intent intent = new Intent(this, OvniDisplayActivity.class);
+        startActivity(intent);
+    }
+
+    public void launchKotitveDisplay(View view) {
+        Intent intent = new Intent(this, KotitveDisplayActivity.class);
+        startActivity(intent);
+    }
 }

@@ -47,6 +47,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="30dp"
+            android:onClick="launchOvniDisplay"
             app:srcCompat="@drawable/oven" />
 
         <TextView
@@ -69,6 +70,7 @@
             android:layout_below="@+id/dodaj_ovco_text"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="0dp"
+            android:onClick="launchKotitveDisplay"
             app:srcCompat="@drawable/kotitev" />
 
         <TextView
