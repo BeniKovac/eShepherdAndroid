@@ -14,13 +14,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void launchAddingActivity(View view){
-        Intent intent = new Intent(MainActivity.this, AddingActivity.class);
-        startActivity(intent);
-    }
-
-    public void launchEntityDisplaysActivity(View view) {
-        Intent intent = new Intent(MainActivity.this,EntityDisplaysActivity.class);
+    public void launchOvceDisplay(View view) {
+        Intent intent = new Intent(this, OvceDisplayActivity.class);
         startActivity(intent);
     }
 }
