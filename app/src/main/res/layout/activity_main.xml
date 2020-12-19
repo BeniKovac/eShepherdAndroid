@@ -1,49 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:gravity="center"
-        android:text="Dobrodošli v aplikaciji eShepherd"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="114dp"
-        android:text="Pregled"
-        android:onClick="launchEntityDisplaysActivity"
-        app:backgroundTint="#4CAF50"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <TextView
+            android:id="@+id/textintro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="eShepherd"
+            android:textSize="60dp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="122dp"
-        android:text="Dodajanje"
-        android:onClick="launchAddingActivity"
-        app:backgroundTint="#129EDD"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        <ImageView
+            android:id="@+id/ovca_img"
+            android:layout_width="129dp"
+            android:layout_height="156dp"
+            android:layout_marginLeft="37dp"
+            android:layout_below="@id/textintro"
+            android:onClick="launchOvceDisplay"
+            app:srcCompat="@drawable/ovca" />
 
+        <TextView
+            android:id="@+id/dodaj_ovco_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ovca_img"
+            android:layout_marginLeft="30dp"
+            android:text="Dodaj ovco"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/oven_img"
+            android:layout_width="137dp"
+            android:layout_height="162dp"
+            android:layout_below="@id/textintro"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            app:srcCompat="@drawable/oven" />
+
+        <TextView
+            android:id="@+id/dodaj_ovna_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/textintro"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="157dp"
+            android:text="Dodaj ovna"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/kotitev_img"
+            android:layout_width="139dp"
+            android:layout_height="142dp"
+            android:layout_below="@+id/dodaj_ovco_text"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="0dp"
+            app:srcCompat="@drawable/kotitev" />
+
+        <TextView
+            android:id="@+id/dodaj_kotitev_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dodaj_ovco_text"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="129dp"
+            android:text="Dodaj kotitev"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/plusek"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:layout_below="@id/dodaj_ovco_text"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="135dp"
+            android:layout_marginTop="100dp"
+            app:srcCompat="@drawable/ic_baseline_add_circle_24"
+            tools:ignore="VectorDrawableCompat" />
+
+        <ImageView
+            android:id="@+id/gonitev_img"
+            android:layout_width="139dp"
+            android:layout_height="123dp"
+            android:layout_below="@id/dodaj_ovna_text"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            app:srcCompat="@drawable/gonitev"
+            tools:ignore="VectorDrawableCompat" />
+
+        <TextView
+            android:id="@+id/dodaj_gonitev_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gonitev_img"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="35dp"
+            android:text="Dodaj gonitev"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/plusekGonitve"
+            android:layout_width="65dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/dodaj_ovna_text"
+            android:layout_marginLeft="317dp"
+            android:layout_marginTop="186dp"
+            android:layout_toRightOf="@id/kotitev_img"
+            app:srcCompat="@drawable/ic_baseline_add_circle_24"
+            tools:ignore="VectorDrawableCompat" />
+
+        <ImageView
+            android:id="@+id/crede_img"
+            android:layout_width="139dp"
+            android:layout_height="142dp"
+            android:layout_below="@id/dodaj_kotitev_text"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/creda"
+            tools:ignore="VectorDrawableCompat" />
+
+        <TextView
+            android:id="@+id/dodaj_credo_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/crede_img"
+            android:layout_centerHorizontal="true"
+            android:text="Dodaj credo"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/plusekCrede"
+            android:layout_width="65dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/dodaj_kotitev_text"
+            android:layout_marginLeft="440dp"
+            android:layout_marginTop="186dp"
+            app:srcCompat="@drawable/ic_baseline_add_circle_24"
+            tools:ignore="VectorDrawableCompat" />
+
+    </RelativeLayout>
+
+</LinearLayout>

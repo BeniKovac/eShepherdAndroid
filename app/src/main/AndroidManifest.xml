@@ -12,8 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EShepherd">
         <activity android:name=".OvceDisplayActivity"></activity>
-        <activity android:name=".EntityDisplaysActivity" />
-        <activity android:name=".AddingActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
