@@ -1,7 +1,5 @@
 package com.example.eshepherd;
-
 import android.content.Context;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> {
-
+public class ListAdapterOvni extends RecyclerView.Adapter<ListAdapterOvni.MyViewHolder>{
     ArrayList<String> arrayListID;
     ArrayList<String> arrayListDatum;
     Context context;
 
-    public ListAdapter(Context ct, ArrayList<String> dataID, ArrayList<String> dataDatum){
+    public ListAdapterOvni(Context ct, ArrayList<String> dataID, ArrayList<String> dataDatum){
         context=ct;
         arrayListID = dataID;
         arrayListDatum = dataDatum;
@@ -27,14 +24,14 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ListAdapterOvni.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.one_row_ovce,parent,false);
-        return new MyViewHolder(view);
+        View view = inflater.inflate(R.layout.one_row_ovni,parent,false);
+        return new ListAdapterOvni.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ListAdapterOvni.MyViewHolder holder, int position) {
         holder.textView1.setText(arrayListID.get(position));
         holder.textView2.setText(arrayListDatum.get(position));
     }
@@ -53,7 +50,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MyViewHolder> 
             super(itemView);
             textView1 = itemView.findViewById(R.id.textView_ID);
             textView2 = itemView.findViewById(R.id.textView_Datum);
-            myImage = itemView.findViewById(R.id.ovca_img);
+            myImage = itemView.findViewById(R.id.oven_img);
         }
     }
 }

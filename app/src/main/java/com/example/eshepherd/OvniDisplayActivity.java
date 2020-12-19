@@ -1,46 +1,46 @@
 package com.example.eshepherd;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.widget.TextView;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class OvceDisplayActivity extends AppCompatActivity {
+public class OvniDisplayActivity extends AppCompatActivity {
+
     private RequestQueue requestQueue;
-    private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovce";
+    private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovni";
     RecyclerView recyclerView;
     Context ct;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ovce_display);
+        setContentView(R.layout.activity_ovni_display);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
-        //ovce = (TextView) findViewById(R.id.ovce);
+        //ovni = (TextView) findViewById(R.id.ovni);
         ct = this;
-        recyclerView = findViewById(R.id.recycler_view_ovce);
-        prikaziOvce();
+        recyclerView = findViewById(R.id.recycler_view_ovni);
+        prikaziOvne();
     }
 
-    public void prikaziOvce(){
-            JsonArrayRequest request = new JsonArrayRequest(url, jsonArrayListener, errorListener);
-            requestQueue.add(request);
+    public void prikaziOvne(){
+        JsonArrayRequest request = new JsonArrayRequest(url, jsonArrayListener, errorListener);
+        requestQueue.add(request);
     }
 
     Response.Listener<JSONArray> jsonArrayListener = new Response.Listener<JSONArray>() {
@@ -51,7 +51,7 @@ public class OvceDisplayActivity extends AppCompatActivity {
             for (int i = 0; i < response.length(); i++) {
                 try {
                     JSONObject object = response.getJSONObject(i);
-                    String ID  = object.getString("ovcaID");
+                    String ID  = object.getString("ovenID");
                     if(ID.equals("/"))
                         continue;
                     String datumRojstva  = object.getString("datumRojstva");
@@ -61,8 +61,8 @@ public class OvceDisplayActivity extends AppCompatActivity {
                         datumRojstva = "neznan";
                     dataID.add(ID);
                     dataDatum.add(datumRojstva);
-                    ListAdapterOvce listAdapterOvce = new ListAdapterOvce(ct, dataID, dataDatum);
-                    recyclerView.setAdapter(listAdapterOvce);
+                    ListAdapterOvni listAdapterOvni = new ListAdapterOvni(ct, dataID, dataDatum);
+                    recyclerView.setAdapter(listAdapterOvni);
                     recyclerView.setLayoutManager(new LinearLayoutManager(ct));
                 }catch (JSONException e){
                     e.printStackTrace();
@@ -71,8 +71,8 @@ public class OvceDisplayActivity extends AppCompatActivity {
             }
             /*                                                              DISPLAY Z TextView-om
             for(String row : data){
-                String currentText = ovce.getText().toString();
-                ovce.setText(currentText + "\n\n" + row);
+                String currentText = ovni.getText().toString();
+                ovni.setText(currentText + "\n\n" + row);
             }
              */
         }
@@ -84,5 +84,4 @@ public class OvceDisplayActivity extends AppCompatActivity {
             Log.d("REST error", error.getMessage());
         }
     };
-
 }
