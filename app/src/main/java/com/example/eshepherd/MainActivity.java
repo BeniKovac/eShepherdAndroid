@@ -28,4 +28,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, KotitveDisplayActivity.class);
         startActivity(intent);
     }
+
+    public void launchGonitveDisplay(View view) {
+        Intent intent = new Intent(this, GonitveDisplayActivity.class);
+        startActivity(intent);
+    }
+
+    public void launchCredeDisplay(View view) {
+        Intent intent = new Intent(this, CredeDisplayActivity.class);
+        startActivity(intent);
+    }
 }
