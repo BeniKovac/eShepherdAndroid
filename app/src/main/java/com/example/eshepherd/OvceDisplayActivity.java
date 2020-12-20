@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,13 +21,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.*;
+
 import java.util.ArrayList;
+import java.util.Date;
 
 public class OvceDisplayActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovce";
     RecyclerView recyclerView;
     Context ct;
+    int order = 1;
+    ArrayList<String> dataID;
+    ArrayList<String> dataDatum;
+    boolean sortByDate = false;
+    TextView NapisID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +47,9 @@ public class OvceDisplayActivity extends AppCompatActivity {
         //ovce = (TextView) findViewById(R.id.ovce);
         ct = this;
         recyclerView = findViewById(R.id.recycler_view_ovce);
+        dataDatum  = new ArrayList<>();
+        dataID = new ArrayList<>();
+        NapisID = findViewById(R.id.textView_IDtitle);
         prikaziOvce();
     }
 
@@ -46,8 +61,6 @@ public class OvceDisplayActivity extends AppCompatActivity {
     Response.Listener<JSONArray> jsonArrayListener = new Response.Listener<JSONArray>() {
         @Override
         public void onResponse(JSONArray response) {
-            ArrayList<String> dataID = new ArrayList<>();
-            ArrayList<String> dataDatum = new ArrayList<>();
             for (int i = 0; i < response.length(); i++) {
                 try {
                     JSONObject object = response.getJSONObject(i);
@@ -61,14 +74,18 @@ public class OvceDisplayActivity extends AppCompatActivity {
                         datumRojstva = "neznan";
                     dataID.add(ID);
                     dataDatum.add(datumRojstva);
-                    ListAdapterOvce listAdapterOvce = new ListAdapterOvce(ct, dataID, dataDatum);
-                    recyclerView.setAdapter(listAdapterOvce);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(ct));
                 }catch (JSONException e){
                     e.printStackTrace();
                     return;
                 }
             }
+            if(sortByDate)
+                bubbleSort(dataDatum, dataID);
+            else
+                bubbleSort(dataID, dataDatum);
+            ListAdapterOvce listAdapterOvce = new ListAdapterOvce(ct, dataID, dataDatum);
+            recyclerView.setAdapter(listAdapterOvce);
+            recyclerView.setLayoutManager(new LinearLayoutManager(ct));
             /*                                                              DISPLAY Z TextView-om
             for(String row : data){
                 String currentText = ovce.getText().toString();
@@ -84,5 +101,97 @@ public class OvceDisplayActivity extends AppCompatActivity {
             Log.d("REST error", error.getMessage());
         }
     };
+    /*
+    public void bubbleSort(ArrayList<String> s1, ArrayList<String> s2){
+        String t;
+        int n = s1.size();
+        boolean swapped = false;
+        int lastswap = 0;
+        int urejeniDel = 0;
+        for (int j = 0; j < n; j++) {
+            int i = n-1;
+            while(i > urejeniDel) {
+                if (Integer.compare(Integer.parseInt(s1.get(i)), Integer.parseInt(s1.get(i - 1))) * order > 0) {
+                    t = s1.get(i);
+                    s1.set(i, s1.get(i - 1));
+                    s1.set(i - 1, t);           //swapped s1 elements
+                    t = s2.get(i);
+                    s2.set(i, s2.get(i - 1));
+                    s2.set(i - 1, t);           //swapped s2 elements
+                    swapped = true;
+                    lastswap = i;
+                }
+                i--;
+            }
+            if(!swapped)
+                break;
+            urejeniDel = lastswap;
+        }
+    }
+*/
+    public void bubbleSort(ArrayList<String> s1, ArrayList<String> s2){
+        String t;
+        int n = s1.size();
+        boolean swapped = false;
+        int lastswap = 0;
+        int urejeniDel = 0;
+        for (int j = 0; j < n; j++) {
+            int i = n-1;
+            while(i > urejeniDel) {
+                int test=1;
+                String str = s1.get(i);
+                String str2 = s1.get(i-1);
+                if (compare(s1.get(i),s1.get(i - 1)) * order > 0) {
+                    t = s1.get(i);
+                    s1.set(i, s1.get(i - 1));
+                    s1.set(i - 1, t);           //swapped s1 elements
+                    t = s2.get(i);
+                    s2.set(i, s2.get(i - 1));
+                    s2.set(i - 1, t);           //swapped s2 elements
+                    swapped = true;
+                    lastswap = i;
+                }
+                i--;
+            }
+            if(!swapped)
+                break;
+            urejeniDel = lastswap;
+        }
+    }
 
+    public int compare(String str1, String str2){
+            if(str1.equals("neznan"))
+                return -1;
+            if(str2.equals("neznan"))
+                return 1;
+            if (date.isValidDate(str1)) {
+                try {
+                    Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(str1);
+                    Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(str2);
+                if(date1.after(date2))
+                    return 1;
+                else if(date1.before(date2))
+                    return -1;
+                else
+                    return 0;
+                }catch (ParseException Pe){
+                    System.out.println(Pe.getMessage());
+                }
+            }
+            int test = 1;
+            return Integer.compare(Integer.parseInt(str1), Integer.parseInt(str2));
+    }
+
+    public void ChangeDirection(View view) {
+        if(view.getId() != NapisID.getId())
+            sortByDate = true;
+        order *= -1;
+        if(sortByDate)
+            bubbleSort(dataDatum, dataID);
+        else
+            bubbleSort(dataID, dataDatum);
+        ListAdapterOvce listAdapterOvce = new ListAdapterOvce(ct, dataID, dataDatum);
+        recyclerView.setAdapter(listAdapterOvce);
+        recyclerView.setLayoutManager(new LinearLayoutManager(ct));
+    }
 }
