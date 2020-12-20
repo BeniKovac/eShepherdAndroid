@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EShepherd">
         <activity android:name=".KotitveDisplayActivity"/>
+        <activity android:name=".GonitveDisplayActivity"/>
         <activity android:name=".OvniDisplayActivity"/>
+        <activity android:name=".CredeDisplayActivity"/>
         <activity android:name=".OvceDisplayActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

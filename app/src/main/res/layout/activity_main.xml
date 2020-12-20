@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/ovca_img"
             android:layout_marginLeft="30dp"
-            android:text="Dodaj ovco"
+            android:text="Seznam ovac"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -59,7 +59,7 @@
             android:layout_below="@id/textintro"
             android:layout_marginRight="60dp"
             android:layout_marginTop="157dp"
-            android:text="Dodaj ovna"
+            android:text="Seznam ovnov"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -80,21 +80,9 @@
             android:layout_below="@id/dodaj_ovco_text"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="129dp"
-            android:text="Dodaj kotitev"
+            android:text="Seznam kotitev"
             android:textSize="20dp"
             android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/plusek"
-            android:layout_width="29dp"
-            android:layout_height="29dp"
-            android:layout_below="@id/dodaj_ovco_text"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="135dp"
-            android:layout_marginTop="100dp"
-            app:srcCompat="@drawable/ic_baseline_add_circle_24"
-            tools:ignore="VectorDrawableCompat" />
 
         <ImageView
             android:id="@+id/gonitev_img"
@@ -106,6 +94,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="30dp"
             android:layout_marginRight="30dp"
+            android:onClick="launchGonitveDisplay"
             app:srcCompat="@drawable/gonitev"
             tools:ignore="VectorDrawableCompat" />
 
@@ -117,7 +106,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="35dp"
-            android:text="Dodaj gonitev"
+            android:text="Seznam gonitev"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -138,6 +127,7 @@
             android:layout_height="142dp"
             android:layout_below="@id/dodaj_kotitev_text"
             android:layout_centerHorizontal="true"
+            android:onClick="launchCredeDisplay"
             app:srcCompat="@drawable/creda"
             tools:ignore="VectorDrawableCompat" />
 
@@ -147,7 +137,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/crede_img"
             android:layout_centerHorizontal="true"
-            android:text="Dodaj credo"
+            android:text="Seznam čred"
             android:textSize="20dp"
             android:textStyle="bold" />
 
