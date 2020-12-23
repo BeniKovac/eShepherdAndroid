@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/ovcaTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingExtra="20sp"
+            android:text="Vpišite podatke o ovci"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+            android:textColor="#474646"
+            android:textSize="9.5pt"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/ovcaIDTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/id_ovce"
+            android:textSize="8pt"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/OvcaID"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/vpisite_id_ovce"
+            android:inputType="textPersonName"/>
+
+        <TextView
+            android:id="@+id/credaIDTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trenutna_creda"
+            android:textSize="8pt"
+            android:textStyle="bold"/>
+
+        <Spinner
+            android:id="@+id/CredaID"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+
+            />
+
+        <TextView
+            android:id="@+id/DatumRojstvaTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/datum_rojstva"
+            android:textSize="8pt"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/DatumRojstva"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/datum_rojstva"
+            android:inputType="date"/>
+
+        <TextView
+            android:id="@+id/PasmaTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pasma"
+            android:textSize="8pt"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/Pasma"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/pasma"
+            android:inputType="textPersonName"/>
+
+        <TextView
+            android:id="@+id/mamaIDTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/id_mame"
+            android:textSize="8pt"
+            android:textStyle="bold"/>
+
+        <Spinner
+            android:id="@+id/mamaID"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:id="@+id/oceIDTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/id_oceta"
+            android:textSize="8pt"
+            android:textStyle="bold"/>
+
+        <Spinner
+            android:id="@+id/oceID"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FF0000"
+            android:padding="5dip"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:id="@+id/SteviloSorojencevTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stevilo_sorojencev"
+            android:textSize="8pt"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/SteviloSorojencev"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/stevilo_sorojencev"
+            android:inputType="number"/>
+
+        <TextView
+            android:id="@+id/StanjeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trenutno_stanje"
+            android:textSize="8pt"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/Stanje"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/trenutno_stanje"
+
+            android:inputType="textMultiLine"/>
+
+        <TextView
+            android:id="@+id/OpombeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/opombe"
+            android:textStyle="bold"
+            android:textSize="8pt"/>
+
+        <EditText
+            android:id="@+id/Opombe"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/opombe"
+            android:inputType="textMultiLine"/>
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="addOvca"
+            android:text="@string/dodaj_ovco" />
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:textSize="8pt"/>
+    </LinearLayout>
+</ScrollView>

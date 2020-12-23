@@ -1,8 +1,10 @@
 package com.example.eshepherd;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -84,4 +86,9 @@ public class GonitveDisplayActivity extends AppCompatActivity {
             Log.d("REST error", error.getMessage());
         }
     };
+
+    public void launchAddGonitev(View view) {
+        Intent intent = new Intent(this, AddGonitevActivity.class);
+        startActivity(intent);
+    }
 }

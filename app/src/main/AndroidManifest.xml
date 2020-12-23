@@ -16,6 +16,12 @@
         <activity android:name=".OvniDisplayActivity"/>
         <activity android:name=".CredeDisplayActivity"/>
         <activity android:name=".OvceDisplayActivity" />
+        <activity android:name=".AddKotitevActivity" />
+        <activity android:name=".AddGonitevActivity" />
+        <activity android:name=".AddOvenActivity" />
+        <activity android:name=".AddCredaActivity" />
+        <activity android:name=".AddOvcaActivity" />
+        <activity android:name=".AddJagenjcekActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

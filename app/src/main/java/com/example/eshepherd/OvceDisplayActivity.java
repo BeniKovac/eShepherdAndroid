@@ -3,6 +3,7 @@ package com.example.eshepherd;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -193,5 +194,10 @@ public class OvceDisplayActivity extends AppCompatActivity {
         ListAdapterOvce listAdapterOvce = new ListAdapterOvce(ct, dataID, dataDatum);
         recyclerView.setAdapter(listAdapterOvce);
         recyclerView.setLayoutManager(new LinearLayoutManager(ct));
+    }
+
+    public void launchAddOvca(View view) {
+        Intent intent = new Intent(this, AddOvcaActivity.class);
+        startActivity(intent);
     }
 }
