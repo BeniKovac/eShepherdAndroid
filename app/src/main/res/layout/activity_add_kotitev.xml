@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/kotitevTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingExtra="20sp"
+            android:text="Vpišite podatke o kotitvi"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+            android:textColor="#474646"
+            android:textSize="9.5pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/DatumKotitveTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/datum_kotitve"
+            android:textStyle="bold"
+            android:textSize="8pt"/>
+
+        <EditText
+            android:id="@+id/DatumKotitve"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/datum_kotitve"
+            android:inputType="date"/>
+
+        <TextView
+            android:id="@+id/OvcaIDtv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/id_ovce"
+            android:textStyle="bold"
+            android:textSize="8pt"/>
+
+        <Spinner
+            android:id="@+id/OvcaID"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/OvenIDtv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/id_ovna"
+            android:textStyle="bold"
+            android:textSize="8pt"/>
+
+        <Spinner
+            android:id="@+id/OvenID"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/SteviloMrtvihTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tevilo_mrtvorojenih"
+            android:textStyle="bold"
+            android:textSize="8pt"/>
+
+        <EditText
+            android:id="@+id/SteviloMrtvih"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/tevilo_mrtvorojenih"
+            android:inputType="number"/>
+
+        <TextView
+            android:id="@+id/OpombeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/opombe"
+            android:textSize="8pt"/>
+
+        <EditText
+            android:id="@+id/Opombe"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/opombe"
+            android:inputType="textMultiLine"/>
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="addKotitev"
+            android:text="@string/dodaj_kotitev" />
+        <TextView
+            android:id="@+id/statusGonitev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:textSize="8pt"/>
+    </LinearLayout>
+</ScrollView>
