@@ -29,9 +29,9 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class OvceDisplayActivity extends AppCompatActivity {
+public class JagenjckiDisplayActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
-    private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovce";
+    private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Jagenjcki";
     RecyclerView recyclerView;
     Context ct;
     int order = 1;
@@ -43,20 +43,20 @@ public class OvceDisplayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ovce_display);
+        setContentView(R.layout.activity_jagenjcki_display);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
-        //ovce = (TextView) findViewById(R.id.ovce);
+        //jagenjcki = (TextView) findViewById(R.id.jagenjcki);
         ct = this;
-        recyclerView = findViewById(R.id.recycler_view_ovce);
+        recyclerView = findViewById(R.id.recycler_view_jagenjcki);
         dataDatum  = new ArrayList<>();
         dataID = new ArrayList<>();
         NapisID = findViewById(R.id.textView_IDtitle);
-        prikaziOvce();
+        prikaziJagenjcki();
     }
 
-    public void prikaziOvce(){
-            JsonArrayRequest request = new JsonArrayRequest(url, jsonArrayListener, errorListener);
-            requestQueue.add(request);
+    public void prikaziJagenjcki(){
+        JsonArrayRequest request = new JsonArrayRequest(url, jsonArrayListener, errorListener);
+        requestQueue.add(request);
     }
 
     Response.Listener<JSONArray> jsonArrayListener = new Response.Listener<JSONArray>() {
@@ -65,17 +65,13 @@ public class OvceDisplayActivity extends AppCompatActivity {
             for (int i = 0; i < response.length(); i++) {
                 try {
                     JSONObject object = response.getJSONObject(i);
-                    String ID  = object.getString("ovcaID");
-                    String CredaID  = object.getString("credaID");
-                    if(CredaID.equals("0"))
-                        continue;
-                    String datumRojstva  = object.getString("datumRojstva");
-                    if(!datumRojstva.equals("null"))
-                        datumRojstva = datumRojstva.substring(0,10);
-                    else
-                        datumRojstva = "neznan";
+                    String ID  = object.getString("idJagenjcka");
+                    String spol  = object.getString("spol");
+                    String kotitevID  = object.getString("kotitevID").toString();
+                    if(kotitevID.equals("null"))
+                        kotitevID = "neznan";
                     dataID.add(ID);
-                    dataDatum.add(datumRojstva);
+                    dataDatum.add(kotitevID);
                 }catch (JSONException e){
                     e.printStackTrace();
                     return;
@@ -85,13 +81,13 @@ public class OvceDisplayActivity extends AppCompatActivity {
                 bubbleSort(dataDatum, dataID);
             else
                 bubbleSort(dataID, dataDatum);
-            ListAdapterOvce listAdapterOvce = new ListAdapterOvce(ct, dataID, dataDatum);
-            recyclerView.setAdapter(listAdapterOvce);
+            ListAdapterJagenjcki listAdapterJagenjcki = new ListAdapterJagenjcki(ct, dataID, dataDatum);
+            recyclerView.setAdapter(listAdapterJagenjcki);
             recyclerView.setLayoutManager(new LinearLayoutManager(ct));
             /*                                                              DISPLAY Z TextView-om
             for(String row : data){
-                String currentText = ovce.getText().toString();
-                ovce.setText(currentText + "\n\n" + row);
+                String currentText = jagenjcki.getText().toString();
+                jagenjcki.setText(currentText + "\n\n" + row);
             }
              */
         }
@@ -162,26 +158,26 @@ public class OvceDisplayActivity extends AppCompatActivity {
     }
 
     public int compare(String str1, String str2){
-            if(str1.equals("neznan"))
-                return -1;
-            if(str2.equals("neznan"))
-                return 1;
-            if (date.isValidDate(str1)) {
-                try {
-                    Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(str1);
-                    Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(str2);
+        if(str1.equals("neznan"))
+            return -1;
+        if(str2.equals("neznan"))
+            return 1;
+        if (date.isValidDate(str1)) {
+            try {
+                Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(str1);
+                Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(str2);
                 if(date1.after(date2))
                     return 1;
                 else if(date1.before(date2))
                     return -1;
                 else
                     return 0;
-                }catch (ParseException Pe){
-                    System.out.println(Pe.getMessage());
-                }
+            }catch (ParseException Pe){
+                System.out.println(Pe.getMessage());
             }
-            int test = 1;
-            return Integer.compare(Integer.parseInt(str1), Integer.parseInt(str2));
+        }
+        int test = 1;
+        return Integer.compare(Integer.parseInt(str1), Integer.parseInt(str2));
     }
 
     public void ChangeDirection(View view) {
@@ -192,13 +188,18 @@ public class OvceDisplayActivity extends AppCompatActivity {
             bubbleSort(dataDatum, dataID);
         else
             bubbleSort(dataID, dataDatum);
-        ListAdapterOvce listAdapterOvce = new ListAdapterOvce(ct, dataID, dataDatum);
-        recyclerView.setAdapter(listAdapterOvce);
+        ListAdapterJagenjcki listAdapterJagenjcki = new ListAdapterJagenjcki(ct, dataID, dataDatum);
+        recyclerView.setAdapter(listAdapterJagenjcki);
         recyclerView.setLayoutManager(new LinearLayoutManager(ct));
     }
 
     public void launchAddOvca(View view) {
         Intent intent = new Intent(this, AddOvcaActivity.class);
+        startActivity(intent);
+    }
+
+    public void launchAddJagenjcek(View view) {
+        Intent intent = new Intent(this, AddJagenjcekActivity.class);
         startActivity(intent);
     }
 }
