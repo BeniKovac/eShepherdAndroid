@@ -11,4 +11,24 @@
     <string name="trenutno_stanje">Trenutno stanje</string>
     <string name="opombe">Opombe</string>
     <string name="dodaj_ovco">Dodaj ovco</string>
+    <string name="poreklo">Poreklo</string>
+    <string name="id_ovna">ID ovna</string>
+    <string name="dodaj_ovna">Dodaj ovna</string>
+    <string name="dodaj_redo">Dodaj čredo</string>
+    <string name="datum_gonitve">Datum gonitve</string>
+    <string name="datum_kotitve">Datum kotitve</string>
+    <string name="stevilo_mladih">Število mladih</string>
+    <string name="tevilo_mrtvorojenih">Število mrtvorojenih</string>
+    <string name="dodaj_kotitev">Dodaj kotitev</string>
+    <string name="id_jagenj_ka">ID jagenjčka</string>
+    <string name="spol">Spol</string>
+    <string name="dodaj_jagenj_ka">Dodaj jagenjčka</string>
+    <string name="vpisite_podatke">VPIŠITE PODATKE</string>
+    <string name="dodaj_gonitev">Dodaj gonitev</string>
+    <string-array name="spol_array">
+        <item>m</item>
+        <item>ž</item>
+    </string-array>
+
+
 </resources>

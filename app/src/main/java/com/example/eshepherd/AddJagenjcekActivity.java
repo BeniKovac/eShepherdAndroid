@@ -21,54 +21,84 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class AddJagenjcekActivity extends AppCompatActivity {
-    Spinner spolSpinner;
-    EditText KotitevID, JagenjcekID;
-    String spol;
+    Spinner KotitevIDspinner, spolSpinner;
+    EditText JagenjcekID;
+    String spol, kotitevID;
+    ArrayList<String> kotitevList;
 
     TextView statusJagenjcek;
     RequestQueue requestQueue;
+    RequestQueue requestQueueKotitevID;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Jagenjcki";
+    private String urlKotitve = "https://eshepherd-dev.azurewebsites.net/api/v1/Kotitve";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_jagenjcek);
-        KotitevID = (EditText) findViewById(R.id.KotitevID);
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
         JagenjcekID = (EditText) findViewById(R.id.JagenjcekID);
+        // napolni kotitve spinner
+
+        KotitevIDspinner = (Spinner) findViewById(R.id.KotitevID);
+        kotitevList = new ArrayList<>();
+        dodajKotitve();
+        ArrayAdapter<String> adapterKotitev = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, kotitevList);
+        adapterKotitev.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        KotitevIDspinner.setAdapter(adapterKotitev);
+        KotitevIDspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                kotitevID = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
 
         spolSpinner = (Spinner) findViewById(R.id.Spol);
+        ArrayAdapter<CharSequence> adapterSpol = ArrayAdapter.createFromResource(this, R.array.spol_array, android.R.layout.simple_spinner_item);
+        adapterSpol.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spolSpinner.setAdapter(adapterSpol);
+        spolSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spol = parent.getItemAtPosition(position).toString();
+            }
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spol_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spolSpinner.setAdapter(adapter);
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         statusJagenjcek = (TextView) findViewById(R.id.status);
 
-        requestQueue = Volley.newRequestQueue(getApplicationContext());
     }
 
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        spol = (String) parent.getItemAtPosition(pos);
-    }
 
     public void addJagenjcka(View view) {
         this.statusJagenjcek.setText("Posting to " + url);
         Toast.makeText(this, "Pošiljam podatke", Toast.LENGTH_SHORT).show();
         try {
             JSONObject jsonBody = new JSONObject();
-            jsonBody.put("kotitevID", KotitevID.getText());
+            jsonBody.put("kotitevID", kotitevID);
             jsonBody.put("idJagenjcka", JagenjcekID.getText());
             jsonBody.put("spol", spol);
 
@@ -92,6 +122,7 @@ public class AddJagenjcekActivity extends AppCompatActivity {
                 public String getBodyContentType() {
                     return "application/json; charset=utf-8";
                 }
+
                 @Override
                 public byte[] getBody() throws AuthFailureError {
                     try {
@@ -101,6 +132,7 @@ public class AddJagenjcekActivity extends AppCompatActivity {
                         return null;
                     }
                 }
+
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     String responseString = "";
@@ -121,5 +153,47 @@ public class AddJagenjcekActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
     }
+
+    public void dodajKotitve(){
+        JsonArrayRequest request = new JsonArrayRequest(urlKotitve, jsonArrayListenerKotitev, errorListener);
+        requestQueue.add(request);
+    }
+
+
+
+    private Response.Listener<JSONArray> jsonArrayListenerKotitev = new Response.Listener<JSONArray>() {
+        @Override
+        public void onResponse(JSONArray response){
+            ArrayList<String> data = new ArrayList<>();
+            for (int i = 0; i < response.length(); i++){
+                try {
+                    JSONObject object =response.getJSONObject(i);
+                    String kotitev = object.getString("kotitevID");
+                    data.add(kotitev);
+
+                } catch (JSONException e){
+                    e.printStackTrace();
+                    return;
+
+                }
+            }
+            for (String row : data){
+                kotitevList.add(row);
+                Log.d("kotitevList", row);
+            }
+        }
+    };
+
+    private Response.ErrorListener errorListener = new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            Log.d("REST error", error.getMessage());
+        }
+    };
+
+
+
+
 }

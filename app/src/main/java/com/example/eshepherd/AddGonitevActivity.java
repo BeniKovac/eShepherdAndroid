@@ -2,10 +2,14 @@ package com.example.eshepherd;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,22 +21,31 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class AddGonitevActivity extends AppCompatActivity {
-    private EditText DatumGonitve, OvcaID, OvenID, Opombe;
+    private EditText DatumGonitve, Opombe;
+    private Spinner mamaSpinner, oceSpinner;
+    private String mama, oce;
+    private ArrayList<String> mamaList, oceList;
+
 
     private TextView statusGonitev; // za status - dodajam
 
     private RequestQueue requestQueue;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Gonitve";
-
+    private String urlOvce = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovce";
+    private String urlOvni = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovni";
 
 
     @Override
@@ -41,15 +54,48 @@ public class AddGonitevActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_gonitev);
         url = url.replaceAll(" ", "%20");
 
-        OvcaID = (EditText) findViewById(R.id.OvcaID);
-        OvenID = (EditText) findViewById(R.id.OvenID);
         DatumGonitve = (EditText) findViewById(R.id.DatumGonitve);
-
         Opombe = (EditText) findViewById(R.id.Opombe);
         statusGonitev = (TextView) findViewById(R.id.statusGonitev);
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
+        mamaSpinner = (Spinner) findViewById(R.id.OvcaID);
+        mamaList = new ArrayList<>();
+        dodajMame();
+        ArrayAdapter<String> adapterMama = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mamaList);
+        adapterMama.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mamaSpinner.setAdapter(adapterMama);
+        mamaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mama = parent.getItemAtPosition(position).toString();
+                ((TextView) view).setTextColor(Color.BLACK);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
+        oceSpinner = (Spinner) findViewById(R.id.OvenID);
+        oceList = new ArrayList<>();
+        dodajOcete();
+        ArrayAdapter<String> adapterOce = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, oceList);
+        adapterOce.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        oceSpinner.setAdapter(adapterOce);
+        oceSpinner.setSelection(0, true);
+        oceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                oce = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
     }
 
@@ -59,8 +105,8 @@ public class AddGonitevActivity extends AppCompatActivity {
         try {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("datumGonitve", DatumGonitve.getText());
-            jsonBody.put("ovcaID", OvcaID.getText());
-            jsonBody.put("ovenID", OvenID.getText());
+            jsonBody.put("ovcaID", mama);
+            jsonBody.put("ovenID", oce);
             jsonBody.put("opombe", Opombe.getText());
 
             final String mRequestBody = jsonBody.toString();
@@ -113,4 +159,70 @@ public class AddGonitevActivity extends AppCompatActivity {
         }
 
     }
+
+    public void dodajMame(){
+        JsonArrayRequest request = new JsonArrayRequest(urlOvce, jsonArrayListenerMama, errorListener);
+        requestQueue.add(request);
+    }
+
+    public void dodajOcete(){
+        JsonArrayRequest request = new JsonArrayRequest(urlOvni, jsonArrayListenerOce, errorListener);
+        requestQueue.add(request);
+    }
+
+
+
+    private Response.Listener<JSONArray> jsonArrayListenerMama = new Response.Listener<JSONArray>() {
+        @Override
+        public void onResponse(JSONArray response){
+            ArrayList<String> data = new ArrayList<>();
+            for (int i = 0; i < response.length(); i++){
+                try {
+                    JSONObject object =response.getJSONObject(i);
+                    String ovca = object.getString("ovcaID");
+                    data.add(ovca);
+
+                } catch (JSONException e){
+                    e.printStackTrace();
+                    return;
+
+                }
+            }
+            for (String row : data){
+                mamaList.add(row);
+                Log.d("mamaList", row);
+            }
+        }
+    };
+
+    private Response.Listener<JSONArray> jsonArrayListenerOce = new Response.Listener<JSONArray>() {
+        @Override
+        public void onResponse(JSONArray response){
+            ArrayList<String> data = new ArrayList<>();
+            for (int i = 0; i < response.length(); i++){
+                try {
+                    JSONObject object =response.getJSONObject(i);
+                    String ovca = object.getString("ovenID");
+                    data.add(ovca);
+
+                } catch (JSONException e){
+                    e.printStackTrace();
+                    return;
+
+                }
+            }
+            for (String row : data){
+                oceList.add(row);
+                Log.d("oceList", row);
+            }
+        }
+    };
+    private Response.ErrorListener errorListener = new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            Log.d("REST error", error.getMessage());
+        }
+    };
+
+
 }

@@ -45,5 +45,82 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
 
+    <Button
+        android:id="@+id/addOvcaActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="176dp"
+        android:layout_marginRight="8dp"
+        android:onClick="addOvcaActivity"
+        android:text="Vnesi ovco"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
+    <Button
+        android:id="@+id/addOvenActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="244dp"
+        android:layout_marginRight="8dp"
+        android:onClick="addOvenActivity"
+        android:text="Vnesi ovna"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <Button
+        android:id="@+id/addCredaActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="232dp"
+        android:layout_marginRight="276dp"
+        android:onClick="addCredaActivity"
+        android:text="Vnesi čredo"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <Button
+        android:id="@+id/addKotitevActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="320dp"
+        android:layout_marginRight="264dp"
+        android:onClick="addKotitevActivity"
+        android:text="Vnesi kotitev"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <Button
+        android:id="@+id/addGonitevActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="340dp"
+        android:layout_marginRight="8dp"
+        android:onClick="addGonitevActivity"
+        android:text="Vnesi gonitev"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="OnClick"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+    <Button
+        android:id="@+id/addJagenjcekActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="152dp"
+        android:layout_marginRight="208dp"
+        android:onClick="addJagenjcekActivity"
+        android:text="Vnesi jagenjcka"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

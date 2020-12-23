@@ -17,11 +17,24 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/ovcaTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingExtra="20sp"
+            android:text="Vpišite podatke o ovci"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+            android:textColor="#474646"
+            android:textSize="9.5pt"
+            android:textStyle="bold" />
+        <TextView
             android:id="@+id/ovcaIDTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/id_ovce"
-            android:textSize="8pt"/>
+            android:textSize="8pt"
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/OvcaID"
@@ -35,21 +48,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/trenutna_creda"
-            android:textSize="8pt"/>
+            android:textSize="8pt"
+            android:textStyle="bold"/>
 
-        <EditText
+        <Spinner
             android:id="@+id/CredaID"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/trenutna_creda"
-            android:inputType="textPersonName"/>
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+
+            />
 
         <TextView
             android:id="@+id/DatumRojstvaTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/datum_rojstva"
-            android:textSize="8pt"/>
+            android:textSize="8pt"
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/DatumRojstva"
@@ -63,7 +79,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pasma"
-            android:textSize="8pt"/>
+            android:textSize="8pt"
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/Pasma"
@@ -77,35 +94,40 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/id_mame"
-            android:textSize="8pt"/>
+            android:textSize="8pt"
+            android:textStyle="bold"/>
 
-        <EditText
+        <Spinner
             android:id="@+id/mamaID"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/id_mame"
-            android:inputType="textPersonName"/>
+            android:layout_marginTop="10dp"
+            />
 
         <TextView
             android:id="@+id/oceIDTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/id_oceta"
-            android:textSize="8pt"/>
+            android:textSize="8pt"
+            android:textStyle="bold"/>
 
-        <EditText
+        <Spinner
             android:id="@+id/oceID"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/id_oceta"
-            android:inputType="textPersonName"/>
+            android:textColor="#FF0000"
+            android:padding="5dip"
+            android:layout_marginTop="10dp"
+            />
 
         <TextView
             android:id="@+id/SteviloSorojencevTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/stevilo_sorojencev"
-            android:textSize="8pt"/>
+            android:textSize="8pt"
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/SteviloSorojencev"
@@ -119,13 +141,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/trenutno_stanje"
-            android:textSize="8pt"/>
+            android:textSize="8pt"
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/Stanje"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="@string/trenutno_stanje"
+
             android:inputType="textMultiLine"/>
 
         <TextView
@@ -133,6 +157,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/opombe"
+            android:textStyle="bold"
             android:textSize="8pt"/>
 
         <EditText

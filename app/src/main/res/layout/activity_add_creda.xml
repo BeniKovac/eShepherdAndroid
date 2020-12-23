@@ -17,10 +17,23 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/credaTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingExtra="20sp"
+            android:text="Vpišite podatke o čredi"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+            android:textColor="#474646"
+            android:textSize="9.5pt"
+            android:textStyle="bold" />
+        <TextView
             android:id="@+id/OpombeTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/opombe"
+            android:textStyle="bold"
             android:textSize="8pt"/>
 
         <EditText

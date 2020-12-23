@@ -17,10 +17,24 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/kotitevTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingExtra="20sp"
+            android:text="Vpišite podatke o kotitvi"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+            android:textColor="#474646"
+            android:textSize="9.5pt"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/DatumKotitveTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/datum_kotitve"
+            android:textStyle="bold"
             android:textSize="8pt"/>
 
         <EditText
@@ -35,34 +49,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/id_ovce"
+            android:textStyle="bold"
             android:textSize="8pt"/>
 
-        <EditText
+        <Spinner
             android:id="@+id/OvcaID"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/id_ovce"
-            android:inputType="textPersonName"/>
+            />
 
         <TextView
             android:id="@+id/OvenIDtv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/id_ovna"
+            android:textStyle="bold"
             android:textSize="8pt"/>
 
-        <EditText
+        <Spinner
             android:id="@+id/OvenID"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/id_ovna"
-            android:inputType="textPersonName"/>
+            />
 
         <TextView
             android:id="@+id/SteviloMrtvihTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tevilo_mrtvorojenih"
+            android:textStyle="bold"
             android:textSize="8pt"/>
 
         <EditText
@@ -76,6 +91,7 @@
             android:id="@+id/OpombeTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="@string/opombe"
             android:textSize="8pt"/>
 
