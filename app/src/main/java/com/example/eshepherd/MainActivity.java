@@ -38,4 +38,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CredeDisplayActivity.class);
         startActivity(intent);
     }
+
+    public void launchJagenjckiDisplay(View view) {
+        Intent intent = new Intent(this, JagenjckiDisplayActivity.class);
+        startActivity(intent);
+    }
 }

@@ -54,7 +54,8 @@ public class OvniDisplayActivity extends AppCompatActivity {
                 try {
                     JSONObject object = response.getJSONObject(i);
                     String ID  = object.getString("ovenID");
-                    if(ID.equals("/"))
+                    String CredaID  = object.getString("credaID");
+                    if(CredaID.equals("0"))
                         continue;
                     String datumRojstva  = object.getString("datumRojstva");
                     if(!datumRojstva.equals("null"))
