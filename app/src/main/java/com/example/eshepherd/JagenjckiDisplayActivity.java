@@ -58,6 +58,12 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
         prikaziJagenjcki();
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     public void prikaziJagenjcki(){
         JsonArrayRequest request = new JsonArrayRequest(url, jsonArrayListener, errorListener);
         requestQueue.add(request);

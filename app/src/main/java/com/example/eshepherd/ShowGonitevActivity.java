@@ -49,6 +49,12 @@ public class ShowGonitevActivity extends AppCompatActivity {
         showGonitev(iskanaGonitev);
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     public void showGonitev(int iskanaGonitev) {
         url += "/" + iskanaGonitev; // sestavi pravi url
         JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);

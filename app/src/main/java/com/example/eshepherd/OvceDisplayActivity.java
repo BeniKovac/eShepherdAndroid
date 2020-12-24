@@ -57,6 +57,12 @@ public class OvceDisplayActivity extends AppCompatActivity implements ListAdapte
         listAdapterOvce = new ListAdapterOvce(ct, dataID, dataDatum, this);
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     public void prikaziOvce(){
             JsonArrayRequest request = new JsonArrayRequest(url, jsonArrayListener, errorListener);
             requestQueue.add(request);

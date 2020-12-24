@@ -128,6 +128,12 @@ public class AddOvenActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     public void addOven(View view) {
         this.status.setText("Posting to " + urlOvni);
         Toast.makeText(this, "Pošiljam podatke", Toast.LENGTH_SHORT).show();

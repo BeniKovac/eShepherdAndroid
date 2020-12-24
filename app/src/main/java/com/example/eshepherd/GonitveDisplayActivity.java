@@ -44,6 +44,12 @@ public class GonitveDisplayActivity extends AppCompatActivity implements ListAda
         prikaziGonitve();
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     public void prikaziGonitve(){
         JsonArrayRequest request = new JsonArrayRequest(url, jsonArrayListener, errorListener);
         requestQueue.add(request);

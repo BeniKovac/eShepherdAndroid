@@ -99,6 +99,12 @@ public class AddGonitevActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     public void addGonitev(View view) {
         this.statusGonitev.setText("Posting to " + url);
         Toast.makeText(this, "Pošiljam podatke", Toast.LENGTH_SHORT).show();

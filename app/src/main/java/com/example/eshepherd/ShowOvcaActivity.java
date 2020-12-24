@@ -97,6 +97,12 @@ public class ShowOvcaActivity extends AppCompatActivity {
         prikaziOvco(iskanaOvca);
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     public void prikaziOvco(String iskanaOvca) {
         url += "/" + iskanaOvca; // sestavi pravi url
         JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);

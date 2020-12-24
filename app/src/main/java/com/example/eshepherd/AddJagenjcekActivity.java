@@ -92,6 +92,11 @@ public class AddJagenjcekActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
 
     public void addJagenjcka(View view) {
         this.statusJagenjcek.setText("Posting to " + url);

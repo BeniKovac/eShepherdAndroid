@@ -96,6 +96,12 @@ public class AddKotitevActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     public void addKotitev(View view) {
         this.statusKotitev.setText("Posting to " + url);
         Toast.makeText(this, "Pošiljam podatke", Toast.LENGTH_SHORT).show();

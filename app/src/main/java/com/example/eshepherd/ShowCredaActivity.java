@@ -46,6 +46,12 @@ public class ShowCredaActivity extends AppCompatActivity {
         prikaziKotitev(iskanaCreda);
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     public void prikaziKotitev(String iskanaCreda) {
         url += "/" + iskanaCreda; // sestavi pravi url
         JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);
