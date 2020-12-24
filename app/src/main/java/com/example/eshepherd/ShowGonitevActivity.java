@@ -2,6 +2,7 @@ package com.example.eshepherd;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -20,7 +21,7 @@ public class ShowGonitevActivity extends AppCompatActivity {
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Gonitve";
     private RequestQueue requestQueue;
     private TextView datumGonitveTv,ovcaTv, ovenTv, predvidenaKotitevTv, opombeTv;
-
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +43,8 @@ public class ShowGonitevActivity extends AppCompatActivity {
         this.predvidenaKotitevTv = findViewById(R.id.PredvidenaKotitev);
         this.opombeTv = findViewById(R.id.Opombe);
 
-
-
-        iskanaGonitev = 2; // treba prenest kotitev prek intentov!
+        intent = getIntent();
+        iskanaGonitev = intent.getIntExtra("ID", 0); // treba prenest ovco prek intentov!
 
         showGonitev(iskanaGonitev);
     }

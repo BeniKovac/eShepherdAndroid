@@ -16,19 +16,21 @@ public class ListAdapterJagenjcki  extends RecyclerView.Adapter<ListAdapterJagen
     ArrayList<String> arrayListID;
     ArrayList<String> arrayListDatum;
     Context context;
+    private OnClickListener mOnClickListener;
 
-    public ListAdapterJagenjcki(Context ct, ArrayList<String> dataID, ArrayList<String> dataDatum){
-        context=ct;
+    public ListAdapterJagenjcki(Context ct, ArrayList<String> dataID, ArrayList<String> dataDatum, ListAdapterJagenjcki.OnClickListener onClickListener) {
+        context = ct;
         arrayListID = dataID;
         arrayListDatum = dataDatum;
+        this.mOnClickListener = onClickListener;
     }
 
     @NonNull
     @Override
     public ListAdapterJagenjcki.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.one_row_jagenjcki,parent,false);
-        return new ListAdapterJagenjcki.MyViewHolder(view);
+        View view = inflater.inflate(R.layout.one_row_jagenjcki, parent, false);
+        return new ListAdapterJagenjcki.MyViewHolder(view, mOnClickListener);
     }
 
     @Override
@@ -42,16 +44,28 @@ public class ListAdapterJagenjcki  extends RecyclerView.Adapter<ListAdapterJagen
         return arrayListID.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView textView1, textView2;
         ImageView myImage;
+        ListAdapterJagenjcki.OnClickListener onClickListener;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, ListAdapterJagenjcki.OnClickListener onClickListener) {
             super(itemView);
             textView1 = itemView.findViewById(R.id.textView_ID);
             textView2 = itemView.findViewById(R.id.textView_Datum);
             myImage = itemView.findViewById(R.id.jagenjcek_img);
+            this.onClickListener = onClickListener;
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onClickListener.onRowClick(getAdapterPosition());
         }
     }
+        public interface OnClickListener {
+            void onRowClick(int position);
+        }
 }

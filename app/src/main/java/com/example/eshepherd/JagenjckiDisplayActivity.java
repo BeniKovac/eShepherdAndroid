@@ -29,16 +29,18 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class JagenjckiDisplayActivity extends AppCompatActivity {
+public class JagenjckiDisplayActivity extends AppCompatActivity implements ListAdapterJagenjcki.OnClickListener {
     private RequestQueue requestQueue;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Jagenjcki";
     RecyclerView recyclerView;
     Context ct;
     int order = 1;
-    ArrayList<String> dataID;
+    ArrayList<Integer> dataID;
+    ArrayList<String> dataDrugiID;
     ArrayList<String> dataDatum;
     boolean sortByDate = false;
     TextView NapisID;
+    ListAdapterJagenjcki listAdapterJagenjcki;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +51,10 @@ public class JagenjckiDisplayActivity extends AppCompatActivity {
         ct = this;
         recyclerView = findViewById(R.id.recycler_view_jagenjcki);
         dataDatum  = new ArrayList<>();
+        dataDrugiID = new ArrayList<>();
         dataID = new ArrayList<>();
         NapisID = findViewById(R.id.textView_IDtitle);
+        listAdapterJagenjcki = new ListAdapterJagenjcki(ct, dataDrugiID, dataDatum, this);
         prikaziJagenjcki();
     }
 
@@ -65,12 +69,14 @@ public class JagenjckiDisplayActivity extends AppCompatActivity {
             for (int i = 0; i < response.length(); i++) {
                 try {
                     JSONObject object = response.getJSONObject(i);
-                    String ID  = object.getString("idJagenjcka");
+                    Integer ID  = object.getInt("skritIdJagenjcka");
+                    String drugiID = object.getString("idJagenjcka");
                     String spol  = object.getString("spol");
                     String kotitevID  = object.getString("kotitevID").toString();
                     if(kotitevID.equals("null"))
                         kotitevID = "neznan";
                     dataID.add(ID);
+                    dataDrugiID.add(drugiID);
                     dataDatum.add(kotitevID);
                 }catch (JSONException e){
                     e.printStackTrace();
@@ -78,10 +84,9 @@ public class JagenjckiDisplayActivity extends AppCompatActivity {
                 }
             }
             if(sortByDate)
-                bubbleSort(dataDatum, dataID);
+                bubbleSort(dataDatum, dataDrugiID);
             else
-                bubbleSort(dataID, dataDatum);
-            ListAdapterJagenjcki listAdapterJagenjcki = new ListAdapterJagenjcki(ct, dataID, dataDatum);
+                bubbleSort(dataDrugiID, dataDatum);
             recyclerView.setAdapter(listAdapterJagenjcki);
             recyclerView.setLayoutManager(new LinearLayoutManager(ct));
             /*                                                              DISPLAY Z TextView-om
@@ -99,34 +104,7 @@ public class JagenjckiDisplayActivity extends AppCompatActivity {
             Log.d("REST error", error.getMessage());
         }
     };
-    /*
-    public void bubbleSort(ArrayList<String> s1, ArrayList<String> s2){
-        String t;
-        int n = s1.size();
-        boolean swapped = false;
-        int lastswap = 0;
-        int urejeniDel = 0;
-        for (int j = 0; j < n; j++) {
-            int i = n-1;
-            while(i > urejeniDel) {
-                if (Integer.compare(Integer.parseInt(s1.get(i)), Integer.parseInt(s1.get(i - 1))) * order > 0) {
-                    t = s1.get(i);
-                    s1.set(i, s1.get(i - 1));
-                    s1.set(i - 1, t);           //swapped s1 elements
-                    t = s2.get(i);
-                    s2.set(i, s2.get(i - 1));
-                    s2.set(i - 1, t);           //swapped s2 elements
-                    swapped = true;
-                    lastswap = i;
-                }
-                i--;
-            }
-            if(!swapped)
-                break;
-            urejeniDel = lastswap;
-        }
-    }
-*/
+
     public void bubbleSort(ArrayList<String> s1, ArrayList<String> s2){
         String t;
         int n = s1.size();
@@ -185,10 +163,9 @@ public class JagenjckiDisplayActivity extends AppCompatActivity {
             sortByDate = true;
         order *= -1;
         if(sortByDate)
-            bubbleSort(dataDatum, dataID);
+            bubbleSort(dataDatum, dataDrugiID);
         else
-            bubbleSort(dataID, dataDatum);
-        ListAdapterJagenjcki listAdapterJagenjcki = new ListAdapterJagenjcki(ct, dataID, dataDatum);
+            bubbleSort(dataDrugiID, dataDatum);
         recyclerView.setAdapter(listAdapterJagenjcki);
         recyclerView.setLayoutManager(new LinearLayoutManager(ct));
     }
@@ -203,8 +180,11 @@ public class JagenjckiDisplayActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void showJagenjcek(View view) {
+    @Override
+    public void onRowClick(int position) {
+        Integer id = dataID.get(position);
         Intent intent = new Intent(this, ShowJagenjcekActivity.class);
+        intent.putExtra("ID", id);
         startActivity(intent);
     }
 }

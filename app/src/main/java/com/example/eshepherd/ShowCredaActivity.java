@@ -2,6 +2,7 @@ package com.example.eshepherd;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -20,7 +21,7 @@ public class ShowCredaActivity extends AppCompatActivity {
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Crede";
     private RequestQueue requestQueue;
     private TextView credaTv, opombeTv;
-
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +40,8 @@ public class ShowCredaActivity extends AppCompatActivity {
         this.credaTv = findViewById(R.id.CredaID);
         this.opombeTv = findViewById(R.id.Opombe);
 
-
-
-        iskanaCreda = "1"; // treba prenest kotitev prek intentov!
+        intent = getIntent();
+        iskanaCreda = intent.getStringExtra("ID"); // treba prenest ovco prek intentov!
 
         prikaziKotitev(iskanaCreda);
     }

@@ -2,6 +2,7 @@ package com.example.eshepherd;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -21,7 +22,7 @@ public class ShowKotitevActivity extends AppCompatActivity {
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Kotitve";
     private RequestQueue requestQueue;
     private TextView datumKotitveTv, steviloMladihTv, ovcaTv, ovenTv, steviloMrtvihTv, opombeTv;
-
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,8 @@ public class ShowKotitevActivity extends AppCompatActivity {
 
 
 
-        iskanaKotitev = 4; // treba prenest kotitev prek intentov!
+        intent = getIntent();
+        iskanaKotitev = intent.getIntExtra("ID", 0); // treba prenest ovco prek intentov! // treba prenest kotitev prek intentov!
 
         prikaziKotitev(iskanaKotitev);
     }

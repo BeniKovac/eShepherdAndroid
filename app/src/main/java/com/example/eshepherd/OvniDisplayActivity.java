@@ -23,12 +23,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class OvniDisplayActivity extends AppCompatActivity {
+public class OvniDisplayActivity extends AppCompatActivity implements ListAdapterOvni.OnClickListener {
 
     private RequestQueue requestQueue;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovni";
     RecyclerView recyclerView;
     Context ct;
+    ArrayList<String> dataID = new ArrayList<>();
+    ArrayList<String> dataDatum = new ArrayList<>();
+    ListAdapterOvni listAdapterOvni;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,7 @@ public class OvniDisplayActivity extends AppCompatActivity {
         //ovni = (TextView) findViewById(R.id.ovni);
         ct = this;
         recyclerView = findViewById(R.id.recycler_view_ovni);
+        listAdapterOvni = new ListAdapterOvni(ct, dataID, dataDatum, this);
         prikaziOvne();
     }
 
@@ -48,8 +52,6 @@ public class OvniDisplayActivity extends AppCompatActivity {
     Response.Listener<JSONArray> jsonArrayListener = new Response.Listener<JSONArray>() {
         @Override
         public void onResponse(JSONArray response) {
-            ArrayList<String> dataID = new ArrayList<>();
-            ArrayList<String> dataDatum = new ArrayList<>();
             for (int i = 0; i < response.length(); i++) {
                 try {
                     JSONObject object = response.getJSONObject(i);
@@ -64,7 +66,6 @@ public class OvniDisplayActivity extends AppCompatActivity {
                         datumRojstva = "neznan";
                     dataID.add(ID);
                     dataDatum.add(datumRojstva);
-                    ListAdapterOvni listAdapterOvni = new ListAdapterOvni(ct, dataID, dataDatum);
                     recyclerView.setAdapter(listAdapterOvni);
                     recyclerView.setLayoutManager(new LinearLayoutManager(ct));
                 }catch (JSONException e){
@@ -93,8 +94,11 @@ public class OvniDisplayActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void showOven(View view) {
+    @Override
+    public void onRowClick(int position) {
+        String id = dataID.get(position);
         Intent intent = new Intent(this, ShowOvenActivity.class);
+        intent.putExtra("ID", id);
         startActivity(intent);
     }
 }

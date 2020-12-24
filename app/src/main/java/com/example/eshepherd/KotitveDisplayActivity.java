@@ -22,12 +22,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class KotitveDisplayActivity extends AppCompatActivity {
+public class KotitveDisplayActivity extends AppCompatActivity implements ListAdapterKotitve.OnClickListener {
 
     private RequestQueue requestQueue;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Kotitve";
     RecyclerView recyclerView;
     Context ct;
+    ArrayList<Integer> dataID;
+    ArrayList<String> dataDatum;
+    ListAdapterKotitve listAdapterkotitve;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,9 @@ public class KotitveDisplayActivity extends AppCompatActivity {
         //kotitve = (TextView) findViewById(R.id.kotitve);
         ct = this;
         recyclerView = findViewById(R.id.recycler_view_kotitve);
+        dataID = new ArrayList<>();
+        dataDatum = new ArrayList<>();
+        listAdapterkotitve = new ListAdapterKotitve(ct, dataID, dataDatum, this);
         prikaziKotitve();
     }
 
@@ -47,12 +53,10 @@ public class KotitveDisplayActivity extends AppCompatActivity {
     Response.Listener<JSONArray> jsonArrayListener = new Response.Listener<JSONArray>() {
         @Override
         public void onResponse(JSONArray response) {
-            ArrayList<String> dataID = new ArrayList<>();
-            ArrayList<String> dataDatum = new ArrayList<>();
             for (int i = 0; i < response.length(); i++) {
                 try {
                     JSONObject object = response.getJSONObject(i);
-                    String ID  = object.getString("kotitevID");
+                    Integer ID  = object.getInt("kotitevID");
                     if(ID.equals("/"))
                         continue;
                     String datumRojstva  = object.getString("datumKotitve");
@@ -62,7 +66,6 @@ public class KotitveDisplayActivity extends AppCompatActivity {
                         datumRojstva = "neznan";
                     dataID.add(ID);
                     dataDatum.add(datumRojstva);
-                    ListAdapterKotitve listAdapterkotitve = new ListAdapterKotitve(ct, dataID, dataDatum);
                     recyclerView.setAdapter(listAdapterkotitve);
                     recyclerView.setLayoutManager(new LinearLayoutManager(ct));
                 }catch (JSONException e){
@@ -92,6 +95,14 @@ public class KotitveDisplayActivity extends AppCompatActivity {
     }
     public void showKotitev(View view) {
         Intent intent = new Intent(this, ShowKotitevActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onRowClick(int position) {
+        int id = dataID.get(position);
+        Intent intent = new Intent(this, ShowKotitevActivity.class);
+        intent.putExtra("ID", id);
         startActivity(intent);
     }
 }
