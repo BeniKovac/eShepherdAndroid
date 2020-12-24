@@ -29,7 +29,8 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class OvceDisplayActivity extends AppCompatActivity {
+public class OvceDisplayActivity extends AppCompatActivity implements ListAdapterOvce.OnClickListener {
+
     private RequestQueue requestQueue;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovce";
     RecyclerView recyclerView;
@@ -39,19 +40,21 @@ public class OvceDisplayActivity extends AppCompatActivity {
     ArrayList<String> dataDatum;
     boolean sortByDate = false;
     TextView NapisID;
+    ListAdapterOvce listAdapterOvce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ovce_display);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
-        //ovce = (TextView) findViewById(R.id.ovce);
+
         ct = this;
         recyclerView = findViewById(R.id.recycler_view_ovce);
         dataDatum  = new ArrayList<>();
         dataID = new ArrayList<>();
         NapisID = findViewById(R.id.textView_IDtitle);
         prikaziOvce();
+        listAdapterOvce = new ListAdapterOvce(ct, dataID, dataDatum, this);
     }
 
     public void prikaziOvce(){
@@ -85,52 +88,17 @@ public class OvceDisplayActivity extends AppCompatActivity {
                 bubbleSort(dataDatum, dataID);
             else
                 bubbleSort(dataID, dataDatum);
-            ListAdapterOvce listAdapterOvce = new ListAdapterOvce(ct, dataID, dataDatum);
             recyclerView.setAdapter(listAdapterOvce);
             recyclerView.setLayoutManager(new LinearLayoutManager(ct));
-            /*                                                              DISPLAY Z TextView-om
-            for(String row : data){
-                String currentText = ovce.getText().toString();
-                ovce.setText(currentText + "\n\n" + row);
-            }
-             */
         }
     };
 
     Response.ErrorListener errorListener = new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
-            //Log.d("REST error", error.getMessage());
         }
     };
-    /*
-    public void bubbleSort(ArrayList<String> s1, ArrayList<String> s2){
-        String t;
-        int n = s1.size();
-        boolean swapped = false;
-        int lastswap = 0;
-        int urejeniDel = 0;
-        for (int j = 0; j < n; j++) {
-            int i = n-1;
-            while(i > urejeniDel) {
-                if (Integer.compare(Integer.parseInt(s1.get(i)), Integer.parseInt(s1.get(i - 1))) * order > 0) {
-                    t = s1.get(i);
-                    s1.set(i, s1.get(i - 1));
-                    s1.set(i - 1, t);           //swapped s1 elements
-                    t = s2.get(i);
-                    s2.set(i, s2.get(i - 1));
-                    s2.set(i - 1, t);           //swapped s2 elements
-                    swapped = true;
-                    lastswap = i;
-                }
-                i--;
-            }
-            if(!swapped)
-                break;
-            urejeniDel = lastswap;
-        }
-    }
-*/
+
     public void bubbleSort(ArrayList<String> s1, ArrayList<String> s2){
         String t;
         int n = s1.size();
@@ -192,7 +160,7 @@ public class OvceDisplayActivity extends AppCompatActivity {
             bubbleSort(dataDatum, dataID);
         else
             bubbleSort(dataID, dataDatum);
-        ListAdapterOvce listAdapterOvce = new ListAdapterOvce(ct, dataID, dataDatum);
+        ListAdapterOvce listAdapterOvce = new ListAdapterOvce(ct, dataID, dataDatum, this);
         recyclerView.setAdapter(listAdapterOvce);
         recyclerView.setLayoutManager(new LinearLayoutManager(ct));
     }
@@ -202,8 +170,11 @@ public class OvceDisplayActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void showOvca(View view) {
+    @Override
+    public void onRowClick(int position) {
+        String id = dataID.get(position);
         Intent intent = new Intent(this, ShowOvcaActivity.class);
+        intent.putExtra("ID", id);
         startActivity(intent);
     }
 }

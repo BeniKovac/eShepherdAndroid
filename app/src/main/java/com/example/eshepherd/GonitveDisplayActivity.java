@@ -23,12 +23,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class GonitveDisplayActivity extends AppCompatActivity {
+public class GonitveDisplayActivity extends AppCompatActivity implements ListAdapterGonitve.OnClickListener {
 
     private RequestQueue requestQueue;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Gonitve";
     RecyclerView recyclerView;
     Context ct;
+    ArrayList<Integer> dataID = new ArrayList<>();
+    ArrayList<String> dataDatum = new ArrayList<>();
+    ListAdapterGonitve listAdaptergonitve;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,7 @@ public class GonitveDisplayActivity extends AppCompatActivity {
         //gonitve = (TextView) findViewById(R.id.gonitve);
         ct = this;
         recyclerView = findViewById(R.id.recycler_view_gonitve);
+        listAdaptergonitve = new ListAdapterGonitve(ct, dataID, dataDatum, this);
         prikaziGonitve();
     }
 
@@ -48,13 +52,11 @@ public class GonitveDisplayActivity extends AppCompatActivity {
     Response.Listener<JSONArray> jsonArrayListener = new Response.Listener<JSONArray>() {
         @Override
         public void onResponse(JSONArray response) {
-            ArrayList<String> dataID = new ArrayList<>();
-            ArrayList<String> dataDatum = new ArrayList<>();
             for (int i = 0; i < response.length(); i++) {
                 try {
                     JSONObject object = response.getJSONObject(i);
-                    String ID  = object.getString("gonitevID");
-                    if(ID.equals("/"))
+                    Integer ID  = object.getInt("gonitevID");
+                    if(ID == null)
                         continue;
                     String datumRojstva  = object.getString("datumGonitve");
                     if(!datumRojstva.equals("null"))
@@ -63,7 +65,6 @@ public class GonitveDisplayActivity extends AppCompatActivity {
                         datumRojstva = "neznan";
                     dataID.add(ID);
                     dataDatum.add(datumRojstva);
-                    ListAdapterGonitve listAdaptergonitve = new ListAdapterGonitve(ct, dataID, dataDatum);
                     recyclerView.setAdapter(listAdaptergonitve);
                     recyclerView.setLayoutManager(new LinearLayoutManager(ct));
                 }catch (JSONException e){
@@ -92,8 +93,11 @@ public class GonitveDisplayActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void showGonitev(View view) {
+    @Override
+    public void onRowClick(int position) {
+        int id = dataID.get(position);
         Intent intent = new Intent(this, ShowGonitevActivity.class);
+        intent.putExtra("ID", id);
         startActivity(intent);
     }
 }

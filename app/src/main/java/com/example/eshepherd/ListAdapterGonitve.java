@@ -10,15 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+
 public class ListAdapterGonitve  extends RecyclerView.Adapter<ListAdapterGonitve.MyViewHolder>{
-    ArrayList<String> arrayListID;
+    ArrayList<Integer> arrayListID;
     ArrayList<String> arrayListDatum;
     Context context;
+    private OnClickListener mOnClickListener;
 
-    public ListAdapterGonitve(Context ct, ArrayList<String> dataID, ArrayList<String> dataDatum){
+    public ListAdapterGonitve(Context ct, ArrayList<Integer> dataID, ArrayList<String> dataDatum, OnClickListener onClickListener){
         context=ct;
         arrayListID = dataID;
         arrayListDatum = dataDatum;
+        this.mOnClickListener = onClickListener;
     }
 
     @NonNull
@@ -26,12 +29,12 @@ public class ListAdapterGonitve  extends RecyclerView.Adapter<ListAdapterGonitve
     public ListAdapterGonitve.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.one_row_gonitve,parent,false);
-        return new ListAdapterGonitve.MyViewHolder(view);
+        return new MyViewHolder(view, mOnClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ListAdapterGonitve.MyViewHolder holder, int position) {
-        holder.textView1.setText(arrayListID.get(position));
+        holder.textView1.setText(arrayListID.get(position).toString());
         holder.textView2.setText(arrayListDatum.get(position));
     }
 
@@ -40,16 +43,27 @@ public class ListAdapterGonitve  extends RecyclerView.Adapter<ListAdapterGonitve
         return arrayListID.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView textView1, textView2;
         ImageView myImage;
+        OnClickListener onClickListener;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, OnClickListener onClickListener) {
             super(itemView);
             textView1 = itemView.findViewById(R.id.textView_ID);
             textView2 = itemView.findViewById(R.id.textView_Datum);
             myImage = itemView.findViewById(R.id.gonitev_img);
+            this.onClickListener = onClickListener;
+
+            itemView.setOnClickListener(this);
         }
+        @Override
+        public void onClick(View v) {
+            onClickListener.onRowClick(getAdapterPosition());
+        }
+    }
+    public interface OnClickListener{
+        void onRowClick(int position);
     }
 }

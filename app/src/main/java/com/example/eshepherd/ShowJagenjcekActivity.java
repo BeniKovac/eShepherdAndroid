@@ -2,6 +2,7 @@ package com.example.eshepherd;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -17,11 +18,11 @@ import org.json.JSONObject;
 
 public class ShowJagenjcekActivity extends AppCompatActivity {
 
-    private String iskanJagenjcek;
+    private Integer iskanJagenjcek;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Jagenjcki";
     private RequestQueue requestQueue;
     private TextView jagenjcekIDTv, kotitevIDTv, spolTv;
-
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +42,13 @@ public class ShowJagenjcekActivity extends AppCompatActivity {
         this.kotitevIDTv = findViewById(R.id.KotitevID);
         this.spolTv = findViewById(R.id.Spol);
 
-        // MORA BITI SKRITID JAGENJCKA!!!
-        iskanJagenjcek = "2"; // treba prenest kotitev prek intentov!
+        intent = getIntent();
+        iskanJagenjcek = intent.getIntExtra("ID", 0);
 
         showJagenjcek(iskanJagenjcek);
     }
 
-    public void showJagenjcek(String iskanJagenjcek) {
+    public void showJagenjcek(Integer iskanJagenjcek) {
         url += "/" + iskanJagenjcek; // sestavi pravi url
         JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);
         requestQueue.add(request);
@@ -70,10 +71,7 @@ public class ShowJagenjcekActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
-
-
     };
 
     private Response.ErrorListener errorListener = new Response.ErrorListener() {

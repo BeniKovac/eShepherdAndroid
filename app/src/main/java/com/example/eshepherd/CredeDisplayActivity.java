@@ -22,12 +22,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class CredeDisplayActivity  extends AppCompatActivity{
+public class CredeDisplayActivity  extends AppCompatActivity implements ListAdapterCrede.OnClickListener{
 
     private RequestQueue requestQueue;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Crede";
     RecyclerView recyclerView;
     Context ct;
+    ArrayList<String> dataID = new ArrayList<>();
+    ArrayList<String> dataDatum = new ArrayList<>();
+    ListAdapterCrede listAdapterCrede;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,7 @@ public class CredeDisplayActivity  extends AppCompatActivity{
         //crede = (TextView) findViewById(R.id.crede);
         ct = this;
         recyclerView = findViewById(R.id.recycler_view_crede);
+        listAdapterCrede = new ListAdapterCrede(ct, dataID, dataDatum, this);
         prikaziCrede();
     }
 
@@ -47,21 +51,18 @@ public class CredeDisplayActivity  extends AppCompatActivity{
     Response.Listener<JSONArray> jsonArrayListener = new Response.Listener<JSONArray>() {
         @Override
         public void onResponse(JSONArray response) {
-            ArrayList<String> dataID = new ArrayList<>();
-            ArrayList<String> dataDatum = new ArrayList<>();
             for (int i = 0; i < response.length(); i++) {
                 try {
                     JSONObject object = response.getJSONObject(i);
                     String ID  = object.getString("credeID");
-                    if(ID.equals("/"))
+                    if(ID.equals("0"))
                         continue;
                     String datumRojstva  = object.getString("steviloOvc");
                     if(datumRojstva.equals("null"))
                         datumRojstva = "neznan";
                     dataID.add(ID);
                     dataDatum.add(datumRojstva);
-                    ListAdapterCrede listAdaptercrede = new ListAdapterCrede(ct, dataID, dataDatum);
-                    recyclerView.setAdapter(listAdaptercrede);
+                    recyclerView.setAdapter(listAdapterCrede);
                     recyclerView.setLayoutManager(new LinearLayoutManager(ct));
                 }catch (JSONException e){
                     e.printStackTrace();
@@ -88,9 +89,11 @@ public class CredeDisplayActivity  extends AppCompatActivity{
         Intent intent = new Intent(this, AddCredaActivity.class);
         startActivity(intent);
     }
-
-    public void showCreda(View view) {
+    @Override
+    public void onRowClick(int position) {
+        String id = dataID.get(position);
         Intent intent = new Intent(this, ShowCredaActivity.class);
+        intent.putExtra("ID", id);
         startActivity(intent);
     }
 }

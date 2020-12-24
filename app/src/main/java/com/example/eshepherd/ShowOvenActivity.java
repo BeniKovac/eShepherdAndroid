@@ -6,6 +6,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -31,7 +32,7 @@ public class ShowOvenActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private TextView ovenIDTv, credaIDTv, datumRojstvaTv, pasmaTv, mamaIDtv,
             oceIDtv, steviloSorojencevTv, stanjeTv, opombeTv, porekloTv;
-
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +59,8 @@ public class ShowOvenActivity extends AppCompatActivity {
         this.stanjeTv = findViewById(R.id.Stanje);
         this.porekloTv = findViewById(R.id.Poreklo);
 
-
-
-        iskanOven = "666"; // treba prenest ovco prek intentov!
+        intent = getIntent();
+        iskanOven = intent.getStringExtra("ID"); // treba prenest ovco prek intentov!
 
         showOven(iskanOven);
     }

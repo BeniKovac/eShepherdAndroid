@@ -59,7 +59,7 @@ public class ShowOvcaActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private TextView ovcaIDTv, credaIDTv, datumRojstvaTv, pasmaTv, mamaIDtv,
             oceIDtv, steviloSorojencevTv, stanjeTv, opombeTv, steviloKotitevTv, povprecjeJagenjckovTv;
-
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +91,8 @@ public class ShowOvcaActivity extends AppCompatActivity {
         this.steviloKotitevTv = findViewById(R.id.SteviloKotitev);
         this.povprecjeJagenjckovTv = findViewById(R.id.PovprecjeJagenjckov);
 
-
-        iskanaOvca = "632"; // treba prenest ovco prek intentov!
+        intent = getIntent();
+        iskanaOvca = intent.getStringExtra("ID"); // treba prenest ovco prek intentov!
 
         prikaziOvco(iskanaOvca);
     }
