@@ -201,4 +201,9 @@ public class OvceDisplayActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddOvcaActivity.class);
         startActivity(intent);
     }
+
+    public void showOvca(View view) {
+        Intent intent = new Intent(this, ShowOvcaActivity.class);
+        startActivity(intent);
+    }
 }

@@ -65,15 +65,17 @@ public class ShowOvcaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_ovca);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        //BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+        /*AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+         */
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
             this.ovcaIDTv = findViewById(R.id.OvcaID);
@@ -126,11 +128,11 @@ public class ShowOvcaActivity extends AppCompatActivity {
                 pasmaTv.setText(pasma);
                 mamaIDtv.setText(mama);
                 oceIDtv.setText(oce);
-                steviloSorojencevTv.setText(steviloSorojencev);
+                steviloSorojencevTv.setText(String.valueOf(steviloSorojencev));
                 stanjeTv.setText(stanje);
                 opombeTv.setText(opombe);
-                steviloKotitevTv.setText(steviloKotitev);
-                povprecjeJagenjckovTv.setText(povprecjeJagenjckov);
+                steviloKotitevTv.setText(String.valueOf(steviloKotitev));
+                povprecjeJagenjckovTv.setText(String.valueOf(povprecjeJagenjckov));
 
 
                 } catch (JSONException e) {

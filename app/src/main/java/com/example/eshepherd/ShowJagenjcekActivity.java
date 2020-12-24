@@ -18,7 +18,7 @@ import org.json.JSONObject;
 public class ShowJagenjcekActivity extends AppCompatActivity {
 
     private String iskanJagenjcek;
-    private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Crede";
+    private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Jagenjcki";
     private RequestQueue requestQueue;
     private TextView jagenjcekIDTv, kotitevIDTv, spolTv;
 
@@ -41,8 +41,8 @@ public class ShowJagenjcekActivity extends AppCompatActivity {
         this.kotitevIDTv = findViewById(R.id.KotitevID);
         this.spolTv = findViewById(R.id.Spol);
 
-
-        iskanJagenjcek = "1"; // treba prenest kotitev prek intentov!
+        // MORA BITI SKRITID JAGENJCKA!!!
+        iskanJagenjcek = "2"; // treba prenest kotitev prek intentov!
 
         showJagenjcek(iskanJagenjcek);
     }

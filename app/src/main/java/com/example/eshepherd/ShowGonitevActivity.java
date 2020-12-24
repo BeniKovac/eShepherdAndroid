@@ -44,7 +44,7 @@ public class ShowGonitevActivity extends AppCompatActivity {
 
 
 
-        iskanaGonitev = 4; // treba prenest kotitev prek intentov!
+        iskanaGonitev = 2; // treba prenest kotitev prek intentov!
 
         showGonitev(iskanaGonitev);
     }
@@ -61,12 +61,8 @@ public class ShowGonitevActivity extends AppCompatActivity {
         @Override
         public void onResponse(JSONObject response) {
             try {
-                String datumGonitve = response.getString("datumGonitve");
-                if(!datumGonitve.equals("null"))
-                    datumGonitve = datumGonitve.substring(0,10);
-                String predvidenaKotitev = response.getString("predvidenaKotitev");
-                if(!predvidenaKotitev.equals("null"))
-                    predvidenaKotitev = predvidenaKotitev.substring(0,10);
+                String datumGonitve = response.getString("datumGonitve").substring(0,10);
+                String predvidenaKotitev = response.getString("predvidenaKotitev").substring(0,10);
                 String ovca = response.getString("ovcaID");
                 String oven = response.getString("ovenID");
                 String opombe = response.getString("opombe");
