@@ -92,4 +92,9 @@ public class OvniDisplayActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddOvenActivity.class);
         startActivity(intent);
     }
+
+    public void showOven(View view) {
+        Intent intent = new Intent(this, ShowOvenActivity.class);
+        startActivity(intent);
+    }
 }

@@ -11,10 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EShepherd">
-        <activity android:name=".KotitveDisplayActivity"/>
-        <activity android:name=".GonitveDisplayActivity"/>
-        <activity android:name=".OvniDisplayActivity"/>
-        <activity android:name=".CredeDisplayActivity"/>
+        <activity android:name=".ShowJagenjcekActivity"></activity>
+        <activity android:name=".ShowCredaActivity" />
+        <activity android:name=".ShowGonitevActivity" />
+        <activity android:name=".ShowKotitevActivity" />
+        <activity android:name=".KotitveDisplayActivity" />
+        <activity android:name=".GonitveDisplayActivity" />
+        <activity android:name=".OvniDisplayActivity" />
+        <activity android:name=".CredeDisplayActivity" />
         <activity android:name=".OvceDisplayActivity" />
         <activity android:name=".JagenjckiDisplayActivity" />
         <activity android:name=".AddKotitevActivity" />
@@ -23,6 +27,8 @@
         <activity android:name=".AddCredaActivity" />
         <activity android:name=".AddOvcaActivity" />
         <activity android:name=".AddJagenjcekActivity" />
+        <activity android:name=".ShowOvenActivity" />
+        <activity android:name=".ShowOvcaActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -202,4 +202,9 @@ public class JagenjckiDisplayActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddJagenjcekActivity.class);
         startActivity(intent);
     }
+
+    public void showJagenjcek(View view) {
+        Intent intent = new Intent(this, ShowJagenjcekActivity.class);
+        startActivity(intent);
+    }
 }

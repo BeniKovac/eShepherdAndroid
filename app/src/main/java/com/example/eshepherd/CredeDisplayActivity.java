@@ -88,4 +88,9 @@ public class CredeDisplayActivity  extends AppCompatActivity{
         Intent intent = new Intent(this, AddCredaActivity.class);
         startActivity(intent);
     }
+
+    public void showCreda(View view) {
+        Intent intent = new Intent(this, ShowCredaActivity.class);
+        startActivity(intent);
+    }
 }

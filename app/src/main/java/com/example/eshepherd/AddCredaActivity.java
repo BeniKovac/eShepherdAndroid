@@ -27,7 +27,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 
 public class AddCredaActivity extends AppCompatActivity {
-    private EditText Opombe;
+    private EditText CredeID, Opombe;
 
     private TextView statusCreda; // za status - dodajam
 
@@ -42,6 +42,7 @@ public class AddCredaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_creda);
         url = url.replaceAll(" ", "%20");
 
+        CredeID = (EditText) findViewById(R.id.CredaID);
         Opombe = (EditText) findViewById(R.id.Opombe);
         statusCreda = (TextView) findViewById(R.id.statusCreda);
 
@@ -56,6 +57,7 @@ public class AddCredaActivity extends AppCompatActivity {
         try {
             JSONObject jsonBody = new JSONObject();
 
+            jsonBody.put("credeID", CredeID.getText());
             jsonBody.put("opombe", Opombe.getText());
 
             final String mRequestBody = jsonBody.toString();
