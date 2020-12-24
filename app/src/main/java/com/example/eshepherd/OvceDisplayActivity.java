@@ -100,7 +100,7 @@ public class OvceDisplayActivity extends AppCompatActivity {
     Response.ErrorListener errorListener = new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
-            Log.d("REST error", error.getMessage());
+            //Log.d("REST error", error.getMessage());
         }
     };
     /*

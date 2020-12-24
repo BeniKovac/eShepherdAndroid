@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -89,6 +88,10 @@ public class KotitveDisplayActivity extends AppCompatActivity {
 
     public void launchAddKotitev(View view) {
         Intent intent = new Intent(this, AddKotitevActivity.class);
+        startActivity(intent);
+    }
+    public void showKotitev(View view) {
+        Intent intent = new Intent(this, ShowKotitevActivity.class);
         startActivity(intent);
     }
 }

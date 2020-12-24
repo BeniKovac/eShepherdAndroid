@@ -17,7 +17,6 @@
     <string name="dodaj_redo">Dodaj čredo</string>
     <string name="datum_gonitve">Datum gonitve</string>
     <string name="datum_kotitve">Datum kotitve</string>
-    <string name="stevilo_mladih">Število mladih</string>
     <string name="tevilo_mrtvorojenih">Število mrtvorojenih</string>
     <string name="dodaj_kotitev">Dodaj kotitev</string>
     <string name="id_jagenj_ka">ID jagenjčka</string>
@@ -29,4 +28,15 @@
         <item>m</item>
         <item>ž</item>
     </string-array>
+    <string name="title_activity_show_ovca">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="povprecno_stevilo_jagenjckov">Povprečno število jagenjčkov</string>
+    <string name="stevilo_dosedanjih_kotitev">Število dosedanjih kotitev</string>
+    <string name="title_activity_show_oven">MainActivity</string>
+    <string name="stevilo_mladih">Število mladih</string>
+    <string name="predviden_datum_kotitve">Predviden datum kotitve</string>
+    <string name="oznaka_crede">Oznaka črede</string>
+    <string name="id_jagenjcka">ID jagenjčka</string>
 </resources>

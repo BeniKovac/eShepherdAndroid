@@ -91,4 +91,9 @@ public class GonitveDisplayActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddGonitevActivity.class);
         startActivity(intent);
     }
+
+    public void showGonitev(View view) {
+        Intent intent = new Intent(this, ShowGonitevActivity.class);
+        startActivity(intent);
+    }
 }
