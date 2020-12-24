@@ -65,6 +65,12 @@ public class ShowOvenActivity extends AppCompatActivity {
         showOven(iskanOven);
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     public void showOven(String iskanOven) {
         url += "/" + iskanOven; // sestavi pravi url
         JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);

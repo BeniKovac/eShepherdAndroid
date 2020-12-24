@@ -138,6 +138,12 @@ public class AddOvcaActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     public void addOvca(View view) {
         this.status.setText("Posting to " + urlOvce);
         Toast.makeText(this, "Pošiljam podatke", Toast.LENGTH_SHORT).show();

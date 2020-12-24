@@ -43,6 +43,12 @@ public class CredeDisplayActivity  extends AppCompatActivity implements ListAdap
         prikaziCrede();
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     public void prikaziCrede(){
         JsonArrayRequest request = new JsonArrayRequest(url, jsonArrayListener, errorListener);
         requestQueue.add(request);
