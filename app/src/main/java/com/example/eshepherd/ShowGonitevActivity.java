@@ -12,6 +12,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,12 +22,15 @@ public class ShowGonitevActivity extends AppCompatActivity {
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Gonitve";
     private RequestQueue requestQueue;
     private TextView datumGonitveTv,ovcaTv, ovenTv, predvidenaKotitevTv, opombeTv;
+    BottomNavigationView navigationView;
     Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_gonitev);
+        navigationView = findViewById(R.id.bottomNavigationView);
+        navigationView.setBackground(null);
         //BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

@@ -23,7 +23,7 @@
             android:id="@+id/CredaIDTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ID črede"
+            android:text="@string/id_ovce"
             android:textStyle="bold"
             android:textSize="8pt"/>
 
@@ -47,24 +47,24 @@
             android:layout_height="wrap_content"
             />
 
-    </LinearLayout>
 
+
+
+    </LinearLayout>
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
+        app:fabCradleMargin="16dp"
+        app:fabCradleVerticalOffset="18dp"
+        app:fabCradleRoundedCornerRadius="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:fabCradleMargin="16dp"
-        app:fabCradleRoundedCornerRadius="20dp"
-        app:fabCradleVerticalOffset="50dp">
+        android:layout_gravity="bottom">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            app:menu="@menu/bottom_nav_menu_crede" />
+            app:menu="@menu/bottom_nav_menu_ovce"/>
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
@@ -73,6 +73,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/edit_icon"
-        app:layout_anchor="@id/bottomAppBar" />
-
+        app:layout_anchor="@id/bottomAppBar"/>
+    
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

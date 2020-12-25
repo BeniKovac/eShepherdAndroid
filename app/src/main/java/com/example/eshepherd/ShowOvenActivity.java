@@ -32,12 +32,15 @@ public class ShowOvenActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private TextView ovenIDTv, credaIDTv, datumRojstvaTv, pasmaTv, mamaIDtv,
             oceIDtv, steviloSorojencevTv, stanjeTv, opombeTv, porekloTv;
+    BottomNavigationView navigationView;
     Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_oven);
+        navigationView = findViewById(R.id.bottomNavigationView);
+        navigationView.setBackground(null);
         //BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
