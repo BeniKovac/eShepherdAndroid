@@ -33,7 +33,6 @@ public class EditKotitevActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private EditText datumKotitveTe, steviloMrtvihTe, opombeTe, ovcaTe, ovenTe;
     private TextView statusKotitev, steviloMladihTv; // za status - dodajam
-    private int stMladih;
     Intent intent;
 
     @Override
@@ -51,8 +50,7 @@ public class EditKotitevActivity extends AppCompatActivity {
         this.steviloMladihTv = findViewById(R.id.SteviloMladih);
 
         intent = getIntent();
-        kateraKotitev = intent.getIntExtra("ID", 0);
-        statusKotitev = (TextView) findViewById(R.id.statusKotitev);
+        kateraKotitev = intent.getIntExtra("ID", 1);
 
         prikaziKotitev(kateraKotitev);
     }
@@ -81,6 +79,8 @@ public class EditKotitevActivity extends AppCompatActivity {
                 int steviloMladih = response.getInt("steviloMladih");
                 int steviloMrtvih = response.getInt("steviloMrtvih");
                 String opombe = response.getString("opombe");
+                if (opombe.equals("null"))
+                    opombe = "";
 
                 datumKotitveTe.setText(datumKotitve);
                 steviloMladihTv.setText(String.valueOf(steviloMladih));
@@ -106,10 +106,10 @@ public class EditKotitevActivity extends AppCompatActivity {
     };
 
     public void editKotitev(View view) {
-        this.statusKotitev.setText("Posting to " + url);
         Toast.makeText(this, "Pošiljam podatke", Toast.LENGTH_SHORT).show();
         try {
             JSONObject jsonBody = new JSONObject();
+            jsonBody.put("kotitevID", kateraKotitev);
             jsonBody.put("datumKotitve", datumKotitveTe.getText());
             jsonBody.put("ovcaID", ovcaTe.getText());
             jsonBody.put("ovenID", ovenTe.getText());
@@ -118,7 +118,6 @@ public class EditKotitevActivity extends AppCompatActivity {
 
             final String mRequestBody = jsonBody.toString();
 
-            statusKotitev.setText(mRequestBody);
 
             StringRequest stringRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>() {
                 @Override
@@ -145,21 +144,13 @@ public class EditKotitevActivity extends AppCompatActivity {
                         return null;
                     }
                 }
-                @Override
-                protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                    String responseString = "";
-                    if (response != null) {
-                        responseString = String.valueOf(response.statusCode);
-                        //statusCreda.setText(responseString); // KAJ GA TLE MEDE?
-                    }
-                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-                }
+
 
             };
 
             requestQueue.add(stringRequest);
             Toast.makeText(this, "Kotitev je bila urejena.", Toast.LENGTH_SHORT).show();
-
+            finish();
 
         } catch (JSONException e) {
             e.printStackTrace();

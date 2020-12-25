@@ -69,8 +69,7 @@
         <EditText
             android:id="@+id/OvenID"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/OpombeTv"
@@ -95,12 +94,11 @@
             android:textStyle="bold"
             android:textSize="8pt"/>
 
-        <EditText
+        <TextView
             android:id="@+id/PredvidenaKotitev"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/datum_gonitve"
-            android:inputType="date"/>
+            android:hint="@string/predviden_datum_kotitve"/>
 
         <Button
             android:id="@+id/submit"

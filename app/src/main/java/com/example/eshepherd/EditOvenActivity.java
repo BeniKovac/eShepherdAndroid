@@ -82,15 +82,29 @@ public class EditOvenActivity extends AppCompatActivity {
                 String oven = response.getString("ovenID");
                 String creda = response.getString("credaID");
                 String datumRojstva = response.getString("datumRojstva");
+                if (datumRojstva.equals("null"))
+                    datumRojstva = "";
                 if(!datumRojstva.equals("null"))
                     datumRojstva = datumRojstva.substring(0,10);
                 String pasma = response.getString("pasma");
+                if (pasma.equals("null"))
+                    pasma = "";
                 String mama = response.getString("mamaID");
+                if (mama.equals("null"))
+                    mama = "/";
                 String oce = response.getString("oceID");
+                if (oce.equals("null"))
+                    oce = "/";
                 int steviloSorojencev = response.getInt("steviloSorojencev");
                 String stanje = response.getString("stanje");
+                if (stanje.equals("null"))
+                    stanje = "";
                 String opombe = response.getString("opombe");
+                if (opombe.equals("null"))
+                    opombe = "";
                 String poreklo = response.getString("poreklo");
+                if (poreklo.equals("null"))
+                    poreklo = "";
 
                 ovenIDTv.setText(oven);
                 credaIDTe.setText(String.valueOf(creda));
@@ -125,15 +139,15 @@ public class EditOvenActivity extends AppCompatActivity {
         try {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("ovenID", ovenIDTv.getText());
-            jsonBody.put("credaID", credaIDTe);
+            jsonBody.put("credaID", credaIDTe.getText());
 
             //Date wrongFormatDate = (Date) DatumRojstva.getText();
             //SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
             jsonBody.put("datumRojstva", datumRojstvaTe.getText());
             //01.01.2020 --> "2020-01-01"
             jsonBody.put("pasma", pasmaTe.getText());
-            jsonBody.put("mamaID", mamaIDte);
-            jsonBody.put("oceID", oceIDte);
+            jsonBody.put("mamaID", mamaIDte.getText());
+            jsonBody.put("oceID", oceIDte.getText());
             jsonBody.put("steviloSorojencev", Integer.parseInt(String.valueOf(steviloSorojencevTe.getText())));
             jsonBody.put("stanje", stanjeTe.getText());
             jsonBody.put("opombe", opombeTe.getText());
@@ -198,6 +212,7 @@ public class EditOvenActivity extends AppCompatActivity {
 
             requestQueue.add(stringRequest);
             Toast.makeText(this, "Oven je bil dodan.", Toast.LENGTH_SHORT).show();
+            finish();
         }
         catch (JSONException e) {
             e.printStackTrace();

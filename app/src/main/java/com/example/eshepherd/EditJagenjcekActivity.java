@@ -30,9 +30,9 @@ import java.io.UnsupportedEncodingException;
 public class EditJagenjcekActivity extends AppCompatActivity {
     private Integer iskanJagenjcek;
     private EditText jagenjcekIDTe, spolTe;
-    private TextView credaIDTe;
+    private TextView kotitevTv;
     private RequestQueue requestQueue;
-    private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Crede";
+    private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Jagenjcki";
     Intent intent;
 
     @Override
@@ -43,7 +43,7 @@ public class EditJagenjcekActivity extends AppCompatActivity {
 
         jagenjcekIDTe = (EditText) findViewById(R.id.JagenjcekID);
         spolTe = (EditText) findViewById(R.id.Spol);
-
+        kotitevTv = (EditText) findViewById(R.id.KotitevID);
         intent = getIntent();
         iskanJagenjcek = intent.getIntExtra("ID", 1);
         showJagenjcek(iskanJagenjcek);
@@ -68,12 +68,12 @@ public class EditJagenjcekActivity extends AppCompatActivity {
         @Override
         public void onResponse(JSONObject response) {
             try {
-                int skritIDjagenjcka = response.getInt("skritIdJagenjcka");
                 String jagenjcek = response.getString("idJagenjcka");
-                String kotitev = response.getString("kotitevID");
+                int kotitev = response.getInt("kotitevID");
                 String spol = response.getString("spol");
 
                 jagenjcekIDTe.setText(jagenjcek);
+                kotitevTv.setText(String.valueOf(kotitev));
                 spolTe.setText(spol);
 
             } catch (JSONException e) {
@@ -89,18 +89,19 @@ public class EditJagenjcekActivity extends AppCompatActivity {
         }
     };
 
-    public void addJagenjcka(View view) {
+    public void editJagenjcek(View view) {
         Toast.makeText(this, "Pošiljam podatke", Toast.LENGTH_SHORT).show();
         try {
             JSONObject jsonBody = new JSONObject();
-            //jsonBody.put("kotitevID", kotitevID);
+            jsonBody.put("skritIdJagenjcka", iskanJagenjcek);
+            jsonBody.put("kotitevID", (CharSequence) kotitevTv.getText());
             jsonBody.put("idJagenjcka", jagenjcekIDTe.getText());
-            jsonBody.put("spol", spolTe);
+            jsonBody.put("spol", spolTe.getText());
 
             final String mRequestBody = jsonBody.toString();
 
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            StringRequest stringRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Log.i("LOG_VOLLEY", response);
@@ -140,8 +141,8 @@ public class EditJagenjcekActivity extends AppCompatActivity {
             };
 
             requestQueue.add(stringRequest);
-            Toast.makeText(this, "Jagenjček je bil dodan.", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(this, "Jagenjček je bil urejen.", Toast.LENGTH_SHORT).show();
+            finish();
 
         } catch (JSONException e) {
             e.printStackTrace();
