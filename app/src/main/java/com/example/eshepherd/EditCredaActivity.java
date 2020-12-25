@@ -48,7 +48,6 @@ public class EditCredaActivity extends AppCompatActivity {
         intent = getIntent();
         iskanaCreda = intent.getStringExtra("ID");
         showCreda(iskanaCreda);
-
     }
 
     @Override
@@ -78,10 +77,7 @@ public class EditCredaActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
-
-
     };
 
     private Response.ErrorListener errorListener = new Response.ErrorListener() {
