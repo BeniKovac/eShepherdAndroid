@@ -32,22 +32,17 @@ public class ShowCredaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_creda);
         navigationView = findViewById(R.id.bottomNavigationView);
         navigationView.setBackground(null);
-        //BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        //AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-        //        R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications).build();
-        //NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        //NavigationUI.setupWithNavController(navView, navController);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         this.credaTv = findViewById(R.id.CredaID);
         this.opombeTv = findViewById(R.id.Opombe);
 
         intent = getIntent();
-        iskanaCreda = intent.getStringExtra("ID"); // treba prenest ovco prek intentov!
-
+        if(intent != null) {
+            iskanaCreda = intent.getStringExtra("ID"); // treba prenest ovco prek intentov!
+        }else{
+            iskanaCreda = savedInstanceState.getString("ID");
+        }
         showCreda(iskanaCreda);
     }
 
@@ -97,5 +92,9 @@ public class ShowCredaActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("ID", iskanaCreda);
+    }
 }

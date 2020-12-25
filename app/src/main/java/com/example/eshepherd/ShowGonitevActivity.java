@@ -42,8 +42,11 @@ public class ShowGonitevActivity extends AppCompatActivity {
         this.opombeTv = findViewById(R.id.Opombe);
 
         intent = getIntent();
-        iskanaGonitev = intent.getIntExtra("ID", 0);
-
+        if(intent != null) {
+            iskanaGonitev = intent.getIntExtra("ID", 0); // treba prenest ovco prek intentov!
+        }else{
+            iskanaGonitev = savedInstanceState.getInt("ID");
+        }
         showGonitev(iskanaGonitev);
     }
 
@@ -97,6 +100,12 @@ public class ShowGonitevActivity extends AppCompatActivity {
         Intent intent = new Intent(this, EditGonitevActivity.class);
         intent.putExtra("ID", iskanaGonitev);
         startActivity(intent);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("ID", iskanaGonitev);
     }
 
 }

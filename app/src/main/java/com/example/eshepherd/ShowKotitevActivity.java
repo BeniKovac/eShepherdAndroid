@@ -50,11 +50,12 @@ public class ShowKotitevActivity extends AppCompatActivity {
         this.steviloMrtvihTv = findViewById(R.id.SteviloMrtvih);
         this.opombeTv = findViewById(R.id.Opombe);
 
-
-
         intent = getIntent();
-        iskanaKotitev = 2;//intent.getIntExtra("ID", 0); // treba prenest ovco prek intentov! // treba prenest kotitev prek intentov!
-
+        if(intent != null) {
+            iskanaKotitev = intent.getIntExtra("ID", 0); // treba prenest ovco prek intentov!
+        }else{
+            iskanaKotitev = savedInstanceState.getInt("ID");
+        }
         prikaziKotitev(iskanaKotitev);
     }
 
@@ -112,5 +113,10 @@ public class ShowKotitevActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("ID", iskanaKotitev);
+    }
 
 }

@@ -49,6 +49,13 @@ public class EditJagenjcekActivity extends AppCompatActivity {
         showJagenjcek(iskanJagenjcek);
 
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     public void showJagenjcek(Integer iskanJagenjcek) {
         url += "/" + iskanJagenjcek; // sestavi pravi url
         JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);
