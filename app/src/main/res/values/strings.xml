@@ -40,4 +40,6 @@
     <string name="oznaka_crede">Oznaka črede</string>
     <string name="id_jagenjcka">ID jagenjčka</string>
     <string name="shrani">Shrani</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

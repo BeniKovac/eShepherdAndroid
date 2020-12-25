@@ -1,10 +1,12 @@
 package com.example.eshepherd;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -56,6 +58,20 @@ public class ShowKotitevActivity extends AppCompatActivity {
         }else{
             iskanaKotitev = savedInstanceState.getInt("ID");
         }
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.list_icon:
+                        Intent intent = new Intent(ShowKotitevActivity.this, SpecificKotitevJagenjcki.class);
+                        intent.putExtra("SpecificID",Integer.toString(iskanaKotitev));
+                        startActivity(intent);
+                        break;
+                }
+                return false;
+            }
+        });
         prikaziKotitev(iskanaKotitev);
     }
 

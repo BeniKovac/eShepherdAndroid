@@ -1,5 +1,6 @@
 package com.example.eshepherd;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -9,6 +10,7 @@ import androidx.navigation.ui.NavigationUI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -54,6 +56,21 @@ public class ShowOvenActivity extends AppCompatActivity {
         this.opombeTv = findViewById(R.id.Opombe);
         this.stanjeTv = findViewById(R.id.Stanje);
         this.porekloTv = findViewById(R.id.Poreklo);
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.gonitev_icon:
+                        Intent intent2 = new Intent(ShowOvenActivity.this, SpecificOvenGonitve.class);
+                        intent2.putExtra("SpecificID",iskanOven);
+                        startActivity(intent2);
+                        break;
+                }
+                return false;
+            }
+        });
 
         intent = getIntent();
         int test = 1;

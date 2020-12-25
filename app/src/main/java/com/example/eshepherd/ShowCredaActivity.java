@@ -1,10 +1,12 @@
 package com.example.eshepherd;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -36,6 +38,21 @@ public class ShowCredaActivity extends AppCompatActivity {
 
         this.credaTv = findViewById(R.id.CredaID);
         this.opombeTv = findViewById(R.id.Opombe);
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.crede_icon:
+                        Intent intent2 = new Intent(ShowCredaActivity.this, SpecificCredaOvce.class);
+                        intent2.putExtra("SpecificID",iskanaCreda);
+                        startActivity(intent2);
+                        break;
+                }
+                return false;
+            }
+        });
 
         intent = getIntent();
         if(intent != null) {
@@ -73,10 +90,7 @@ public class ShowCredaActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
-
-
     };
 
     private Response.ErrorListener errorListener = new Response.ErrorListener() {

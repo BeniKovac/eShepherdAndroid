@@ -6,6 +6,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -15,6 +16,7 @@ import androidx.navigation.ui.NavigationUI;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
+import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -53,6 +55,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static android.widget.Toast.LENGTH_LONG;
+
 public class ShowOvcaActivity extends AppCompatActivity {
     private String iskanaOvca;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovce";
@@ -85,6 +90,26 @@ public class ShowOvcaActivity extends AppCompatActivity {
         this.stanjeTv = findViewById(R.id.Stanje);
         this.steviloKotitevTv = findViewById(R.id.SteviloKotitev);
         this.povprecjeJagenjckovTv = findViewById(R.id.PovprecjeJagenjckov);
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.gonitev_icon:
+                        Intent intent = new Intent(ShowOvcaActivity.this, SpecificOvcaGonitve.class);
+                        intent.putExtra("SpecificID",iskanaOvca);
+                        startActivity(intent);
+                        break;
+                    case R.id.kotitev_icon:
+                        Intent intent2 = new Intent(ShowOvcaActivity.this, SpecificOvcaKotitve.class);
+                        intent2.putExtra("SpecificID",iskanaOvca);
+                        startActivity(intent2);
+                        break;
+                }
+                return false;
+            }
+        });
 
         intent = getIntent();
         if(intent != null) {
@@ -167,5 +192,7 @@ public class ShowOvcaActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putString("ID", iskanaOvca);
     }
+
+
 
 }
