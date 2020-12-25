@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/gonitev_icon"
+          android:title="Gonitev"
+          android:icon="@drawable/gonitev_icon"/>
+
+    <item android:id="@+id/kotitev_icon"
+        android:title="Kotitev"
+        android:icon="@drawable/kotitev_icon"/>
+</menu>

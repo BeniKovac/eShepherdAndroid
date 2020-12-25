@@ -59,12 +59,15 @@ public class ShowOvcaActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private TextView ovcaIDTv, credaIDTv, datumRojstvaTv, pasmaTv, mamaIDtv,
             oceIDtv, steviloSorojencevTv, stanjeTv, opombeTv, steviloKotitevTv, povprecjeJagenjckovTv;
+    BottomNavigationView navigationView;
     Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_ovca);
+        navigationView = findViewById(R.id.bottomNavigationView);
+        navigationView.setBackground(null);
         //BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
