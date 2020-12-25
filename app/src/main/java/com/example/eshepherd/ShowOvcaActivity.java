@@ -61,6 +61,8 @@ public class ShowOvcaActivity extends AppCompatActivity {
             oceIDtv, steviloSorojencevTv, stanjeTv, opombeTv, steviloKotitevTv, povprecjeJagenjckovTv;
     BottomNavigationView navigationView;
     Intent intent;
+    public static final int TEXT_REQUEST = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,20 +70,10 @@ public class ShowOvcaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_ovca);
         navigationView = findViewById(R.id.bottomNavigationView);
         navigationView.setBackground(null);
-        //BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        /*AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
 
-         */
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-            this.ovcaIDTv = findViewById(R.id.OvcaID);
+        this.ovcaIDTv = findViewById(R.id.OvcaID);
         this.credaIDTv = findViewById(R.id.CredaID);
         this.datumRojstvaTv = findViewById(R.id.DatumRojstva);
 
@@ -98,6 +90,18 @@ public class ShowOvcaActivity extends AppCompatActivity {
         iskanaOvca = intent.getStringExtra("ID"); // treba prenest ovco prek intentov!
 
         showOvca(iskanaOvca);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode,
+                                 int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == TEXT_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                iskanaOvca = data.getStringExtra(EditOvcaActivity.EXTRA_REPLY);
+
+            }
+        }
     }
 
     @Override
@@ -164,6 +168,6 @@ public class ShowOvcaActivity extends AppCompatActivity {
     public void editOvca(View view) {
         Intent intent = new Intent(this, EditOvcaActivity.class);
         intent.putExtra("ID", iskanaOvca);
-        startActivity(intent);
+        startActivityForResult(intent, TEXT_REQUEST);
     }
 }

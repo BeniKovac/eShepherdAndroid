@@ -11,12 +11,47 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EShepherd">
-        <activity android:name=".EditJagenjcekActivity"></activity>
-        <activity android:name=".EditCredaActivity" />
-        <activity android:name=".EditOvenActivity" />
-        <activity android:name=".EditOvcaActivity" />
-        <activity android:name=".EditKotitevActivity" />
-        <activity android:name=".EditGonitevActivity" />
+        <activity
+            android:name=".EditJagenjcekActivity">
+            android:parentActivityName=".ShowJagenjcekActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ShowJagenjcekActivity" />
+        </activity>
+        <activity
+            android:name=".EditCredaActivity"
+            android:parentActivityName=".ShowCredaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ShowCredaActivity" />
+        </activity>
+        <activity
+            android:name=".EditOvenActivity"
+            android:parentActivityName=".ShowOvenActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ShowOvenActivity" />
+         </activity>
+        <activity
+            android:name=".EditOvcaActivity"
+            android:parentActivityName=".ShowOvcaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ShowOvcaActivity" />
+            </activity>
+        <activity
+            android:name=".EditKotitevActivity"
+            android:parentActivityName=".ShowKotitevActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ShowKotitevActivity" />
+        </activity>
+        <activity android:name=".EditGonitevActivity"
+            android:parentActivityName=".ShowGonitevActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ShowGonitevActivity" />
+        </activity>
         <activity
             android:name=".ShowOvenActivity"
             android:parentActivityName=".OvniDisplayActivity">
