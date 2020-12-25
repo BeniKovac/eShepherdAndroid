@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -90,4 +91,10 @@ public class ShowJagenjcekActivity extends AppCompatActivity {
             Log.d("REST error", error.getMessage());
         }
     };
+
+    public void editJagenjcek(View view) {
+        Intent intent = new Intent(this, EditJagenjcekActivity.class);
+        intent.putExtra("ID", iskanJagenjcek);
+        startActivity(intent);
+    }
 }

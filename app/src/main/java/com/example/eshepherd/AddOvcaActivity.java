@@ -92,7 +92,7 @@ public class AddOvcaActivity extends AppCompatActivity {
                 mama = "/";
             }
         });
-
+        mamaSpinner.setSelection(0);
 
         oceSpinner = (Spinner) findViewById(R.id.oceID);
         oceList = new ArrayList<>();

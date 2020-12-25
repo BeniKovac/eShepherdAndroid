@@ -11,95 +11,137 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EShepherd">
-        <activity android:name=".ShowOvenActivity"
-                  android:parentActivityName=".OvniDisplayActivity">
-                  <meta-data android:name="android.support.PARENT_ACTIVITY"
-                      android:value=".OvniDisplayActivity"/>
+        <activity android:name=".EditJagenjcekActivity"></activity>
+        <activity android:name=".EditCredaActivity" />
+        <activity android:name=".EditOvenActivity" />
+        <activity android:name=".EditOvcaActivity" />
+        <activity android:name=".EditKotitevActivity" />
+        <activity android:name=".EditGonitevActivity" />
+        <activity
+            android:name=".ShowOvenActivity"
+            android:parentActivityName=".OvniDisplayActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OvniDisplayActivity" />
         </activity>
-        <activity android:name=".ShowOvcaActivity"
-                  android:parentActivityName=".OvceDisplayActivity">
-                  <meta-data android:name="android.support.PARENT_ACTIVITY"
-                      android:value=".OvceDisplayActivity"/>
+        <activity
+            android:name=".ShowOvcaActivity"
+            android:parentActivityName=".OvceDisplayActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OvceDisplayActivity" />
         </activity>
-        <activity android:name=".ShowJagenjcekActivity"
-                  android:parentActivityName=".JagenjckiDisplayActivity">
-                  <meta-data android:name="android.support.PARENT_ACTIVITY"
-                      android:value=".JagenjckiDisplayActivity"/>
+        <activity
+            android:name=".ShowJagenjcekActivity"
+            android:parentActivityName=".JagenjckiDisplayActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".JagenjckiDisplayActivity" />
         </activity>
-        <activity android:name=".ShowCredaActivity"
-                  android:parentActivityName=".CredeDisplayActivity">
-                  <meta-data android:name="android.support.PARENT_ACTIVITY"
-                      android:value=".CredeDisplayActivity"/>
+        <activity
+            android:name=".ShowCredaActivity"
+            android:parentActivityName=".CredeDisplayActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CredeDisplayActivity" />
         </activity>
-        <activity android:name=".ShowGonitevActivity"
-                  android:parentActivityName=".GonitveDisplayActivity">
-                  <meta-data android:name="android.support.PARENT_ACTIVITY"
-                      android:value=".GonitveDisplayActivity"/>
+        <activity
+            android:name=".ShowGonitevActivity"
+            android:parentActivityName=".GonitveDisplayActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".GonitveDisplayActivity" />
         </activity>
-        <activity android:name=".ShowKotitevActivity"
-                  android:parentActivityName=".KotitveDisplayActivity">
-                  <meta-data android:name="android.support.PARENT_ACTIVITY"
-                      android:value=".KotitveDisplayActivity"/>
+        <activity
+            android:name=".ShowKotitevActivity"
+            android:parentActivityName=".KotitveDisplayActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".KotitveDisplayActivity" />
         </activity>
-        <activity android:name=".KotitveDisplayActivity"
-                  android:parentActivityName=".MainActivity">
-                  <meta-data android:name="android.support.PARENT_ACTIVITY"
-                      android:value=".MainActivity"/>
+        <activity
+            android:name=".KotitveDisplayActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
-        <activity android:name=".GonitveDisplayActivity"
-                  android:parentActivityName=".MainActivity">
-                  <meta-data android:name="android.support.PARENT_ACTIVITY"
-                      android:value=".MainActivity"/>
+        <activity
+            android:name=".GonitveDisplayActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
-        <activity android:name=".OvniDisplayActivity"
-                  android:parentActivityName=".MainActivity">
-                  <meta-data android:name="android.support.PARENT_ACTIVITY"
-                      android:value=".MainActivity"/>
+        <activity
+            android:name=".OvniDisplayActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
-        <activity android:name=".CredeDisplayActivity"
-                  android:parentActivityName=".MainActivity">
-                  <meta-data android:name="android.support.PARENT_ACTIVITY"
-                      android:value=".MainActivity"/>
+        <activity
+            android:name=".CredeDisplayActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
-        <activity android:name=".OvceDisplayActivity"
-                  android:parentActivityName=".MainActivity">
-                  <meta-data android:name="android.support.PARENT_ACTIVITY"
-                      android:value=".MainActivity"/>
+        <activity
+            android:name=".OvceDisplayActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
-        <activity android:name=".JagenjckiDisplayActivity"
-                  android:parentActivityName=".MainActivity">
-                  <meta-data android:name="android.support.PARENT_ACTIVITY"
-                      android:value=".MainActivity"/>
+        <activity
+            android:name=".JagenjckiDisplayActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
-        <activity android:name=".AddKotitevActivity"
-                  android:parentActivityName=".KotitveDisplayActivity">
-                  <meta-data android:name="android.support.PARENT_ACTIVITY"
-                      android:value=".KotitveDisplayActivity"/>
+        <activity
+            android:name=".AddKotitevActivity"
+            android:parentActivityName=".KotitveDisplayActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".KotitveDisplayActivity" />
         </activity>
-        <activity android:name=".AddGonitevActivity"
-                  android:parentActivityName=".GonitveDisplayActivity">
-                  <meta-data android:name="android.support.PARENT_ACTIVITY"
-                      android:value=".GonitveDisplayActivity"/>
+        <activity
+            android:name=".AddGonitevActivity"
+            android:parentActivityName=".GonitveDisplayActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".GonitveDisplayActivity" />
         </activity>
-        <activity android:name=".AddOvenActivity"
-                  android:parentActivityName=".OvniDisplayActivity">
-                  <meta-data android:name="android.support.PARENT_ACTIVITY"
-                      android:value=".OvniDisplayActivity"/>
+        <activity
+            android:name=".AddOvenActivity"
+            android:parentActivityName=".OvniDisplayActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OvniDisplayActivity" />
         </activity>
-        <activity android:name=".AddCredaActivity"
-                  android:parentActivityName=".CredeDisplayActivity">
-                  <meta-data android:name="android.support.PARENT_ACTIVITY"
-                      android:value=".CredeDisplayActivity"/>
+        <activity
+            android:name=".AddCredaActivity"
+            android:parentActivityName=".CredeDisplayActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CredeDisplayActivity" />
         </activity>
-        <activity android:name=".AddOvcaActivity"
-                  android:parentActivityName=".OvceDisplayActivity">
-                  <meta-data android:name="android.support.PARENT_ACTIVITY"
-                      android:value=".OvceDisplayActivity"/>
+        <activity
+            android:name=".AddOvcaActivity"
+            android:parentActivityName=".OvceDisplayActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".OvceDisplayActivity" />
         </activity>
-        <activity android:name=".AddJagenjcekActivity"
-                  android:parentActivityName=".JagenjckiDisplayActivity">
-                  <meta-data android:name="android.support.PARENT_ACTIVITY"
-                      android:value=".JagenjckiDisplayActivity"/>
+        <activity
+            android:name=".AddJagenjcekActivity"
+            android:parentActivityName=".JagenjckiDisplayActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".JagenjckiDisplayActivity" />
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>

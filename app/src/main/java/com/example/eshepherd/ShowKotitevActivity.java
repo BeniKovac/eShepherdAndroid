@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -52,7 +53,7 @@ public class ShowKotitevActivity extends AppCompatActivity {
 
 
         intent = getIntent();
-        iskanaKotitev = intent.getIntExtra("ID", 0); // treba prenest ovco prek intentov! // treba prenest kotitev prek intentov!
+        iskanaKotitev = 2;//intent.getIntExtra("ID", 0); // treba prenest ovco prek intentov! // treba prenest kotitev prek intentov!
 
         prikaziKotitev(iskanaKotitev);
     }
@@ -104,6 +105,12 @@ public class ShowKotitevActivity extends AppCompatActivity {
             Log.d("REST error", error.getMessage());
         }
     };
+
+    public void editKotitev(View view) {
+        Intent intent = new Intent(this, EditKotitevActivity.class);
+        intent.putExtra("ID", iskanaKotitev);
+        startActivity(intent);
+    }
 
 
 }

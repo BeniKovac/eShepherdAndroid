@@ -97,7 +97,7 @@ public class ShowOvcaActivity extends AppCompatActivity {
         intent = getIntent();
         iskanaOvca = intent.getStringExtra("ID"); // treba prenest ovco prek intentov!
 
-        prikaziOvco(iskanaOvca);
+        showOvca(iskanaOvca);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class ShowOvcaActivity extends AppCompatActivity {
         return true;
     }
 
-    public void prikaziOvco(String iskanaOvca) {
+    public void showOvca(String iskanaOvca) {
         url += "/" + iskanaOvca; // sestavi pravi url
         JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);
         requestQueue.add(request);
@@ -160,4 +160,10 @@ public class ShowOvcaActivity extends AppCompatActivity {
             Log.d("REST error", error.getMessage());
         }
     };
+
+    public void editOvca(View view) {
+        Intent intent = new Intent(this, EditOvcaActivity.class);
+        intent.putExtra("ID", iskanaOvca);
+        startActivity(intent);
+    }
 }
