@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/jagenjcekTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingExtra="20sp"
+            android:text="Uredi jagenjčka"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+            android:textColor="#474646"
+            android:textSize="9.5pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/JagenjcekIDtv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/id_jagenj_ka"
+            android:textStyle="bold"
+            android:textSize="8pt"/>
+
+
+        <EditText
+            android:id="@+id/JagenjcekID"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/id_jagenj_ka"
+            android:inputType="number"/>
+        <TextView
+            android:id="@+id/KotitevIDtv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="KotitevID"
+            android:textStyle="bold"
+            android:textSize="8pt"/>
+
+        <EditText
+            android:id="@+id/KotitevID"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@id/KotitevID"
+            />
+
+        <TextView
+            android:id="@+id/SpolTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/spol"
+            android:textStyle="bold"
+            android:textSize="8pt"/>
+
+        <EditText
+            android:id="@+id/Spol"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@id/Spol"
+            />
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="editJagenjcek"
+            android:text="@string/shrani" />
+
+    </LinearLayout>
+</ScrollView>

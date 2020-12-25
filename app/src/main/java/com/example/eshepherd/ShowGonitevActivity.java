@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -31,14 +32,7 @@ public class ShowGonitevActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_gonitev);
         navigationView = findViewById(R.id.bottomNavigationView);
         navigationView.setBackground(null);
-        //BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        //AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-        //        R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications).build();
-        //NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        //NavigationUI.setupWithNavController(navView, navController);
+
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         this.datumGonitveTv = findViewById(R.id.DatumGonitve);
@@ -48,7 +42,7 @@ public class ShowGonitevActivity extends AppCompatActivity {
         this.opombeTv = findViewById(R.id.Opombe);
 
         intent = getIntent();
-        iskanaGonitev = intent.getIntExtra("ID", 0); // treba prenest ovco prek intentov!
+        iskanaGonitev = intent.getIntExtra("ID", 0);
 
         showGonitev(iskanaGonitev);
     }
@@ -98,5 +92,11 @@ public class ShowGonitevActivity extends AppCompatActivity {
             Log.d("REST error", error.getMessage());
         }
     };
+
+    public void editGonitev(View view) {
+        Intent intent = new Intent(this, EditGonitevActivity.class);
+        intent.putExtra("ID", iskanaGonitev);
+        startActivity(intent);
+    }
 
 }

@@ -2,6 +2,7 @@ package com.example.eshepherd;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,8 +23,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,31 +35,35 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
-public class AddKotitevActivity extends AppCompatActivity {
-    private EditText DatumKotitve, SteviloMrtvih, Opombe;
-    private Spinner mamaSpinner, oceSpinner;
-    String mama, oce;
-    private TextView statusKotitev; // za status - dodajam
-    private RequestQueue requestQueue;
-    private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Kotitve";
+public class EditGonitevActivity2 extends AppCompatActivity {
+    private int kateraGonitev;
+    private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Gonitve";
     private String urlOvce = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovce";
     private String urlOvni = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovni";
+    private RequestQueue requestQueue;
+    private EditText datumGonitveTe, predvidenaKotitevTe, opombeTe;
+    private Spinner mamaSpinner, oceSpinner;
+    private String mama, oce;
     private ArrayList<String> mamaList, oceList;
+    private TextView statusGonitev; // za status - dodajam
 
 
+
+    BottomNavigationView navigationView;
+    Intent intent;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_kotitev);
-
-        DatumKotitve = (EditText) findViewById(R.id.DatumKotitve);
-        SteviloMrtvih = (EditText) findViewById(R.id.SteviloMrtvih);
-        Opombe = (EditText) findViewById(R.id.Opombe);
-
-        statusKotitev = (TextView) findViewById(R.id.statusGonitev);
+        setContentView(R.layout.activity_edit_gonitev);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
+        statusGonitev = (TextView) findViewById(R.id.statusGonitev);
+
+        this.datumGonitveTe = findViewById(R.id.DatumGonitve);
+        this.predvidenaKotitevTe = findViewById(R.id.PredvidenaKotitev);
+        this.opombeTe = findViewById(R.id.Opombe);
+
 
         mamaSpinner = (Spinner) findViewById(R.id.OvcaID);
         mamaList = new ArrayList<>();
@@ -68,6 +75,7 @@ public class AddKotitevActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mama = parent.getItemAtPosition(position).toString();
+                ((TextView) view).setTextColor(Color.BLACK);
             }
 
             @Override
@@ -82,6 +90,7 @@ public class AddKotitevActivity extends AppCompatActivity {
         ArrayAdapter<String> adapterOce = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, oceList);
         adapterOce.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         oceSpinner.setAdapter(adapterOce);
+        oceSpinner.setSelection(0, true);
         oceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -93,75 +102,13 @@ public class AddKotitevActivity extends AppCompatActivity {
             }
         });
 
+        intent = getIntent();
+        kateraGonitev = intent.getIntExtra("ID", 0);
+
+        showGonitev(kateraGonitev);
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
-    }
 
-    public void addKotitev(View view) {
-        this.statusKotitev.setText("Posting to " + url);
-        Toast.makeText(this, "Pošiljam podatke", Toast.LENGTH_SHORT).show();
-        try {
-            JSONObject jsonBody = new JSONObject();
-            jsonBody.put("datumKotitve", DatumKotitve.getText());
-            jsonBody.put("ovcaID", mama);
-            jsonBody.put("ovenID", oce);
-            jsonBody.put("steviloMrtvih", Integer.parseInt(String.valueOf(SteviloMrtvih.getText())));
-            jsonBody.put("opombe", Opombe.getText());
-
-            final String mRequestBody = jsonBody.toString();
-
-            statusKotitev.setText(mRequestBody);
-
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.i("LOG_VOLLEY", response);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e("LOG_VOLLEY", error.toString());
-                }
-            }
-            ) {
-                @Override
-                public String getBodyContentType() {
-                    return "application/json; charset=utf-8";
-                }
-                @Override
-                public byte[] getBody() throws AuthFailureError {
-                    try {
-                        return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
-                    } catch (UnsupportedEncodingException uee) {
-                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
-                        return null;
-                    }
-                }
-                @Override
-                protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                    String responseString = "";
-                    if (response != null) {
-                        responseString = String.valueOf(response.statusCode);
-                        //statusCreda.setText(responseString); // KAJ GA TLE MEDE?
-                    }
-                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-                }
-
-            };
-
-            requestQueue.add(stringRequest);
-            Toast.makeText(this, "Kotitev je bila dodana.", Toast.LENGTH_SHORT).show();
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
     public void dodajMame(){
         JsonArrayRequest request = new JsonArrayRequest(urlOvce, jsonArrayListenerMama, errorListener);
         requestQueue.add(request);
@@ -227,5 +174,99 @@ public class AddKotitevActivity extends AppCompatActivity {
     };
 
 
+    public void showGonitev(int iskanaGonitev) {
+        url += "/" + iskanaGonitev; // sestavi pravi url
+        JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);
+        requestQueue.add(request);
+    }
 
+
+    private Response.Listener<JSONObject> jsonObjectListener = new Response.Listener<JSONObject>() {
+
+        @Override
+        public void onResponse(JSONObject response) {
+            try {
+                String datumGonitve = response.getString("datumGonitve").substring(0,10);
+                String predvidenaKotitev = response.getString("predvidenaKotitev").substring(0,10);
+                String ovca = response.getString("ovcaID");
+                String oven = response.getString("ovenID");
+                String opombe = response.getString("opombe");
+
+                datumGonitveTe.setText(datumGonitve);
+                predvidenaKotitevTe.setText(predvidenaKotitev);
+                opombeTe.setText(opombe);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
+    };
+
+
+
+    public void editGonitev(View view) {
+        this.statusGonitev.setText("Posting to " + url);
+        Toast.makeText(this, "Pošiljam podatke", Toast.LENGTH_SHORT).show();
+        try {
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("datumGonitve", datumGonitveTe.getText());
+            jsonBody.put("ovcaID", mama);
+            jsonBody.put("predvidenaKotitev", predvidenaKotitevTe.getText());
+            jsonBody.put("ovenID", oce);
+            jsonBody.put("opombe", opombeTe.getText());
+
+            final String mRequestBody = jsonBody.toString();
+
+            statusGonitev.setText(mRequestBody);
+
+            StringRequest stringRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i("LOG_VOLLEY", response);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("LOG_VOLLEY", error.toString());
+                }
+            }
+            ) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
+                        return null;
+                    }
+                }
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    String responseString = "";
+                    if (response != null) {
+                        responseString = String.valueOf(response.statusCode);
+                        //statusCreda.setText(responseString); // KAJ GA TLE MEDE?
+                    }
+                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                }
+
+            };
+
+            requestQueue.add(stringRequest);
+            Toast.makeText(this, "Gonitev je bila dodana.", Toast.LENGTH_SHORT).show();
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }

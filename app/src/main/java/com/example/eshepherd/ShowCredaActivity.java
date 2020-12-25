@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -47,7 +48,7 @@ public class ShowCredaActivity extends AppCompatActivity {
         intent = getIntent();
         iskanaCreda = intent.getStringExtra("ID"); // treba prenest ovco prek intentov!
 
-        prikaziKotitev(iskanaCreda);
+        showCreda(iskanaCreda);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class ShowCredaActivity extends AppCompatActivity {
         return true;
     }
 
-    public void prikaziKotitev(String iskanaCreda) {
+    public void showCreda(String iskanaCreda) {
         url += "/" + iskanaCreda; // sestavi pravi url
         JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);
         requestQueue.add(request);
@@ -89,4 +90,12 @@ public class ShowCredaActivity extends AppCompatActivity {
             Log.d("REST error", error.getMessage());
         }
     };
+
+    public void editCreda(View view) {
+        Intent intent = new Intent(this, EditCredaActivity.class);
+        intent.putExtra("ID", iskanaCreda);
+        startActivity(intent);
+    }
+
+
 }

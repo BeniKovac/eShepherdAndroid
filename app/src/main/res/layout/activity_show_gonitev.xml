@@ -5,36 +5,33 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ShowOvenActivity"
+    tools:context=".ShowGonitevActivity"
     tools:ignore="MissingDefaultResource">
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ShowGonitevActivity"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".ShowGonitevActivity">
 
         <TextView
             android:id="@+id/DatumGonitveTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/datum_gonitve"
-            android:textStyle="bold"
-            android:textSize="8pt"/>
+            android:textSize="8pt"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/DatumGonitve"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
 
         <TextView
@@ -42,61 +39,55 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/id_ovce"
-            android:textStyle="bold"
-            android:textSize="8pt"/>
+            android:textSize="8pt"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/OvcaID"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/OvenIDtv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/id_ovna"
-            android:textStyle="bold"
-            android:textSize="8pt" />
+            android:textSize="8pt"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/OvenID"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/PredvidenaKotitevTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/predviden_datum_kotitve"
-            android:textStyle="bold"
-            android:textSize="8pt"/>
+            android:textSize="8pt"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/PredvidenaKotitev"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/OpombeTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:text="@string/opombe"
-            android:textSize="8pt"/>
+            android:textSize="8pt"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/Opombe"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            />
-
-
-
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
+
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
         app:fabCradleMargin="5dp"
@@ -111,7 +102,9 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            app:menu="@menu/bottom_nav_menu_gonitev"/>
+            app:menu="@menu/bottom_nav_menu_gonitev"
+
+            />
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
@@ -120,6 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/edit_icon"
-        app:layout_anchor="@id/bottomAppBar"/>
+        app:layout_anchor="@id/bottomAppBar"
+        android:onClick="editGonitev"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

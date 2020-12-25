@@ -5,7 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ShowOvenActivity"
+    tools:context=".ShowOvcaActivity"
     tools:ignore="MissingDefaultResource">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -188,6 +188,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/edit_icon"
-        app:layout_anchor="@id/bottomAppBar"/>
+        app:layout_anchor="@id/bottomAppBar"
+        android:onClick="editOvca"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

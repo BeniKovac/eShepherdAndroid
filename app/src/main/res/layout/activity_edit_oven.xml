@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ShowOvenActivity"
-    tools:ignore="MissingDefaultResource">
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -20,163 +17,174 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/ovenTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingExtra="20sp"
+            android:text="Vpišite podatke o ovnu"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+            android:textColor="#474646"
+            android:textSize="9.5pt"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/ovenIDTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/id_ovna"
-            android:textSize="8pt"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="8pt"/>
 
         <TextView
             android:id="@+id/OvenID"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+           />
 
         <TextView
             android:id="@+id/credaIDTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/trenutna_creda"
-            android:textSize="8pt"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="8pt"/>
 
-        <TextView
+        <EditText
             android:id="@+id/CredaID"
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/DatumRojstvaTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/datum_rojstva"
-            android:textSize="8pt"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="8pt"/>
 
-        <TextView
+        <EditText
             android:id="@+id/DatumRojstva"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/datum_rojstva"
+            android:inputType="date"/>
 
         <TextView
             android:id="@+id/PasmaTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pasma"
-            android:textSize="8pt"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="8pt"/>
 
-        <TextView
+        <EditText
             android:id="@+id/Pasma"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/pasma"
+            android:inputType="textPersonName"/>
 
         <TextView
             android:id="@+id/mamaIDTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/id_mame"
-            android:textSize="8pt"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="8pt"/>
 
-        <TextView
+        <EditText
             android:id="@+id/mamaID"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            />
 
         <TextView
             android:id="@+id/oceIDTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/id_oceta"
-            android:textSize="8pt"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="8pt"/>
 
-        <TextView
+        <EditText
             android:id="@+id/oceID"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            />
 
         <TextView
             android:id="@+id/SteviloSorojencevTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/stevilo_sorojencev"
-            android:textSize="8pt"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="8pt"/>
 
-        <TextView
+        <EditText
             android:id="@+id/SteviloSorojencev"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/stevilo_sorojencev"
+            android:inputType="number"/>
 
         <TextView
             android:id="@+id/StanjeTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/trenutno_stanje"
-            android:textSize="8pt"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="8pt"/>
 
-        <TextView
+        <EditText
             android:id="@+id/Stanje"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/trenutno_stanje"
+            android:inputType="textMultiLine"/>
 
         <TextView
             android:id="@+id/OpombeTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/opombe"
-            android:textSize="8pt"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="8pt"/>
 
-        <TextView
+        <EditText
             android:id="@+id/Opombe"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/opombe"
+            android:inputType="textMultiLine"/>
 
         <TextView
             android:id="@+id/PorekloTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/poreklo"
-            android:textSize="8pt"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="8pt"/>
 
-        <TextView
+        <EditText
             android:id="@+id/Poreklo"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/poreklo"
+            android:inputType="textMultiLine"/>
 
-    </LinearLayout>
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
-        app:fabCradleMargin="16dp"
-        app:fabCradleVerticalOffset="50dp"
-        app:fabCradleRoundedCornerRadius="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigationView"
+        <Button
+            android:id="@+id/submit"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="13dp"
-            app:menu="@menu/bottom_nav_menu_ovni"/>
-
-    </com.google.android.material.bottomappbar.BottomAppBar>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/edit_icon"
-        app:layout_anchor="@id/bottomAppBar"
-        android:onClick="editOven"/>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+            android:layout_height="wrap_content"
+            android:onClick="editOven"
+            android:text="@string/shrani" />
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:textSize="8pt"/>
+    </LinearLayout>
+</ScrollView>
