@@ -23,8 +23,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/kotitev"
-                android:onClick="showKotitev"/>
+                app:srcCompat="@drawable/kotitev"/>
 
             <TextView
                 android:id="@+id/textView_ID"
