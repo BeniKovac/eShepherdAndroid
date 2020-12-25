@@ -37,11 +37,7 @@ public class EditOvcaActivity extends AppCompatActivity {
     private EditText credaIDTe, datumRojstvaTe, pasmaTe, mamaIDte,
             oceIDte, steviloSorojencevTe, stanjeTe, opombeTe;
     Intent intent;
-    public static final String EXTRA_REPLY =
-            "com.example.android.eshepherd.extra.REPLY";
 
-
-    Intent replyIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +62,12 @@ public class EditOvcaActivity extends AppCompatActivity {
         iskanaOvca = intent.getStringExtra("ID");
 
         showOvca(iskanaOvca);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     public void showOvca(String iskanaOvca) {
@@ -197,14 +199,11 @@ public class EditOvcaActivity extends AppCompatActivity {
 
             this.requestQueue.add(stringRequest);
             Toast.makeText(this, "Ovca je bila dodana.", Toast.LENGTH_SHORT).show();
-            replyIntent = new Intent(this, ShowOvcaActivity.class);
-            replyIntent.putExtra(EXTRA_REPLY, iskanaOvca);
-            setResult(RESULT_OK, replyIntent);
-            finish();
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
     }
+
 }

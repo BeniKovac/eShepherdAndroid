@@ -57,6 +57,12 @@ public class EditKotitevActivity extends AppCompatActivity {
         prikaziKotitev(kateraKotitev);
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     public void prikaziKotitev(int iskanaKotitev) {
         url += "/" + iskanaKotitev; // sestavi pravi url
         JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);

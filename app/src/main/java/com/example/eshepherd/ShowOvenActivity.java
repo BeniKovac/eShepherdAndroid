@@ -56,8 +56,12 @@ public class ShowOvenActivity extends AppCompatActivity {
         this.porekloTv = findViewById(R.id.Poreklo);
 
         intent = getIntent();
-        iskanOven = intent.getStringExtra("ID"); // treba prenest ovco prek intentov!
-
+        int test = 1;
+        if(intent != null) {
+            iskanOven = intent.getStringExtra("ID");
+        }else{
+            iskanOven = savedInstanceState.getString("ID");
+        }
         showOven(iskanOven);
     }
 
@@ -107,10 +111,7 @@ public class ShowOvenActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
-
-
     };
 
     private Response.ErrorListener errorListener = new Response.ErrorListener() {
@@ -124,6 +125,12 @@ public class ShowOvenActivity extends AppCompatActivity {
         Intent intent = new Intent(this, EditOvenActivity.class);
         intent.putExtra("ID", iskanOven);
         startActivity(intent);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("ID", iskanOven);
     }
 
 }

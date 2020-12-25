@@ -51,6 +51,12 @@ public class EditCredaActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
     public void showCreda(String iskanaCreda) {
         url += "/" + iskanaCreda; // sestavi pravi url
         JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);

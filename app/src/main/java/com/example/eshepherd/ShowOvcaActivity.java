@@ -87,21 +87,12 @@ public class ShowOvcaActivity extends AppCompatActivity {
         this.povprecjeJagenjckovTv = findViewById(R.id.PovprecjeJagenjckov);
 
         intent = getIntent();
-        iskanaOvca = intent.getStringExtra("ID"); // treba prenest ovco prek intentov!
-
-        showOvca(iskanaOvca);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode,
-                                 int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == TEXT_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                iskanaOvca = data.getStringExtra(EditOvcaActivity.EXTRA_REPLY);
-
-            }
+        if(intent != null) {
+            iskanaOvca = intent.getStringExtra("ID"); // treba prenest ovco prek intentov!
+        }else{
+            iskanaOvca = savedInstanceState.getString("ID");
         }
+        showOvca(iskanaOvca);
     }
 
     @Override
@@ -168,6 +159,13 @@ public class ShowOvcaActivity extends AppCompatActivity {
     public void editOvca(View view) {
         Intent intent = new Intent(this, EditOvcaActivity.class);
         intent.putExtra("ID", iskanaOvca);
-        startActivityForResult(intent, TEXT_REQUEST);
+        startActivity(intent);
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("ID", iskanaOvca);
+    }
+
 }

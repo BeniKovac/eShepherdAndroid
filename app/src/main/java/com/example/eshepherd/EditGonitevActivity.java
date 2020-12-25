@@ -67,7 +67,11 @@ public class EditGonitevActivity extends AppCompatActivity {
         showGonitev(kateraGonitev);
     }
 
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
 
     private Response.ErrorListener errorListener = new Response.ErrorListener() {
         @Override

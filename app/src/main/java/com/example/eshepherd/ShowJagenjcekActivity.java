@@ -48,8 +48,11 @@ public class ShowJagenjcekActivity extends AppCompatActivity {
         this.spolTv = findViewById(R.id.Spol);
 
         intent = getIntent();
-        iskanJagenjcek = intent.getIntExtra("ID", 0);
-
+        if(intent != null) {
+            iskanJagenjcek = intent.getIntExtra("ID", 0); // treba prenest ovco prek intentov!
+        }else{
+            iskanJagenjcek = savedInstanceState.getInt("ID");
+        }
         showJagenjcek(iskanJagenjcek);
     }
 
@@ -97,4 +100,11 @@ public class ShowJagenjcekActivity extends AppCompatActivity {
         intent.putExtra("ID", iskanJagenjcek);
         startActivity(intent);
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("ID", iskanJagenjcek);
+    }
+
 }
