@@ -14,13 +14,15 @@ import java.util.ArrayList;
 public class ListAdapterGonitve  extends RecyclerView.Adapter<ListAdapterGonitve.MyViewHolder>{
     ArrayList<Integer> arrayListID;
     ArrayList<String> arrayListDatum;
+    ArrayList<String> arrayListPredviden;
     Context context;
     private OnClickListener mOnClickListener;
 
-    public ListAdapterGonitve(Context ct, ArrayList<Integer> dataID, ArrayList<String> dataDatum, OnClickListener onClickListener){
+    public ListAdapterGonitve(Context ct, ArrayList<Integer> dataID, ArrayList<String> dataDatum, ArrayList<String> predvidenDatum, OnClickListener onClickListener){
         context=ct;
         arrayListID = dataID;
         arrayListDatum = dataDatum;
+        arrayListPredviden = predvidenDatum;
         this.mOnClickListener = onClickListener;
     }
 
@@ -36,6 +38,7 @@ public class ListAdapterGonitve  extends RecyclerView.Adapter<ListAdapterGonitve
     public void onBindViewHolder(@NonNull ListAdapterGonitve.MyViewHolder holder, int position) {
         holder.textView1.setText(arrayListID.get(position).toString());
         holder.textView2.setText(arrayListDatum.get(position));
+        holder.textView3.setText(arrayListPredviden.get(position));
     }
 
     @Override
@@ -45,7 +48,7 @@ public class ListAdapterGonitve  extends RecyclerView.Adapter<ListAdapterGonitve
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView textView1, textView2;
+        TextView textView1, textView2, textView3;
         ImageView myImage;
         OnClickListener onClickListener;
 
@@ -53,6 +56,7 @@ public class ListAdapterGonitve  extends RecyclerView.Adapter<ListAdapterGonitve
             super(itemView);
             textView1 = itemView.findViewById(R.id.textView_ID);
             textView2 = itemView.findViewById(R.id.textView_Datum);
+            textView3 = itemView.findViewById(R.id.textView_predDatum);
             myImage = itemView.findViewById(R.id.gonitev_img);
             this.onClickListener = onClickListener;
 

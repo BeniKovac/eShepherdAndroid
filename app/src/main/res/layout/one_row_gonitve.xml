@@ -18,8 +18,8 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="111dp"
-                android:layout_height="125dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -29,10 +29,10 @@
                 android:id="@+id/textView_ID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="42dp"
+                android:layout_marginLeft="8dp"
                 android:text="TextView"
                 android:textStyle="bold"
-                android:textSize="24dp"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -41,12 +41,21 @@
                 android:id="@+id/textView_Datum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:layout_marginLeft="45dp"
                 android:text="TextView"
-                android:layout_marginLeft="35dp"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView_ID"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView_predDatum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView_ID"
+                app:layout_constraintStart_toEndOf="@+id/textView_Datum"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
