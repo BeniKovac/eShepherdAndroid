@@ -82,16 +82,29 @@ public class EditOvcaActivity extends AppCompatActivity {
         public void onResponse(JSONObject response) {
             try {
                 String ovca = response.getString("ovcaID");
+
                 String creda = response.getString("credaID");
                 String datumRojstva = response.getString("datumRojstva");
                 if(!datumRojstva.equals("null"))
                     datumRojstva = datumRojstva.substring(0,10);
+                if (datumRojstva.equals("null"))
+                    datumRojstva = "";
                 String pasma = response.getString("pasma");
+                if (pasma.equals("null"))
+                    pasma = "";
                 String mama = response.getString("mamaID");
+                if (mama.equals("null"))
+                    mama = "/";
                 String oce = response.getString("oceID");
+                if (oce.equals("null"))
+                    oce = "/";
                 int steviloSorojencev = response.getInt("steviloSorojencev");
                 String stanje = response.getString("stanje");
+                if (stanje.equals("null"))
+                    stanje = "";
                 String opombe = response.getString("opombe");
+                if (opombe.equals("null"))
+                    opombe = "";
                 int steviloKotitev = response.getInt("steviloKotitev");
                 int povprecjeJagenjckov = response.getInt("povprecjeJagenjckov");
 
@@ -127,8 +140,9 @@ public class EditOvcaActivity extends AppCompatActivity {
         Toast.makeText(this, "Pošiljam podatke", Toast.LENGTH_SHORT).show();
         try {
             JSONObject jsonBody = new JSONObject();
+
             jsonBody.put("ovcaID", ovcaIDTv.getText());
-            jsonBody.put("credaID", credaIDTe);
+            jsonBody.put("credaID", credaIDTe.getText());
             jsonBody.put("datumRojstva", datumRojstvaTe.getText());
             jsonBody.put("pasma", pasmaTe.getText());
             jsonBody.put("mamaID", mamaIDte.getText());
@@ -199,7 +213,7 @@ public class EditOvcaActivity extends AppCompatActivity {
 
             this.requestQueue.add(stringRequest);
             Toast.makeText(this, "Ovca je bila dodana.", Toast.LENGTH_SHORT).show();
-
+            finish();
         } catch (JSONException e) {
             e.printStackTrace();
         }

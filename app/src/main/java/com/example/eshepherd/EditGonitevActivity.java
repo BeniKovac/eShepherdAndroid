@@ -41,8 +41,8 @@ public class EditGonitevActivity extends AppCompatActivity {
     private String urlOvce = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovce";
     private String urlOvni = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovni";
     private RequestQueue requestQueue;
-    private EditText datumGonitveTe, predvidenaKotitevTe, opombeTe, ovcaTe, ovenTe;
-    private TextView statusGonitev; // za status - dodajam
+    private EditText datumGonitveTe, opombeTe, ovcaTe, ovenTe;
+    private TextView statusGonitev, predvidenaKotitevTe; // za status - dodajam
 
 
     Intent intent;
@@ -62,7 +62,7 @@ public class EditGonitevActivity extends AppCompatActivity {
         this.ovenTe = findViewById(R.id.OvenID);
 
         intent = getIntent();
-        kateraGonitev = 2;//intent.getIntExtra("ID", 0);
+        kateraGonitev = intent.getIntExtra("ID", 0);
 
         showGonitev(kateraGonitev);
     }
@@ -93,11 +93,14 @@ public class EditGonitevActivity extends AppCompatActivity {
         @Override
         public void onResponse(JSONObject response) {
             try {
+
                 String datumGonitve = response.getString("datumGonitve").substring(0,10);
                 String predvidenaKotitev = response.getString("predvidenaKotitev").substring(0,10);
                 String ovca = response.getString("ovcaID");
                 String oven = response.getString("ovenID");
                 String opombe = response.getString("opombe");
+                if (opombe.equals("null"))
+                    opombe = "";
 
                 datumGonitveTe.setText(datumGonitve);
                 predvidenaKotitevTe.setText(predvidenaKotitev);
@@ -121,6 +124,7 @@ public class EditGonitevActivity extends AppCompatActivity {
         Toast.makeText(this, "Pošiljam podatke", Toast.LENGTH_SHORT).show();
         try {
             JSONObject jsonBody = new JSONObject();
+            jsonBody.put("gonitevID", kateraGonitev);
             jsonBody.put("datumGonitve", datumGonitveTe.getText());
             jsonBody.put("ovcaID", ovcaTe.getText());
             jsonBody.put("predvidenaKotitev", predvidenaKotitevTe.getText());
@@ -170,7 +174,7 @@ public class EditGonitevActivity extends AppCompatActivity {
 
             requestQueue.add(stringRequest);
             Toast.makeText(this, "Gonitev je bila urejena.", Toast.LENGTH_SHORT).show();
-
+            finish();
 
         } catch (JSONException e) {
             e.printStackTrace();

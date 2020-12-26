@@ -70,6 +70,8 @@ public class EditCredaActivity extends AppCompatActivity {
             try {
                 String creda = response.getString("credeID");
                 String opombe = response.getString("opombe");
+                if (opombe.equals("null"))
+                    opombe = "";
 
                 credaIDTe.setText(creda);
                 opombeTe.setText(opombe);
@@ -138,6 +140,8 @@ public class EditCredaActivity extends AppCompatActivity {
 
             requestQueue.add(stringRequest);
             Toast.makeText(this, "Čreda je bila urejena.", Toast.LENGTH_SHORT).show();
+
+            finish();
 
         } catch (JSONException e) {
             e.printStackTrace();
