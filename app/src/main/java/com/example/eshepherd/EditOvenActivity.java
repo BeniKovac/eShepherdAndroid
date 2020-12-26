@@ -84,8 +84,7 @@ public class EditOvenActivity extends AppCompatActivity {
                 String datumRojstva = response.getString("datumRojstva");
                 if (datumRojstva.equals("null"))
                     datumRojstva = "";
-                if(!datumRojstva.equals("null"))
-                    datumRojstva = datumRojstva.substring(0,10);
+
                 String pasma = response.getString("pasma");
                 if (pasma.equals("null"))
                     pasma = "";

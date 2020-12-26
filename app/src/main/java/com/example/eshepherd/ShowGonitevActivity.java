@@ -25,6 +25,8 @@ public class ShowGonitevActivity extends AppCompatActivity {
     private TextView datumGonitveTv,ovcaTv, ovenTv, predvidenaKotitevTv, opombeTv;
     BottomNavigationView navigationView;
     Intent intent;
+    private boolean resume = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class ShowGonitevActivity extends AppCompatActivity {
         }else{
             iskanaGonitev = savedInstanceState.getInt("ID");
         }
-        showGonitev(iskanaGonitev);
+        showGonitev(iskanaGonitev, resume);
     }
 
     @Override
@@ -56,8 +58,9 @@ public class ShowGonitevActivity extends AppCompatActivity {
         return true;
     }
 
-    public void showGonitev(int iskanaGonitev) {
-        url += "/" + iskanaGonitev; // sestavi pravi url
+    public void showGonitev(int iskanaGonitev, boolean resume) {
+        if (! resume)
+            url += "/" + iskanaGonitev; // sestavi pravi url
         JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);
         requestQueue.add(request);
     }
@@ -107,6 +110,13 @@ public class ShowGonitevActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("ID", iskanaGonitev);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        resume = true;
+        showGonitev(iskanaGonitev, resume);
     }
 
 }

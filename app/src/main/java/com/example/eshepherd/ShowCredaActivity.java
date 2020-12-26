@@ -27,6 +27,8 @@ public class ShowCredaActivity extends AppCompatActivity {
     private TextView credaTv, opombeTv;
     BottomNavigationView navigationView;
     Intent intent;
+    private boolean resume = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +62,7 @@ public class ShowCredaActivity extends AppCompatActivity {
         }else{
             iskanaCreda = savedInstanceState.getString("ID");
         }
-        showCreda(iskanaCreda);
+        showCreda(iskanaCreda, resume);
     }
 
     @Override
@@ -69,8 +71,9 @@ public class ShowCredaActivity extends AppCompatActivity {
         return true;
     }
 
-    public void showCreda(String iskanaCreda) {
-        url += "/" + iskanaCreda; // sestavi pravi url
+    public void showCreda(String iskanaCreda, boolean resume) {
+        if (! resume)
+            url += "/" + iskanaCreda; // sestavi pravi url
         JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);
         requestQueue.add(request);
     }
@@ -111,5 +114,11 @@ public class ShowCredaActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("ID", iskanaCreda);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        resume = true;
+        showCreda(iskanaCreda, resume);
     }
 }

@@ -34,20 +34,6 @@
 
 
         <TextView
-            android:id="@+id/KotitevIDtv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="KotitevID"
-            android:textStyle="bold"
-            android:textSize="8pt"/>
-
-        <TextView
-            android:id="@+id/KotitevID"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            />
-
-        <TextView
             android:id="@+id/SpolTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,6 +46,35 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             />
+
+        <TextView
+            android:id="@+id/DatumRojstvaTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Datum rojstva"
+            android:textStyle="bold"
+            android:textSize="8pt"/>
+
+        <TextView
+            android:id="@+id/DatumRojstva"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/mamaTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID mame"
+            android:textStyle="bold"
+            android:textSize="8pt"/>
+
+        <TextView
+            android:id="@+id/mamaID"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+
 
 
 

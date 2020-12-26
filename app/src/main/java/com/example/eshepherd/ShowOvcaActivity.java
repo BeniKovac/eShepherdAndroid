@@ -67,6 +67,7 @@ public class ShowOvcaActivity extends AppCompatActivity {
     BottomNavigationView navigationView;
     Intent intent;
     public static final int TEXT_REQUEST = 1;
+    private static boolean resume = false;
 
 
     @Override
@@ -117,6 +118,7 @@ public class ShowOvcaActivity extends AppCompatActivity {
         }else{
             iskanaOvca = savedInstanceState.getString("ID");
         }
+        resume = false;
         showOvca(iskanaOvca);
     }
 
@@ -127,7 +129,8 @@ public class ShowOvcaActivity extends AppCompatActivity {
     }
 
     public void showOvca(String iskanaOvca) {
-        url += "/" + iskanaOvca; // sestavi pravi url
+        if (! resume)
+            url += "/" + iskanaOvca; // sestavi pravi url
         JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);
         requestQueue.add(request);
     }
@@ -176,12 +179,12 @@ public class ShowOvcaActivity extends AppCompatActivity {
                 povprecjeJagenjckovTv.setText(String.valueOf(povprecjeJagenjckov));
 
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    return;
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return;
 
-                }
             }
+        }
 
 
     };
@@ -205,6 +208,12 @@ public class ShowOvcaActivity extends AppCompatActivity {
         outState.putString("ID", iskanaOvca);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        resume = true;
+        showOvca(iskanaOvca);
+    }
 
 
 }

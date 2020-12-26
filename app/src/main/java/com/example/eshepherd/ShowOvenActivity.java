@@ -37,6 +37,8 @@ public class ShowOvenActivity extends AppCompatActivity {
             oceIDtv, steviloSorojencevTv, stanjeTv, opombeTv, porekloTv;
     BottomNavigationView navigationView;
     Intent intent;
+    private boolean resume = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +81,7 @@ public class ShowOvenActivity extends AppCompatActivity {
         }else{
             iskanOven = savedInstanceState.getString("ID");
         }
-        showOven(iskanOven);
+        showOven(iskanOven, resume);
     }
 
     @Override
@@ -88,8 +90,9 @@ public class ShowOvenActivity extends AppCompatActivity {
         return true;
     }
 
-    public void showOven(String iskanOven) {
-        url += "/" + iskanOven; // sestavi pravi url
+    public void showOven(String iskanOven, boolean resume) {
+        if (! resume)
+            url += "/" + iskanOven; // sestavi pravi url
         JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);
         requestQueue.add(request);
     }
@@ -164,4 +167,10 @@ public class ShowOvenActivity extends AppCompatActivity {
         outState.putString("ID", iskanOven);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        resume = true;
+        showOven(iskanOven, resume);
+    }
 }

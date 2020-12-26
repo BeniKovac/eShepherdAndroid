@@ -34,6 +34,7 @@ public class EditJagenjcekActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Jagenjcki";
     Intent intent;
+    private int kotitevID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,6 @@ public class EditJagenjcekActivity extends AppCompatActivity {
 
         jagenjcekIDTe = (EditText) findViewById(R.id.JagenjcekID);
         spolTe = (EditText) findViewById(R.id.Spol);
-        kotitevTv = (EditText) findViewById(R.id.KotitevID);
         intent = getIntent();
         iskanJagenjcek = intent.getIntExtra("ID", 1);
         showJagenjcek(iskanJagenjcek);
@@ -69,11 +69,10 @@ public class EditJagenjcekActivity extends AppCompatActivity {
         public void onResponse(JSONObject response) {
             try {
                 String jagenjcek = response.getString("idJagenjcka");
-                int kotitev = response.getInt("kotitevID");
+                kotitevID = response.getInt("kotitevID");
                 String spol = response.getString("spol");
 
                 jagenjcekIDTe.setText(jagenjcek);
-                kotitevTv.setText(String.valueOf(kotitev));
                 spolTe.setText(spol);
 
             } catch (JSONException e) {
