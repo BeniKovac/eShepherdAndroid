@@ -28,6 +28,7 @@ public class ShowKotitevActivity extends AppCompatActivity {
     private TextView datumKotitveTv, steviloMladihTv, ovcaTv, ovenTv, steviloMrtvihTv, opombeTv;
     BottomNavigationView navigationView;
     Intent intent;
+    private boolean resume = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class ShowKotitevActivity extends AppCompatActivity {
 
         intent = getIntent();
         if(intent != null) {
-            iskanaKotitev = intent.getIntExtra("ID", 0); // treba prenest ovco prek intentov!
+            iskanaKotitev = intent.getIntExtra("ID", 0);
         }else{
             iskanaKotitev = savedInstanceState.getInt("ID");
         }
@@ -65,7 +66,7 @@ public class ShowKotitevActivity extends AppCompatActivity {
                 return false;
             }
         });
-        prikaziKotitev(iskanaKotitev);
+        prikaziKotitev(iskanaKotitev, resume);
     }
 
     @Override
@@ -74,8 +75,9 @@ public class ShowKotitevActivity extends AppCompatActivity {
         return true;
     }
 
-    public void prikaziKotitev(int iskanaKotitev) {
-        url += "/" + iskanaKotitev; // sestavi pravi url
+    public void prikaziKotitev(int iskanaKotitev, boolean resume) {
+        if (! resume)
+            url += "/" + iskanaKotitev; // sestavi pravi url
         JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);
         requestQueue.add(request);
     }
@@ -130,4 +132,10 @@ public class ShowKotitevActivity extends AppCompatActivity {
         outState.putInt("ID", iskanaKotitev);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        resume = true;
+        prikaziKotitev(iskanaKotitev, resume);
+    }
 }
