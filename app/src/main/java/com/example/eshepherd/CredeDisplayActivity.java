@@ -40,7 +40,6 @@ public class CredeDisplayActivity  extends AppCompatActivity implements ListAdap
         ct = this;
         recyclerView = findViewById(R.id.recycler_view_crede);
         listAdapterCrede = new ListAdapterCrede(ct, dataID, dataDatum, this);
-        prikaziCrede();
     }
 
     @Override
@@ -101,5 +100,12 @@ public class CredeDisplayActivity  extends AppCompatActivity implements ListAdap
         Intent intent = new Intent(this, ShowCredaActivity.class);
         intent.putExtra("ID", id);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listAdapterCrede.Clear();
+        prikaziCrede();
     }
 }

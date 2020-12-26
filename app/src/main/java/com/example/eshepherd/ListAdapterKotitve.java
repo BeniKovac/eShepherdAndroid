@@ -3,6 +3,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,17 +11,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListAdapterKotitve extends RecyclerView.Adapter<ListAdapterKotitve.MyViewHolder> {
     ArrayList<Integer> arrayListID;
     ArrayList<String> arrayListDatum;
     Context context;
     private OnClickListener mOnClickListener;
+    List<String> filteredUserDataList;
 
     public ListAdapterKotitve(Context ct, ArrayList<Integer> dataID, ArrayList<String> dataDatum, OnClickListener onClickListener){
         context=ct;
         arrayListID = dataID;
         arrayListDatum = dataDatum;
+        this.filteredUserDataList = dataDatum;
         this.mOnClickListener = onClickListener;
     }
 
@@ -35,12 +39,12 @@ public class ListAdapterKotitve extends RecyclerView.Adapter<ListAdapterKotitve.
     @Override
     public void onBindViewHolder(@NonNull ListAdapterKotitve.MyViewHolder holder, int position) {
         holder.textView1.setText(arrayListID.get(position).toString());
-        holder.textView2.setText(arrayListDatum.get(position).toString());
+        holder.textView2.setText(filteredUserDataList.get(position).toString());
     }
 
     @Override
     public int getItemCount() {
-        return arrayListID.size();
+        return filteredUserDataList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -67,4 +71,41 @@ public class ListAdapterKotitve extends RecyclerView.Adapter<ListAdapterKotitve.
     public interface OnClickListener{
         void onRowClick(int position);
     }
+
+    public Filter getFilter(){
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+
+                String Key = charSequence.toString();
+                if(Key.isEmpty())
+                    filteredUserDataList = arrayListDatum;
+                else {
+                    List<String> lstFiltered = new ArrayList<>();
+                    for(String row : arrayListDatum){
+                        if(row.toLowerCase().contains(Key.toLowerCase())){
+                            lstFiltered.add(row);
+                        }
+                    }
+                    filteredUserDataList = lstFiltered;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = filteredUserDataList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                filteredUserDataList = (List<String>)filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
+    public void Clear(){
+        arrayListDatum.clear();
+        arrayListID.clear();
+        filteredUserDataList.clear();
+    }
+
 }

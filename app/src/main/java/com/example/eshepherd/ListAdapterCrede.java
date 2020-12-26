@@ -65,4 +65,8 @@ public class ListAdapterCrede  extends RecyclerView.Adapter<ListAdapterCrede.MyV
     public interface OnClickListener{
         void onRowClick(int position);
     }
+    public void Clear(){
+        arrayListDatum.clear();
+        arrayListID.clear();
+    }
 }

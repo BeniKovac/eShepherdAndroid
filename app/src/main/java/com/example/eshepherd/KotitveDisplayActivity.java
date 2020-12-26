@@ -3,8 +3,11 @@ package com.example.eshepherd;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,10 +34,15 @@ public class KotitveDisplayActivity extends AppCompatActivity implements ListAda
     ArrayList<Integer> dataID;
     ArrayList<String> dataDatum;
     ListAdapterKotitve listAdapterkotitve;
+    EditText searchView;
+    CharSequence search = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kotitve_display);
+
+        searchView = findViewById(R.id.editText);
+
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         //kotitve = (TextView) findViewById(R.id.kotitve);
         ct = this;
@@ -42,7 +50,24 @@ public class KotitveDisplayActivity extends AppCompatActivity implements ListAda
         dataID = new ArrayList<>();
         dataDatum = new ArrayList<>();
         listAdapterkotitve = new ListAdapterKotitve(ct, dataID, dataDatum, this);
-        prikaziKotitve();
+
+        searchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                listAdapterkotitve.getFilter().filter(charSequence);
+                search = charSequence;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -110,5 +135,12 @@ public class KotitveDisplayActivity extends AppCompatActivity implements ListAda
         Intent intent = new Intent(this, ShowKotitevActivity.class);
         intent.putExtra("ID", id);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listAdapterkotitve.Clear();
+        prikaziKotitve();
     }
 }

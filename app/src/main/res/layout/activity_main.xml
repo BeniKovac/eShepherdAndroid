@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
             android:text="eShepherd"
             android:textSize="60dp"
             android:textStyle="bold" />
@@ -24,8 +25,8 @@
             android:id="@+id/ovca_img"
             android:layout_width="129dp"
             android:layout_height="156dp"
-            android:layout_marginLeft="37dp"
             android:layout_below="@id/textintro"
+            android:layout_marginLeft="37dp"
             android:onClick="launchOvceDisplay"
             app:srcCompat="@drawable/ovca" />
 
@@ -54,11 +55,11 @@
             android:id="@+id/dodaj_ovna_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/textintro"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/textintro"
-            android:layout_marginRight="38dp"
             android:layout_marginTop="157dp"
+            android:layout_marginRight="38dp"
             android:text="Seznam ovnov"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -137,8 +138,8 @@
             android:layout_width="139dp"
             android:layout_height="142dp"
             android:layout_below="@id/dodaj_gonitev_text"
-            android:layout_toRightOf="@id/crede_img"
             android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@id/crede_img"
             android:onClick="launchJagenjckiDisplay"
             app:srcCompat="@drawable/jagenjcek"
             tools:ignore="VectorDrawableCompat" />
@@ -148,12 +149,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/crede_img"
+            android:layout_marginLeft="17dp"
             android:layout_toRightOf="@id/dodaj_credo_text"
             android:text="Seznam jagenjckov"
-            android:layout_marginLeft="17dp"
             android:textSize="19dp"
             android:textStyle="bold" />
-
     </RelativeLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="27dp"
+        android:fallbackLineSpacing="false"
+        android:text="Brought to you by Tinkara Končan\n      and Benjamin Kovač Keber"
+        android:textColor="#C5C0C0"
+        android:textStyle="italic" />
 </LinearLayout>

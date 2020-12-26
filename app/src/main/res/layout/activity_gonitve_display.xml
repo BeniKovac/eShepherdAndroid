@@ -18,16 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <!--
-            <TextView
-                android:id="@+id/ovce"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="TleBodoOvce"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ovce_title" />
-          -->
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -43,6 +34,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:rippleColor="#B5A7A7"
         tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:text="Iskanje po datumu gonitve:"
+        app:layout_constraintBottom_toTopOf="@id/editText"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:hint="Iskanje..."
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gonitve_title" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_gonitve"
@@ -62,7 +75,7 @@
         android:textStyle="bold"
         android:text="    Št.\ngonitve"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gonitve_title" />
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <TextView
         android:id="@+id/textView_DatumTitle"
@@ -73,7 +86,7 @@
         android:text=" Datum\ngonitve"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textView_IDtitle"
-        app:layout_constraintTop_toBottomOf="@+id/gonitve_title" />
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <TextView
         android:id="@+id/textViewPredviden"
@@ -84,6 +97,6 @@
         android:text="   Predviden\ndatum kotitve"
         android:layout_marginRight="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gonitve_title" />
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
