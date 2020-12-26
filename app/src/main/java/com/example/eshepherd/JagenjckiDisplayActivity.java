@@ -54,8 +54,8 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
         dataDrugiID = new ArrayList<>();
         dataID = new ArrayList<>();
         NapisID = findViewById(R.id.textView_IDtitle);
-        listAdapterJagenjcki = new ListAdapterJagenjcki(ct, dataDrugiID, dataDatum, this);
         prikaziJagenjcki();
+        listAdapterJagenjcki = new ListAdapterJagenjcki(ct, dataDrugiID, dataDatum, this);
     }
 
     @Override
@@ -90,9 +90,9 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
                 }
             }
             if(sortByDate)
-                bubbleSort(dataDatum, dataDrugiID);
+                bubbleSort(dataDatum, dataDrugiID, dataID);
             else
-                bubbleSort(dataDrugiID, dataDatum);
+                bubbleSort(dataDrugiID, dataDatum, dataID);
             recyclerView.setAdapter(listAdapterJagenjcki);
             recyclerView.setLayoutManager(new LinearLayoutManager(ct));
             /*                                                              DISPLAY Z TextView-om
@@ -111,8 +111,9 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
         }
     };
 
-    public void bubbleSort(ArrayList<String> s1, ArrayList<String> s2){
+    public void bubbleSort(ArrayList<String> s1, ArrayList<String> s2, ArrayList<Integer> s3){
         String t;
+        Integer tInt;
         int n = s1.size();
         boolean swapped = false;
         int lastswap = 0;
@@ -129,7 +130,10 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
                     s1.set(i - 1, t);           //swapped s1 elements
                     t = s2.get(i);
                     s2.set(i, s2.get(i - 1));
-                    s2.set(i - 1, t);           //swapped s2 elements
+                    s2.set(i - 1, t);       //swapped s2 elements
+                    tInt = s3.get(i);
+                    s3.set(i, s3.get(i - 1));
+                    s3.set(i - 1, tInt);       //swapped s3 elements
                     swapped = true;
                     lastswap = i;
                 }
@@ -169,9 +173,10 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
             sortByDate = true;
         order *= -1;
         if(sortByDate)
-            bubbleSort(dataDatum, dataDrugiID);
+            bubbleSort(dataDatum, dataDrugiID, dataID);
         else
-            bubbleSort(dataDrugiID, dataDatum);
+            bubbleSort(dataDrugiID, dataDatum, dataID);
+        ListAdapterJagenjcki listAdapterJagenjcki = new ListAdapterJagenjcki(ct, dataDrugiID, dataDatum, this);
         recyclerView.setAdapter(listAdapterJagenjcki);
         recyclerView.setLayoutManager(new LinearLayoutManager(ct));
     }
