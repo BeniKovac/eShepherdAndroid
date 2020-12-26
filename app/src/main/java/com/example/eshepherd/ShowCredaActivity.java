@@ -83,7 +83,8 @@ public class ShowCredaActivity extends AppCompatActivity {
             try {
                 String creda = response.getString("credeID");
                 String opombe = response.getString("opombe");
-
+                if (opombe.equals("null"))
+                    opombe = "";
                 credaTv.setText(creda);
                 opombeTv.setText(opombe);
 

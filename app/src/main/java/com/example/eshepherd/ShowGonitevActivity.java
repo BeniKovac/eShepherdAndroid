@@ -73,7 +73,8 @@ public class ShowGonitevActivity extends AppCompatActivity {
                 String ovca = response.getString("ovcaID");
                 String oven = response.getString("ovenID");
                 String opombe = response.getString("opombe");
-
+                if (opombe.equals("null"))
+                    opombe = "";
                 datumGonitveTv.setText(datumGonitve);
                 predvidenaKotitevTv.setText(predvidenaKotitev);
                 ovcaTv.setText(ovca);

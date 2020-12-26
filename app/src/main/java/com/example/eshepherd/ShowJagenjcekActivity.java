@@ -33,14 +33,7 @@ public class ShowJagenjcekActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_jagenjcek);
         navigationView = findViewById(R.id.bottomNavigationView);
         navigationView.setBackground(null);
-        //BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        //AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-        //        R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications).build();
-        //NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        //NavigationUI.setupWithNavController(navView, navController);
+
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         this.jagenjcekIDTv = findViewById(R.id.JagenjcekID);

@@ -142,12 +142,24 @@ public class ShowOvcaActivity extends AppCompatActivity {
                 String datumRojstva = response.getString("datumRojstva");
                 if(!datumRojstva.equals("null"))
                     datumRojstva = datumRojstva.substring(0,10);
+                else
+                    datumRojstva = "/";
                 String pasma = response.getString("pasma");
+                if (pasma.equals("null"))
+                    pasma = "";
                 String mama = response.getString("mamaID");
+                if (mama.equals("null"))
+                    mama = "";
                 String oce = response.getString("oceID");
+                if (oce.equals("null"))
+                    oce = "";
                 int steviloSorojencev = response.getInt("steviloSorojencev");
                 String stanje = response.getString("stanje");
+                if (stanje.equals("null"))
+                    stanje = "";
                 String opombe = response.getString("opombe");
+                if (opombe.equals("null"))
+                    opombe = "";
                 int steviloKotitev = response.getInt("steviloKotitev");
                 int povprecjeJagenjckov = response.getInt("povprecjeJagenjckov");
 

@@ -126,15 +126,7 @@ public class EditCredaActivity extends AppCompatActivity {
                         return null;
                     }
                 }
-                @Override
-                protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                    String responseString = "";
-                    if (response != null) {
-                        responseString = String.valueOf(response.statusCode);
-                        //statusCreda.setText(responseString); // KAJ GA TLE MEDE?
-                    }
-                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-                }
+
 
             };
 
