@@ -18,7 +18,7 @@ public class ListAdapterJagenjcki  extends RecyclerView.Adapter<ListAdapterJagen
     Context context;
     private OnClickListener mOnClickListener;
 
-    public ListAdapterJagenjcki(Context ct, ArrayList<String> dataID, ArrayList<String> dataDatum, ListAdapterJagenjcki.OnClickListener onClickListener) {
+    public ListAdapterJagenjcki(Context ct, ArrayList<String> dataID, ArrayList<String> dataDatum, OnClickListener onClickListener) {
         context = ct;
         arrayListID = dataID;
         arrayListDatum = dataDatum;
@@ -27,10 +27,10 @@ public class ListAdapterJagenjcki  extends RecyclerView.Adapter<ListAdapterJagen
 
     @NonNull
     @Override
-    public ListAdapterJagenjcki.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.one_row_jagenjcki, parent, false);
-        return new ListAdapterJagenjcki.MyViewHolder(view, mOnClickListener);
+        return new MyViewHolder(view, mOnClickListener);
     }
 
     @Override
@@ -48,9 +48,9 @@ public class ListAdapterJagenjcki  extends RecyclerView.Adapter<ListAdapterJagen
 
         TextView textView1, textView2;
         ImageView myImage;
-        ListAdapterJagenjcki.OnClickListener onClickListener;
+        OnClickListener onClickListener;
 
-        public MyViewHolder(@NonNull View itemView, ListAdapterJagenjcki.OnClickListener onClickListener) {
+        public MyViewHolder(@NonNull View itemView, OnClickListener onClickListener) {
             super(itemView);
             textView1 = itemView.findViewById(R.id.textView_ID);
             textView2 = itemView.findViewById(R.id.textView_Datum);
@@ -65,7 +65,9 @@ public class ListAdapterJagenjcki  extends RecyclerView.Adapter<ListAdapterJagen
             onClickListener.onRowClick(getAdapterPosition());
         }
     }
-        public interface OnClickListener {
-            void onRowClick(int position);
-        }
+
+    public interface OnClickListener{
+        void onRowClick(int position);
+    }
+
 }

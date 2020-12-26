@@ -64,8 +64,8 @@ public class OvceDisplayActivity extends AppCompatActivity implements ListAdapte
     }
 
     public void prikaziOvce(){
-            JsonArrayRequest request = new JsonArrayRequest(url, jsonArrayListener, errorListener);
-            requestQueue.add(request);
+        JsonArrayRequest request = new JsonArrayRequest(url, jsonArrayListener, errorListener);
+        requestQueue.add(request);
     }
 
     Response.Listener<JSONArray> jsonArrayListener = new Response.Listener<JSONArray>() {
