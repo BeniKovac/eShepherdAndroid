@@ -44,20 +44,6 @@
             android:layout_height="wrap_content"
             android:hint="@string/id_jagenj_ka"
             android:inputType="number"/>
-        <TextView
-            android:id="@+id/KotitevIDtv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="KotitevID"
-            android:textStyle="bold"
-            android:textSize="8pt"/>
-
-        <EditText
-            android:id="@+id/KotitevID"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:prompt="@id/KotitevID"
-            />
 
         <TextView
             android:id="@+id/SpolTv"
