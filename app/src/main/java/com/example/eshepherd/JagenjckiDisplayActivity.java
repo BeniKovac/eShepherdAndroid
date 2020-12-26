@@ -6,13 +6,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -28,6 +32,8 @@ import java.time.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JagenjckiDisplayActivity extends AppCompatActivity implements ListAdapterJagenjcki.OnClickListener {
     private RequestQueue requestQueue;
@@ -37,25 +43,47 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
     int order = 1;
     ArrayList<Integer> dataID;
     ArrayList<String> dataDrugiID;
-    ArrayList<String> dataDatum;
+    ArrayList<String> spolArray;
     boolean sortByDate = false;
     TextView NapisID;
     ListAdapterJagenjcki listAdapterJagenjcki;
+    EditText searchView;
+    CharSequence search = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jagenjcki_display);
+
+        searchView = findViewById(R.id.editText);
+
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         //jagenjcki = (TextView) findViewById(R.id.jagenjcki);
         ct = this;
         recyclerView = findViewById(R.id.recycler_view_jagenjcki);
-        dataDatum  = new ArrayList<>();
+        spolArray  = new ArrayList<>();
         dataDrugiID = new ArrayList<>();
         dataID = new ArrayList<>();
         NapisID = findViewById(R.id.textView_IDtitle);
-        prikaziJagenjcki();
-        listAdapterJagenjcki = new ListAdapterJagenjcki(ct, dataDrugiID, dataDatum, this);
+        listAdapterJagenjcki = new ListAdapterJagenjcki(ct, dataDrugiID, spolArray, this);
+
+        searchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                listAdapterJagenjcki.getFilter().filter(charSequence);
+                search = charSequence;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -78,21 +106,18 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
                     Integer ID  = object.getInt("skritIdJagenjcka");
                     String drugiID = object.getString("idJagenjcka");
                     String spol  = object.getString("spol");
-                    String kotitevID  = object.getString("kotitevID").toString();
-                    if(kotitevID.equals("null"))
-                        kotitevID = "neznan";
                     dataID.add(ID);
                     dataDrugiID.add(drugiID);
-                    dataDatum.add(kotitevID);
+                    spolArray.add(spol);
                 }catch (JSONException e){
                     e.printStackTrace();
                     return;
                 }
             }
             if(sortByDate)
-                bubbleSort(dataDatum, dataDrugiID, dataID);
+                bubbleSort(spolArray, dataDrugiID, dataID);
             else
-                bubbleSort(dataDrugiID, dataDatum, dataID);
+                bubbleSort(dataDrugiID, spolArray, dataID);
             recyclerView.setAdapter(listAdapterJagenjcki);
             recyclerView.setLayoutManager(new LinearLayoutManager(ct));
             /*                                                              DISPLAY Z TextView-om
@@ -103,6 +128,8 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
              */
         }
     };
+
+
 
     Response.ErrorListener errorListener = new Response.ErrorListener() {
         @Override
@@ -150,19 +177,11 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
             return -1;
         if(str2.equals("neznan"))
             return 1;
-        if (date.isValidDate(str1)) {
-            try {
-                Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(str1);
-                Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(str2);
-                if(date1.after(date2))
-                    return 1;
-                else if(date1.before(date2))
-                    return -1;
-                else
-                    return 0;
-            }catch (ParseException Pe){
-                System.out.println(Pe.getMessage());
-            }
+        if (str1.equals("m") || str1.equals("ž")){
+            if(str1.equals("m") && str2.equals("ž"))
+                return 1;
+            else
+                return -1;
         }
         int test = 1;
         return Integer.compare(Integer.parseInt(str1), Integer.parseInt(str2));
@@ -173,10 +192,10 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
             sortByDate = true;
         order *= -1;
         if(sortByDate)
-            bubbleSort(dataDatum, dataDrugiID, dataID);
+            bubbleSort(spolArray, dataDrugiID, dataID);
         else
-            bubbleSort(dataDrugiID, dataDatum, dataID);
-        ListAdapterJagenjcki listAdapterJagenjcki = new ListAdapterJagenjcki(ct, dataDrugiID, dataDatum, this);
+            bubbleSort(dataDrugiID, spolArray, dataID);
+        ListAdapterJagenjcki listAdapterJagenjcki = new ListAdapterJagenjcki(ct, dataDrugiID, spolArray, this);
         recyclerView.setAdapter(listAdapterJagenjcki);
         recyclerView.setLayoutManager(new LinearLayoutManager(ct));
     }
@@ -197,5 +216,12 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
         Intent intent = new Intent(this, ShowJagenjcekActivity.class);
         intent.putExtra("ID", id);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listAdapterJagenjcki.Clear();
+        prikaziJagenjcki();
     }
 }

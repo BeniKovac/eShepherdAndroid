@@ -6,8 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,11 +44,16 @@ public class OvceDisplayActivity extends AppCompatActivity implements ListAdapte
     boolean sortByDate = false;
     TextView NapisID;
     ListAdapterOvce listAdapterOvce;
+    EditText searchView;
+    CharSequence search = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ovce_display);
+
+        searchView = findViewById(R.id.editText);
+
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         ct = this;
@@ -53,9 +61,29 @@ public class OvceDisplayActivity extends AppCompatActivity implements ListAdapte
         dataDatum  = new ArrayList<>();
         dataID = new ArrayList<>();
         NapisID = findViewById(R.id.textView_IDtitle);
-        prikaziOvce();
+
         listAdapterOvce = new ListAdapterOvce(ct, dataID, dataDatum, this);
+
+        searchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                    listAdapterOvce.getFilter().filter(charSequence);
+                    search = charSequence;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
+
+
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -182,5 +210,12 @@ public class OvceDisplayActivity extends AppCompatActivity implements ListAdapte
         Intent intent = new Intent(this, ShowOvcaActivity.class);
         intent.putExtra("ID", id);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listAdapterOvce.Clear();
+        prikaziOvce();
     }
 }

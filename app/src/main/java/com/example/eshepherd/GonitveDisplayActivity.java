@@ -3,8 +3,11 @@ package com.example.eshepherd;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,16 +36,38 @@ public class GonitveDisplayActivity extends AppCompatActivity implements ListAda
     ArrayList<String> dataDatum = new ArrayList<>();
     ArrayList<String> predvidenDatum = new ArrayList<>();
     ListAdapterGonitve listAdaptergonitve;
+    EditText searchView;
+    CharSequence search = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gonitve_display);
+
+        searchView = findViewById(R.id.editText);
+
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         //gonitve = (TextView) findViewById(R.id.gonitve);
         ct = this;
         recyclerView = findViewById(R.id.recycler_view_gonitve);
         listAdaptergonitve = new ListAdapterGonitve(ct, dataID, dataDatum, predvidenDatum, this);
-        prikaziGonitve();
+
+        searchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                listAdaptergonitve.getFilter().filter(charSequence);
+                search = charSequence;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -65,18 +90,18 @@ public class GonitveDisplayActivity extends AppCompatActivity implements ListAda
                     Integer ID  = object.getInt("gonitevID");
                     if(ID == null)
                         continue;
-                    String datumRojstva  = object.getString("datumGonitve");
-                    if(!datumRojstva.equals("null"))
-                        datumRojstva = datumRojstva.substring(0,10);
+                    String datumGonitve  = object.getString("datumGonitve");
+                    if(!datumGonitve.equals("null"))
+                        datumGonitve = datumGonitve.substring(0,10);
                     else
-                        datumRojstva = "neznan";
+                        datumGonitve = "neznan";
                     String predDatum = object.getString("predvidenaKotitev");
                     if(!predDatum.equals("null"))
                         predDatum = predDatum.substring(0,10);
                     else
                         predDatum = "neznan";
                     dataID.add(ID);
-                    dataDatum.add(datumRojstva);
+                    dataDatum.add(datumGonitve);
                     predvidenDatum.add(predDatum);
                     recyclerView.setAdapter(listAdaptergonitve);
                     recyclerView.setLayoutManager(new LinearLayoutManager(ct));
@@ -112,5 +137,12 @@ public class GonitveDisplayActivity extends AppCompatActivity implements ListAda
         Intent intent = new Intent(this, ShowGonitevActivity.class);
         intent.putExtra("ID", id);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listAdaptergonitve.Clear();
+        prikaziGonitve();
     }
 }

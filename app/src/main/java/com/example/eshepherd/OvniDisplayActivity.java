@@ -7,8 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -32,16 +35,39 @@ public class OvniDisplayActivity extends AppCompatActivity implements ListAdapte
     ArrayList<String> dataID = new ArrayList<>();
     ArrayList<String> dataDatum = new ArrayList<>();
     ListAdapterOvni listAdapterOvni;
+    EditText searchView;
+    CharSequence search = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ovni_display);
+
+        searchView = findViewById(R.id.editText);
+
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         //ovni = (TextView) findViewById(R.id.ovni);
         ct = this;
         recyclerView = findViewById(R.id.recycler_view_ovni);
         listAdapterOvni = new ListAdapterOvni(ct, dataID, dataDatum, this);
-        prikaziOvne();
+
+        searchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                listAdapterOvni.getFilter().filter(charSequence);
+                search = charSequence;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 
     @Override
@@ -106,5 +132,12 @@ public class OvniDisplayActivity extends AppCompatActivity implements ListAdapte
         Intent intent = new Intent(this, ShowOvenActivity.class);
         intent.putExtra("ID", id);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listAdapterOvni.Clear();
+        prikaziOvne();
     }
 }
