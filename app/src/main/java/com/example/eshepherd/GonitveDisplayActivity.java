@@ -31,6 +31,7 @@ public class GonitveDisplayActivity extends AppCompatActivity implements ListAda
     Context ct;
     ArrayList<Integer> dataID = new ArrayList<>();
     ArrayList<String> dataDatum = new ArrayList<>();
+    ArrayList<String> predvidenDatum = new ArrayList<>();
     ListAdapterGonitve listAdaptergonitve;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class GonitveDisplayActivity extends AppCompatActivity implements ListAda
         //gonitve = (TextView) findViewById(R.id.gonitve);
         ct = this;
         recyclerView = findViewById(R.id.recycler_view_gonitve);
-        listAdaptergonitve = new ListAdapterGonitve(ct, dataID, dataDatum, this);
+        listAdaptergonitve = new ListAdapterGonitve(ct, dataID, dataDatum, predvidenDatum, this);
         prikaziGonitve();
     }
 
@@ -69,8 +70,14 @@ public class GonitveDisplayActivity extends AppCompatActivity implements ListAda
                         datumRojstva = datumRojstva.substring(0,10);
                     else
                         datumRojstva = "neznan";
+                    String predDatum = object.getString("predvidenaKotitev");
+                    if(!predDatum.equals("null"))
+                        predDatum = predDatum.substring(0,10);
+                    else
+                        predDatum = "neznan";
                     dataID.add(ID);
                     dataDatum.add(datumRojstva);
+                    predvidenDatum.add(predDatum);
                     recyclerView.setAdapter(listAdaptergonitve);
                     recyclerView.setLayoutManager(new LinearLayoutManager(ct));
                 }catch (JSONException e){
