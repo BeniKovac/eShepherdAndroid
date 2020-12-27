@@ -75,6 +75,32 @@
             android:layout_height="wrap_content"
             />
 
+        <TextView
+            android:id="@+id/StanjeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trenutno_stanje"
+            android:textSize="8pt"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/Stanje"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/OpombeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/opombe"
+            android:textStyle="bold"
+            android:textSize="8pt"/>
+
+        <TextView
+            android:id="@+id/Opombe"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+
 
 
 

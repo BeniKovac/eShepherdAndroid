@@ -29,7 +29,7 @@ public class ShowJagenjcekActivity extends AppCompatActivity {
     private String urlKotitve = "https://eshepherd-dev.azurewebsites.net/api/v1/Kotitve";
     private String mamaID, datumRojstva;
     private RequestQueue requestQueue;
-    private TextView jagenjcekIDTv, datumRojstvaTv, mamaIDTv, spolTv;
+    private TextView jagenjcekIDTv, datumRojstvaTv, mamaIDTv, spolTv, opombeTv, stanjeTv;
     BottomNavigationView navigationView;
     Intent intent;
     boolean resume = false;
@@ -48,6 +48,8 @@ public class ShowJagenjcekActivity extends AppCompatActivity {
         this.datumRojstvaTv = findViewById(R.id.DatumRojstva);
         this.spolTv = findViewById(R.id.Spol);
         this.mamaIDTv = findViewById(R.id.mamaID);
+        this.opombeTv = findViewById(R.id.Opombe);
+        this.stanjeTv = findViewById(R.id.Stanje);
 
         intent = getIntent();
         if(intent != null) {
@@ -91,6 +93,18 @@ public class ShowJagenjcekActivity extends AppCompatActivity {
                 iskanaKotitev = response.getInt("kotitevID");
                 String spol = response.getString("spol");
                 prikaziKotitev(iskanaKotitev);
+
+                String opombe = response.getString("opombe");
+                if (opombe.equals("null")) {
+                    opombe = "";
+                }
+                String stanje = response.getString("stanje");
+                if (stanje.equals("null")) {
+                    stanje = "";
+                }
+
+                opombeTv.setText(opombe);
+                stanjeTv.setText(stanje);
                 jagenjcekIDTv.setText(jagenjcek);
                 spolTv.setText(spol);
 
