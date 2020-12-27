@@ -37,9 +37,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AddJagenjcekActivity extends AppCompatActivity {
-    Spinner KotitevIDspinner, spolSpinner;
-    EditText JagenjcekID;
-    String spol, kotitevID;
+    private Spinner KotitevIDspinner, spolSpinner;
+    private EditText JagenjcekID, Stanje, Opombe;
+    private String spol, kotitevID;
     ArrayList<String> kotitevList;
 
     TextView statusJagenjcek;
@@ -55,6 +55,8 @@ public class AddJagenjcekActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_jagenjcek);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         JagenjcekID = (EditText) findViewById(R.id.JagenjcekID);
+        this.Stanje = (EditText) findViewById(R.id.Stanje);
+        this.Opombe = (EditText) findViewById(R.id.Opombe);
         // napolni kotitve spinner
 
         KotitevIDspinner = (Spinner) findViewById(R.id.KotitevID);
@@ -108,6 +110,8 @@ public class AddJagenjcekActivity extends AppCompatActivity {
             jsonBody.put("kotitevID", kotitevID);
             jsonBody.put("idJagenjcka", JagenjcekID.getText());
             jsonBody.put("spol", spol);
+            jsonBody.put("stanje", Stanje.getText());
+            jsonBody.put("opombe", Opombe.getText());
 
             final String mRequestBody = jsonBody.toString();
 
@@ -172,7 +176,16 @@ public class AddJagenjcekActivity extends AppCompatActivity {
     }
 
     public void dodajKotitve(){
-        JsonArrayRequest request = new JsonArrayRequest(urlKotitve, jsonArrayListenerKotitev, errorListener);
+        JsonArrayRequest request = new JsonArrayRequest(urlKotitve, jsonArrayListenerKotitev, errorListener) {
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ApiKey", "SecretKey");
+                params.put("Content-Type","application/x-www-form-urlencoded");
+                return params;
+            }
+        };
         requestQueue.add(request);
     }
 

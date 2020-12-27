@@ -31,7 +31,7 @@ import java.util.Map;
 
 public class EditJagenjcekActivity extends AppCompatActivity {
     private Integer iskanJagenjcek;
-    private EditText jagenjcekIDTe, spolTe;
+    private EditText jagenjcekIDTe, spolTe, opombeTe, stanjeTe;
     private TextView kotitevTv;
     private RequestQueue requestQueue;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Jagenjcki";
@@ -46,6 +46,8 @@ public class EditJagenjcekActivity extends AppCompatActivity {
 
         jagenjcekIDTe = (EditText) findViewById(R.id.JagenjcekID);
         spolTe = (EditText) findViewById(R.id.Spol);
+        opombeTe = (EditText) findViewById(R.id.Opombe);
+        stanjeTe = (EditText) findViewById(R.id.Stanje);
         intent = getIntent();
         iskanJagenjcek = intent.getIntExtra("ID", 1);
         showJagenjcek(iskanJagenjcek);
@@ -60,7 +62,7 @@ public class EditJagenjcekActivity extends AppCompatActivity {
 
     public void showJagenjcek(Integer iskanJagenjcek) {
         url += "/" + iskanJagenjcek; // sestavi pravi url
-        JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener){
+        JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListenerShowJagenjcek, errorListener){
             @Override
             public Map<String,String> getHeaders() throws AuthFailureError
             {
@@ -73,7 +75,7 @@ public class EditJagenjcekActivity extends AppCompatActivity {
     }
 
 
-    private Response.Listener<JSONObject> jsonObjectListener = new Response.Listener<JSONObject>() {
+    private Response.Listener<JSONObject> jsonObjectListenerShowJagenjcek = new Response.Listener<JSONObject>() {
 
         @Override
         public void onResponse(JSONObject response) {
@@ -81,9 +83,18 @@ public class EditJagenjcekActivity extends AppCompatActivity {
                 String jagenjcek = response.getString("idJagenjcka");
                 kotitevID = response.getInt("kotitevID");
                 String spol = response.getString("spol");
-
+                String opombe = response.getString("opombe");
+                if (opombe.equals("null")) {
+                    opombe = "";
+                }
+                String stanje = response.getString("stanje");
+                if (stanje.equals("null")) {
+                    stanje = "";
+                }
                 jagenjcekIDTe.setText(jagenjcek);
                 spolTe.setText(spol);
+                opombeTe.setText(opombe);
+                stanjeTe.setText(stanje);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -103,9 +114,11 @@ public class EditJagenjcekActivity extends AppCompatActivity {
         try {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("skritIdJagenjcka", iskanJagenjcek);
-            jsonBody.put("kotitevID", (CharSequence) kotitevTv.getText());
+            jsonBody.put("kotitevID", kotitevID);
             jsonBody.put("idJagenjcka", jagenjcekIDTe.getText());
             jsonBody.put("spol", spolTe.getText());
+            jsonBody.put("opombe", opombeTe.getText());
+            jsonBody.put("stanje", stanjeTe.getText());
 
             final String mRequestBody = jsonBody.toString();
 
