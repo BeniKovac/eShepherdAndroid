@@ -1,8 +1,12 @@
 package com.example.eshepherd;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.HttpStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -16,6 +20,8 @@ import androidx.navigation.ui.NavigationUI;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -54,6 +60,7 @@ import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -61,6 +68,7 @@ import java.util.Map;
 import static android.widget.Toast.LENGTH_LONG;
 
 public class ShowOvcaActivity extends AppCompatActivity {
+    public static ShowOvcaActivity instance;
     private String iskanaOvca;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovce";
     private RequestQueue requestQueue;
@@ -68,18 +76,21 @@ public class ShowOvcaActivity extends AppCompatActivity {
             oceIDtv, steviloSorojencevTv, stanjeTv, opombeTv, steviloKotitevTv, povprecjeJagenjckovTv;
     BottomNavigationView navigationView;
     Intent intent;
+    Context ct;
     public static final int TEXT_REQUEST = 1;
     private static boolean resume = false;
+    JSONArray kotitve;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ct = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_ovca);
         navigationView = findViewById(R.id.bottomNavigationView);
         navigationView.setBackground(null);
 
-        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue = Volley.newRequestQueue(ct);
 
         this.ovcaIDTv = findViewById(R.id.OvcaID);
         this.credaIDTv = findViewById(R.id.CredaID);
@@ -125,6 +136,28 @@ public class ShowOvcaActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.top_menu_show_ovca, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.delete:
+                if(kotitve == null)
+                    deleteOvca();
+                else
+                    moveOvca();
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         finish();
         return true;
@@ -146,6 +179,164 @@ public class ShowOvcaActivity extends AppCompatActivity {
         requestQueue.add(request);
     }
 
+    public void moveOvca() {
+        Toast.makeText(this, "Premikam ovco", Toast.LENGTH_SHORT).show();
+        try {
+            JSONObject jsonBody = new JSONObject();
+
+            jsonBody.put("ovcaID", ovcaIDTv.getText());
+            jsonBody.put("credaID", "0");
+
+            final String mRequestBody = jsonBody.toString();
+
+
+            StringRequest stringRequest = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i("LOG_VOLLEY", response);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("LOG_VOLLEY", error.toString());
+                    // As of f605da3 the following should work
+                    NetworkResponse response = error.networkResponse;
+                    if (error instanceof ServerError && response != null) {
+                        try {
+                            String res = new String(response.data,
+                                    HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                            // Now you can use any deserializer to make sense of data
+                            JSONObject obj = new JSONObject(res);
+                        } catch (UnsupportedEncodingException e1) {
+                            // Couldn't properly decode data to string
+                            e1.printStackTrace();
+                        } catch (JSONException e2) {
+                            // returned data is not JSONObject?
+                            e2.printStackTrace();
+                        }
+                    }
+                }
+            }
+            ) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
+                        return null;
+                    }
+                }
+
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    String responseString = "";
+                    if (response != null) {
+                        responseString = String.valueOf(response.statusCode);
+                    }
+                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                }
+                @Override
+                public Map<String,String> getHeaders() throws AuthFailureError
+                {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("ApiKey", "SecretKey");
+                    return params;
+                }
+
+            };
+
+            this.requestQueue.add(stringRequest);
+            Toast.makeText(this, "Ovca je bila skrita.", Toast.LENGTH_SHORT).show();
+            finish();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void deleteOvca() {
+        Toast.makeText(this, "Brišem ovco", Toast.LENGTH_SHORT).show();
+        try {
+            JSONObject jsonBody = new JSONObject();
+
+            jsonBody.put("ovcaID", ovcaIDTv.getText());
+
+            final String mRequestBody = jsonBody.toString();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i("LOG_VOLLEY", response);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("LOG_VOLLEY", error.toString());
+                    // As of f605da3 the following should work
+                    NetworkResponse response = error.networkResponse;
+                    if (error instanceof ServerError && response != null) {
+                        try {
+                            String res = new String(response.data,
+                                    HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                            // Now you can use any deserializer to make sense of data
+                            JSONObject obj = new JSONObject(res);
+                        } catch (UnsupportedEncodingException e1) {
+                            // Couldn't properly decode data to string
+                            e1.printStackTrace();
+                        } catch (JSONException e2) {
+                            // returned data is not JSONObject?
+                            e2.printStackTrace();
+                        }
+                    }
+                }
+            }
+            ) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
+                        return null;
+                    }
+                }
+
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    String responseString = "";
+                    if (response != null) {
+                        responseString = String.valueOf(response.statusCode);
+                    }
+                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                }
+                @Override
+                public Map<String,String> getHeaders() throws AuthFailureError
+                {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("ApiKey", "SecretKey");
+                    return params;
+                }
+
+            };
+
+            this.requestQueue.add(stringRequest);
+            Toast.makeText(this, "Ovca je bila izbrisana.", Toast.LENGTH_SHORT).show();
+            finish();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     private Response.Listener<JSONObject> jsonObjectListener = new Response.Listener<JSONObject>() {
         @Override
@@ -154,6 +345,7 @@ public class ShowOvcaActivity extends AppCompatActivity {
                 String ovca = response.getString("ovcaID");
                 String creda = response.getString("credaID");
                 String datumRojstva = response.getString("datumRojstva");
+                kotitve = response.getJSONArray("vseKotitve");
                 if(!datumRojstva.equals("null"))
                     datumRojstva = datumRojstva.substring(0,10);
                 else
@@ -196,8 +388,6 @@ public class ShowOvcaActivity extends AppCompatActivity {
 
             }
         }
-
-
     };
 
     private Response.ErrorListener errorListener = new Response.ErrorListener() {
