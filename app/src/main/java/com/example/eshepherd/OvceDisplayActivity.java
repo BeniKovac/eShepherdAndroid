@@ -156,8 +156,6 @@ public class OvceDisplayActivity extends AppCompatActivity implements ListAdapte
             int i = n-1;
             while(i > urejeniDel) {
                 int test=1;
-                String str = s1.get(i);
-                String str2 = s1.get(i-1);
                 if (compare(s1.get(i),s1.get(i - 1)) * order > 0) {
                     t = s1.get(i);
                     s1.set(i, s1.get(i - 1));
