@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -31,6 +32,8 @@ import java.time.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OvceDisplayActivity extends AppCompatActivity implements ListAdapterOvce.OnClickListener {
 
@@ -92,7 +95,17 @@ public class OvceDisplayActivity extends AppCompatActivity implements ListAdapte
     }
 
     public void prikaziOvce(){
-        JsonArrayRequest request = new JsonArrayRequest(url, jsonArrayListener, errorListener);
+        JsonArrayRequest request = new JsonArrayRequest(url, jsonArrayListener, errorListener) {
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ApiKey", "SecretKey");
+                params.put("Content-Type","application/x-www-form-urlencoded");
+                return params;
+            }
+
+        };
         requestQueue.add(request);
     }
 

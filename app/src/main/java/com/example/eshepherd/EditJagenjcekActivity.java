@@ -26,6 +26,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EditJagenjcekActivity extends AppCompatActivity {
     private Integer iskanJagenjcek;
@@ -58,7 +60,15 @@ public class EditJagenjcekActivity extends AppCompatActivity {
 
     public void showJagenjcek(Integer iskanJagenjcek) {
         url += "/" + iskanJagenjcek; // sestavi pravi url
-        JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);
+        JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener){
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ApiKey", "SecretKey");
+                return params;
+            }
+        };
         requestQueue.add(request);
     }
 
@@ -136,7 +146,13 @@ public class EditJagenjcekActivity extends AppCompatActivity {
                     }
                     return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
                 }
-
+                @Override
+                public Map<String,String> getHeaders() throws AuthFailureError
+                {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("ApiKey", "SecretKey");
+                    return params;
+                }
             };
 
             requestQueue.add(stringRequest);

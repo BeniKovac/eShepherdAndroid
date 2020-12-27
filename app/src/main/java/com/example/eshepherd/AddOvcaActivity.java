@@ -43,6 +43,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class AddOvcaActivity extends AppCompatActivity {
@@ -216,6 +218,13 @@ public class AddOvcaActivity extends AppCompatActivity {
                         status.setText(responseString);
                     }
                     return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                }
+                @Override
+                public Map<String,String> getHeaders() throws AuthFailureError
+                {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("ApiKey", "SecretKey");
+                    return params;
                 }
 
             };

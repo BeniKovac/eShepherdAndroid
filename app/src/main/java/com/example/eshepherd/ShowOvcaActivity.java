@@ -55,6 +55,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.widget.Toast.LENGTH_LONG;
 
@@ -131,7 +133,16 @@ public class ShowOvcaActivity extends AppCompatActivity {
     public void showOvca(String iskanaOvca) {
         if (! resume)
             url += "/" + iskanaOvca; // sestavi pravi url
-        JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);
+        JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener)
+        {
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ApiKey", "SecretKey");
+                return params;
+            }
+        };
         requestQueue.add(request);
     }
 

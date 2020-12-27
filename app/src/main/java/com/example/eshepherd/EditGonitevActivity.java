@@ -34,6 +34,8 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EditGonitevActivity extends AppCompatActivity {
     private int kateraGonitev;
@@ -83,7 +85,15 @@ public class EditGonitevActivity extends AppCompatActivity {
 
     public void showGonitev(int iskanaGonitev) {
         url += "/" + iskanaGonitev; // sestavi pravi url
-        JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);
+        JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener){
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ApiKey", "SecretKey");
+                return params;
+            }
+        };
         requestQueue.add(request);
     }
 
@@ -169,6 +179,15 @@ public class EditGonitevActivity extends AppCompatActivity {
                     }
                     return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
                 }
+
+                    @Override
+                    public Map<String,String> getHeaders() throws AuthFailureError
+                    {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("ApiKey", "SecretKey");
+                        return params;
+                    }
+
 
             };
 

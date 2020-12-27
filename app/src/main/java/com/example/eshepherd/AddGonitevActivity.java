@@ -32,6 +32,8 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddGonitevActivity extends AppCompatActivity {
     private EditText DatumGonitve, Opombe;
@@ -152,6 +154,14 @@ public class AddGonitevActivity extends AppCompatActivity {
                         //statusCreda.setText(responseString); // KAJ GA TLE MEDE?
                     }
                     return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                }
+                @Override
+                public Map<String,String> getHeaders() throws AuthFailureError
+                {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("ApiKey", "SecretKey");
+                    params.put("Content-Type","application/x-www-form-urlencoded");
+                    return params;
                 }
 
             };

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -17,6 +18,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ShowGonitevActivity extends AppCompatActivity {
     private int iskanaGonitev;
@@ -61,7 +65,16 @@ public class ShowGonitevActivity extends AppCompatActivity {
     public void showGonitev(int iskanaGonitev, boolean resume) {
         if (! resume)
             url += "/" + iskanaGonitev; // sestavi pravi url
-        JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener);
+        JsonObjectRequest request = new JsonObjectRequest(url, null, jsonObjectListener, errorListener)
+        {
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ApiKey", "SecretKey");
+                return params;
+            }
+        };
         requestQueue.add(request);
     }
 

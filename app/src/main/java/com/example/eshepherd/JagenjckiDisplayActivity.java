@@ -93,7 +93,16 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
     }
 
     public void prikaziJagenjcki(){
-        JsonArrayRequest request = new JsonArrayRequest(url, jsonArrayListener, errorListener);
+        JsonArrayRequest request = new JsonArrayRequest(url, jsonArrayListener, errorListener)
+        {
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ApiKey", "SecretKey");
+                return params;
+            }
+        };
         requestQueue.add(request);
     }
 

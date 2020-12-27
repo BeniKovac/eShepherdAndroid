@@ -31,6 +31,8 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddKotitevActivity extends AppCompatActivity {
     private EditText DatumKotitve, SteviloMrtvih, Opombe;
@@ -149,6 +151,13 @@ public class AddKotitevActivity extends AppCompatActivity {
                         //statusCreda.setText(responseString); // KAJ GA TLE MEDE?
                     }
                     return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                }
+                @Override
+                public Map<String,String> getHeaders() throws AuthFailureError
+                {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("ApiKey", "SecretKey");
+                    return params;
                 }
 
             };
