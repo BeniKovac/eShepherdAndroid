@@ -227,7 +227,7 @@ public class EditOvcaActivity extends AppCompatActivity {
             };
 
             this.requestQueue.add(stringRequest);
-            Toast.makeText(this, "Ovca je bila dodana.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ovca je bila urejena.", Toast.LENGTH_SHORT).show();
             finish();
         } catch (JSONException e) {
             e.printStackTrace();

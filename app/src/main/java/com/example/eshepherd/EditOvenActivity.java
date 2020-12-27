@@ -227,7 +227,7 @@ public class EditOvenActivity extends AppCompatActivity {
             };
 
             requestQueue.add(stringRequest);
-            Toast.makeText(this, "Oven je bil dodan.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Oven je bil urejen.", Toast.LENGTH_SHORT).show();
             finish();
         }
         catch (JSONException e) {
