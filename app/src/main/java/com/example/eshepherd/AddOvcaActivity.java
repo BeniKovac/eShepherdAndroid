@@ -51,8 +51,7 @@ public class AddOvcaActivity extends AppCompatActivity {
     private EditText OvcaID, DatumRojstva, Pasma, SteviloSorojencev, Stanje, Opombe;
 
     private Spinner mamaSpinner, oceSpinner, credaSpinner;
-    private String mama, oce, creda;
-    private TextView status; // za status - dodajam
+    private static String mama, oce, creda;
 
     private RequestQueue requestQueue;
     private String urlOvce = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovce";
@@ -107,6 +106,7 @@ public class AddOvcaActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 oce = parent.getItemAtPosition(position).toString();
+                Log.d("OCE", oce);
                 oceSpinner.setSelection(position);
             }
 
@@ -120,23 +120,22 @@ public class AddOvcaActivity extends AppCompatActivity {
         credeList = new ArrayList<>();
         dodajCrede();
         ArrayAdapter<String> adapterCreda = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, credeList);
-        adapterCreda.setDropDownViewResource(android.R.layout.simple_list_item_checked);
+        adapterCreda.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         credaSpinner.setAdapter(adapterCreda);
         credaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 creda = parent.getItemAtPosition(position).toString();
-                ((TextView) parent.getChildAt(position)).setTextColor(Color.BLUE);
                 credaSpinner.setSelection(position);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                creda  = "1";
             }
         });
 
 
-        status = (TextView) findViewById(R.id.status);
 
     }
 
@@ -147,7 +146,6 @@ public class AddOvcaActivity extends AppCompatActivity {
     }
 
     public void addOvca(View view) {
-        this.status.setText("Posting to " + urlOvce);
         Toast.makeText(this, "Pošiljam podatke", Toast.LENGTH_SHORT).show();
         try {
             JSONObject jsonBody = new JSONObject();
@@ -158,14 +156,13 @@ public class AddOvcaActivity extends AppCompatActivity {
             jsonBody.put("pasma", Pasma.getText());
             jsonBody.put("mamaID", mama);
             jsonBody.put("oceID", oce);
-            jsonBody.put("steviloSorojencev", Integer.parseInt(String.valueOf(SteviloSorojencev.getText())));
+            jsonBody.put("steviloSorojencev", SteviloSorojencev.getText());
             jsonBody.put("stanje", Stanje.getText());
             jsonBody.put("opombe", Opombe.getText());
 
 
             final String mRequestBody = jsonBody.toString();
 
-            status.setText(mRequestBody);
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, urlOvce, new Response.Listener<String>() {
                 @Override
@@ -210,15 +207,7 @@ public class AddOvcaActivity extends AppCompatActivity {
                     }
                 }
 
-                @Override
-                protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                    String responseString = "";
-                    if (response != null) {
-                        responseString = String.valueOf(response.statusCode);
-                        status.setText(responseString);
-                    }
-                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-                }
+
                 @Override
                 public Map<String,String> getHeaders() throws AuthFailureError
                 {
@@ -231,6 +220,7 @@ public class AddOvcaActivity extends AppCompatActivity {
 
             this.requestQueue.add(stringRequest);
             Toast.makeText(this, "Ovca je bila dodana.", Toast.LENGTH_SHORT).show();
+            finish();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -238,17 +228,44 @@ public class AddOvcaActivity extends AppCompatActivity {
     }
 
     public void dodajMame() {
-        JsonArrayRequest request = new JsonArrayRequest(urlOvce, jsonArrayListenerMama, errorListener);
+        JsonArrayRequest request = new JsonArrayRequest(urlOvce, jsonArrayListenerMama, errorListener) {
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ApiKey", "SecretKey");
+                params.put("Content-Type","application/x-www-form-urlencoded");
+                return params;
+            }
+        };
         requestQueue.add(request);
     }
 
     public void dodajOcete() {
-        JsonArrayRequest request = new JsonArrayRequest(urlOvni, jsonArrayListenerOce, errorListener);
+        JsonArrayRequest request = new JsonArrayRequest(urlOvni, jsonArrayListenerOce, errorListener) {
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ApiKey", "SecretKey");
+                params.put("Content-Type","application/x-www-form-urlencoded");
+                return params;
+            }
+        };
         requestQueue.add(request);
     }
 
     public void dodajCrede() {
-        JsonArrayRequest request = new JsonArrayRequest(urlCrede, jsonArrayListenerCreda, errorListener);
+        JsonArrayRequest request = new JsonArrayRequest(urlCrede, jsonArrayListenerCreda, errorListener) {
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ApiKey", "SecretKey");
+                params.put("Content-Type","application/x-www-form-urlencoded");
+                return params;
+            }
+        };
         requestQueue.add(request);
     }
 
@@ -307,7 +324,8 @@ public class AddOvcaActivity extends AppCompatActivity {
                 try {
                     JSONObject object = response.getJSONObject(i);
                     String creda = object.getString("credeID");
-                    data.add(creda);
+                    if (! creda.equals("0"))
+                        data.add(creda);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -316,6 +334,7 @@ public class AddOvcaActivity extends AppCompatActivity {
                 }
             }
             for (String row : data) {
+
                 credeList.add(row);
                 Log.d("credaList", row);
             }

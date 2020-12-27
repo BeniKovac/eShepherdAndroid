@@ -166,6 +166,7 @@ public class AddJagenjcekActivity extends AppCompatActivity {
 
             requestQueue.add(stringRequest);
             Toast.makeText(this, "Jagenjček je bil dodan.", Toast.LENGTH_SHORT).show();
+            finish();
 
 
         } catch (JSONException e) {

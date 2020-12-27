@@ -55,7 +55,8 @@
         <Spinner
             android:id="@+id/CredaID"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"/>
 
         <TextView
             android:id="@+id/DatumRojstvaTv"
@@ -99,7 +100,7 @@
             android:id="@+id/mamaID"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-           />
+            android:layout_marginTop="16dp"/>
 
         <TextView
             android:id="@+id/oceIDTv"
@@ -113,7 +114,7 @@
             android:id="@+id/oceID"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-           />
+            android:layout_marginTop="16dp"/>
 
         <TextView
             android:id="@+id/SteviloSorojencevTv"

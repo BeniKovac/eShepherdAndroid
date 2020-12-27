@@ -164,6 +164,7 @@ public class AddKotitevActivity extends AppCompatActivity {
 
             requestQueue.add(stringRequest);
             Toast.makeText(this, "Kotitev je bila dodana.", Toast.LENGTH_SHORT).show();
+            finish();
 
 
         } catch (JSONException e) {

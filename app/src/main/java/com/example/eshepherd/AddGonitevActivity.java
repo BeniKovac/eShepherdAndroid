@@ -168,6 +168,7 @@ public class AddGonitevActivity extends AppCompatActivity {
 
             requestQueue.add(stringRequest);
             Toast.makeText(this, "Gonitev je bila dodana.", Toast.LENGTH_SHORT).show();
+            finish();
 
 
         } catch (JSONException e) {
