@@ -370,6 +370,8 @@ public class ShowOvcaActivity extends AppCompatActivity {
             try {
                 String ovca = response.getString("ovcaID");
                 String creda = response.getString("credaID");
+                if (creda.equals("0"))
+                    creda = "neaktivna";
                 String datumRojstva = response.getString("datumRojstva");
                 kotitve = response.getJSONArray("seznamKotitev");
                 if(!datumRojstva.equals("null"))

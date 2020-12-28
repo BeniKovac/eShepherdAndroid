@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -89,6 +92,7 @@ public class OvceDisplayActivity extends AppCompatActivity implements ListAdapte
             }
         });
     }
+
 
 
 
@@ -250,5 +254,34 @@ public class OvceDisplayActivity extends AppCompatActivity implements ListAdapte
         super.onResume();
         listAdapterOvce.Clear();
         prikaziOvce();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.ovca_show_more, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.kotitev_icon:
+                Log.d("kliknjena ikona", "za neaktivne ovce");
+                showCreda0();
+
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public void showCreda0() {
+        Intent intent = new Intent(this, SpecificCredaOvce.class);
+        Log.d("creda", "0");
+        intent.putExtra("SpecificID", "0");
+        startActivity(intent);
     }
 }
