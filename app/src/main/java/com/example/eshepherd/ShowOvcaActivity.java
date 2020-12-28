@@ -1,6 +1,7 @@
 package com.example.eshepherd;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -77,6 +79,7 @@ public class ShowOvcaActivity extends AppCompatActivity {
     BottomNavigationView navigationView;
     Intent intent;
     Context ct;
+    boolean Nadaljevanje = false;
     public static final int TEXT_REQUEST = 1;
     private static boolean resume = false;
     JSONArray kotitve;
@@ -147,15 +150,38 @@ public class ShowOvcaActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.delete:
-                if(kotitve == null || kotitve.length() == 0)
-                    deleteOvca();
-                else
-                    moveOvca();
+                onClickShowAlert();
                 return true;
             default:
                 return false;
         }
     }
+
+    public void onClickShowAlert() {
+        AlertDialog.Builder myAlertBuilder = new
+                AlertDialog.Builder(ShowOvcaActivity.this);
+        myAlertBuilder.setTitle("Izbrisati želite ovco.");
+        myAlertBuilder.setMessage("Ali ste prepričani, da želite izbrisati ovco?");
+        myAlertBuilder.setPositiveButton("Da, izbriši ovco", new
+                DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User clicked OK button.
+                        if(kotitve == null || kotitve.length() == 0)
+                            deleteOvca();
+                        else
+                            moveOvca();
+                    }
+                });
+        myAlertBuilder.setNegativeButton("Ne, prekliči", new
+                DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User cancelled the dialog.
+                    }
+                });
+
+        myAlertBuilder.show();
+    }
+
 
     @Override
     public boolean onSupportNavigateUp() {

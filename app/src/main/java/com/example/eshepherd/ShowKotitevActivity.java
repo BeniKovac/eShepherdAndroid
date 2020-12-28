@@ -1,8 +1,10 @@
 package com.example.eshepherd;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -101,14 +103,36 @@ public class ShowKotitevActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.delete:
-                if (steviloMladihForDelete == 0)
-                    deleteKotitev();
-                else
-                    Toast.makeText(getApplicationContext(), "Kotitev ne more biti izbrisana, ker že ima jagenjčke", Toast.LENGTH_SHORT).show();
+                onClickShowAlert();
                 return true;
             default:
                 return false;
         }
+    }
+
+    public void onClickShowAlert() {
+        AlertDialog.Builder myAlertBuilder = new
+                AlertDialog.Builder(ShowKotitevActivity.this);
+        myAlertBuilder.setTitle("Izbrisati želite kotitev.");
+        myAlertBuilder.setMessage("Ali ste prepričani, da želite izbrisati kotitev?");
+        myAlertBuilder.setPositiveButton("Da, izbriši kotitev", new
+                DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User clicked OK button.
+                        if (steviloMladihForDelete == 0)
+                            deleteKotitev();
+                        else
+                            Toast.makeText(getApplicationContext(), "Kotitev ne more biti izbrisana, ker že ima jagenjčke", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        myAlertBuilder.setNegativeButton("Ne, prekliči", new
+                DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User cancelled the dialog.
+                    }
+                });
+
+        myAlertBuilder.show();
     }
 
     public void deleteKotitev() {
