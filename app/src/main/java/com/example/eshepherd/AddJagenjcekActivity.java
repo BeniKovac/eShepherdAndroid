@@ -39,39 +39,33 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AddJagenjcekActivity extends AppCompatActivity {
-    private Spinner KotitevIDspinner, spolSpinner;
+    private Spinner spolSpinner;
     private EditText JagenjcekID, Stanje, Opombe;
-    private String spol, kotitevID;
+    private String spol;
     private int kotitev = 2;
     ArrayList<String> kotitevList;
     private TextView datumRojstvaTv, mamaTv, Kotitev;
 
     TextView statusJagenjcek;
     RequestQueue requestQueue;
-    RequestQueue requestQueueKotitevID;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Jagenjcki";
     private String urlKotitve = "https://eshepherd-dev.azurewebsites.net/api/v1/Kotitve";
-    Intent getKotitevIntent, getKotitevJagenjcekIntent;
+    Intent getKotitevIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_jagenjcek);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JagenjcekID = (EditText) findViewById(R.id.JagenjcekID);
+        this.JagenjcekID = (EditText) findViewById(R.id.JagenjcekID);
         this.Stanje = (EditText) findViewById(R.id.Stanje);
         this.Opombe = (EditText) findViewById(R.id.Opombe);
         this.Kotitev = (TextView) findViewById(R.id.KotitevID);
         this.datumRojstvaTv = (TextView) findViewById(R.id.DatumRojstva);
         this.mamaTv = (TextView) findViewById(R.id.mamaID);
-        getKotitevIntent = getIntent();
-        prikaziKotitev();
-        /*if (getKotitevIntent != null) {
-            kotitev = getKotitevIntent.getIntExtra("kotitevID", 0);
+        getKotitevIntent = getIntent(); // dobi pravo kotitevID
+        prikaziKotitev(); // prikazi podatke prave kotitve
 
-        }
-
-         */
 
         spolSpinner = (Spinner) findViewById(R.id.Spol);
         ArrayAdapter<CharSequence> adapterSpol = ArrayAdapter.createFromResource(this, R.array.spol_array, android.R.layout.simple_spinner_item);
@@ -99,9 +93,10 @@ public class AddJagenjcekActivity extends AppCompatActivity {
     }
 
     public void prikaziKotitev() {
-        kotitev = getKotitevIntent.getIntExtra("kotitevID", 16);
-
+        kotitev = getKotitevIntent.getIntExtra("kotitevID", 7);
+        //kotitev = 2;
         //Kotitev.setText();
+        //kotitev = 7;
         urlKotitve += "/" + kotitev;
         JsonObjectRequest request = new JsonObjectRequest(urlKotitve, null, jsonObjectListenerKotitev, errorListener)
         {
@@ -123,11 +118,10 @@ public class AddJagenjcekActivity extends AppCompatActivity {
             try {
                 String datumRojstva = response.getString("datumKotitve").substring(0,10);
                 String mamaID = response.getString("ovcaID");
-                int kotitevID = response.getInt("kotitevID");
 
                 datumRojstvaTv.setText(datumRojstva);
                 mamaTv.setText(mamaID);
-                Kotitev.setText(kotitev);
+                Kotitev.setText(String.valueOf(kotitev));
 
             } catch (JSONException e) {
                 e.printStackTrace();
