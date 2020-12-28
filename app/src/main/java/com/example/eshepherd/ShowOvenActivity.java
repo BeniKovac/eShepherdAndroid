@@ -42,7 +42,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ShowOvenActivity extends AppCompatActivity {
-
     private String iskanOven;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovni";
     private RequestQueue requestQueue;
