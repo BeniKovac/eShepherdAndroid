@@ -205,13 +205,12 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
         if(sortByDate)
             bubbleSort(spolArray, dataDrugiID, dataID);
         else
-
             bubbleSort(dataDrugiID, spolArray, dataID);
+
         ListAdapterJagenjcki listAdapterJagenjcki = new ListAdapterJagenjcki(ct, dataDrugiID, spolArray, this);
         recyclerView.setAdapter(listAdapterJagenjcki);
         recyclerView.setLayoutManager(new LinearLayoutManager(ct));
     }
-
 
     public void launchAddJagenjcek(View view) {
         int max = 1;
