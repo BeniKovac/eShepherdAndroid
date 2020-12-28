@@ -43,10 +43,12 @@ public class AddOvenActivity extends AppCompatActivity {
     private EditText OvenID, DatumRojstva, Pasma, SteviloSorojencev, Stanje, Opombe,Poreklo;
 
     private Spinner mamaSpinner, oceSpinner, credaSpinner, CredaID;
-    private String mama, oce, creda;
+    private static String mama;
+    private String oce, creda;
+    String[] values;
     private ArrayList<String> mamaList, oceList, credeList;
 
-    private TextView status; // za status - dodajam
+
 
     private RequestQueue requestQueue;
     private String urlOvce = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovce";
@@ -71,24 +73,29 @@ public class AddOvenActivity extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-        status = (TextView) findViewById(R.id.status);
-
+        values = new String[]{"/", "/", "0"}; // mama, oce, creda
         mamaSpinner = (Spinner) findViewById(R.id.mamaID);
         mamaList = new ArrayList<>();
         dodajMame();
-        ArrayAdapter<String> adapterMama = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mamaList);
+        ArrayAdapter<String> adapterMama = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, mamaList) ;
         adapterMama.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mamaSpinner.setAdapter(adapterMama);
         mamaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mama = parent.getItemAtPosition(position).toString();
-                ((TextView) view).setTextColor(Color.BLACK);
+                Log.d("pred izbranim", "!!!");
+                mama = mamaList.get(position);
+                values[0] = mama;
+                Toast.makeText(getApplicationContext(), mama, Toast.LENGTH_SHORT).show();
+                Log.d("mama", mama);
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                mama ="/";
             }
+
         });
 
 
@@ -137,28 +144,29 @@ public class AddOvenActivity extends AppCompatActivity {
     }
 
     public void addOven(View view) {
-        this.status.setText("Posting to " + urlOvni);
         Toast.makeText(this, "Pošiljam podatke", Toast.LENGTH_SHORT).show();
         try {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("ovenID", OvenID.getText());
-            jsonBody.put("credaID", creda);
+            jsonBody.put("credaID", "2");
 
             //Date wrongFormatDate = (Date) DatumRojstva.getText();
             //SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
             jsonBody.put("datumRojstva", DatumRojstva.getText());
             //01.01.2020 --> "2020-01-01"
             jsonBody.put("pasma", Pasma.getText());
-            jsonBody.put("mamaID", mama);
-            jsonBody.put("oceID", oce);
-            jsonBody.put("steviloSorojencev", Integer.parseInt(String.valueOf(SteviloSorojencev.getText())));
+            jsonBody.put("mamaID", "/");
+            jsonBody.put("oceID", "/");
+            if (SteviloSorojencev.getText().length() == 0)
+                jsonBody.put("steviloSorojencev", 0);
+            else
+                jsonBody.put("steviloSorojencev", SteviloSorojencev.getText());
             jsonBody.put("stanje", Stanje.getText());
             jsonBody.put("opombe", Opombe.getText());
             jsonBody.put("poreklo", Poreklo.getText());
 
             final String mRequestBody = jsonBody.toString();
 
-            status.setText(mRequestBody);
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, urlOvni, new Response.Listener<String>() {
                 @Override
@@ -204,19 +212,11 @@ public class AddOvenActivity extends AppCompatActivity {
                 }
 
                 @Override
-                protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                    String responseString = "";
-                    if (response != null) {
-                        responseString = String.valueOf(response.statusCode);
-                        status.setText(responseString);
-                    }
-                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-                }
-                @Override
                 public Map<String,String> getHeaders() throws AuthFailureError
                 {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("ApiKey", "SecretKey");
+                    params.put("Content-Type", "application/json");
                     return params;
                 }
 
@@ -224,6 +224,7 @@ public class AddOvenActivity extends AppCompatActivity {
 
             requestQueue.add(stringRequest);
             Toast.makeText(this, "Oven je bil dodan.", Toast.LENGTH_SHORT).show();
+            finish();
         }
         catch (JSONException e) {
             e.printStackTrace();
@@ -232,17 +233,44 @@ public class AddOvenActivity extends AppCompatActivity {
     }
 
     public void dodajMame(){
-        JsonArrayRequest request = new JsonArrayRequest(urlOvce, jsonArrayListenerMama, errorListener);
+        JsonArrayRequest request = new JsonArrayRequest(urlOvce, jsonArrayListenerMama, errorListener)
+        {
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ApiKey", "SecretKey");
+                return params;
+            }
+        };
         requestQueue.add(request);
     }
 
     public void dodajOcete(){
-        JsonArrayRequest request = new JsonArrayRequest(urlOvni, jsonArrayListenerOce, errorListener);
+        JsonArrayRequest request = new JsonArrayRequest(urlOvni, jsonArrayListenerOce, errorListener)
+        {
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ApiKey", "SecretKey");
+                return params;
+            }
+        };
         requestQueue.add(request);
     }
 
     public void dodajCrede(){
-        JsonArrayRequest request = new JsonArrayRequest(urlCrede, jsonArrayListenerCreda, errorListener);
+        JsonArrayRequest request = new JsonArrayRequest(urlCrede, jsonArrayListenerCreda, errorListener)
+        {
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ApiKey", "SecretKey");
+                return params;
+            }
+        };
         requestQueue.add(request);
     }
 

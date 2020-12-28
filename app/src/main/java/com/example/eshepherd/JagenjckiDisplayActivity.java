@@ -42,7 +42,7 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
     RecyclerView recyclerView;
     Context ct;
     int order = 1;
-    ArrayList<Integer> dataID;
+    ArrayList<Integer> dataID, kotitevID;
     ArrayList<String> dataDrugiID;
     ArrayList<String> spolArray;
     boolean sortByDate = false;
@@ -65,6 +65,7 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
         spolArray  = new ArrayList<>();
         dataDrugiID = new ArrayList<>();
         dataID = new ArrayList<>();
+        kotitevID = new ArrayList<>();
         NapisID = findViewById(R.id.textView_IDtitle);
 
         listAdapterJagenjcki = new ListAdapterJagenjcki(ct, dataDrugiID, spolArray, this);
@@ -118,9 +119,11 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
                     Integer ID  = object.getInt("skritIdJagenjcka");
                     String drugiID = object.getString("idJagenjcka");
                     String spol  = object.getString("spol");
+                    int kotitev = object.getInt("kotitevID"); // vse kotitevID
                     dataID.add(ID);
                     dataDrugiID.add(drugiID);
                     spolArray.add(spol);
+                    kotitevID.add(kotitev);
                 }catch (JSONException e){
                     e.printStackTrace();
                     return;
@@ -202,15 +205,21 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
         if(sortByDate)
             bubbleSort(spolArray, dataDrugiID, dataID);
         else
+            bubbleSort(dataDrugiID, spolArray, dataID);
 
-        bubbleSort(dataDrugiID, spolArray, dataID);
         ListAdapterJagenjcki listAdapterJagenjcki = new ListAdapterJagenjcki(ct, dataDrugiID, spolArray, this);
         recyclerView.setAdapter(listAdapterJagenjcki);
         recyclerView.setLayoutManager(new LinearLayoutManager(ct));
     }
 
     public void launchAddJagenjcek(View view) {
+        int max = 1;
+        for (int i = 0; i < kotitevID.size(); i++) {
+            if (kotitevID.get(i) > max)
+                max = kotitevID.get(i);
+        }
         Intent intent = new Intent(this, AddJagenjcekActivity.class);
+        intent.putExtra("kotitevID", max + 1); // avtomatsko dodaj zadnji kotitvi
         startActivity(intent);
     }
 

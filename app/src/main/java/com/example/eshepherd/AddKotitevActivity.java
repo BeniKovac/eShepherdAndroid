@@ -2,6 +2,7 @@ package com.example.eshepherd;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,7 +45,8 @@ public class AddKotitevActivity extends AppCompatActivity {
     private String urlOvce = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovce";
     private String urlOvni = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovni";
     private ArrayList<String> mamaList, oceList;
-
+    private int kotitevID;
+    Intent intentGetKotitev;
 
 
 
@@ -94,7 +96,9 @@ public class AddKotitevActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
+        intentGetKotitev = getIntent();
+        if (intentGetKotitev != null)
+            kotitevID = intentGetKotitev.getIntExtra("ID", 0);
     }
 
     @Override
@@ -109,9 +113,12 @@ public class AddKotitevActivity extends AppCompatActivity {
         try {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("datumKotitve", DatumKotitve.getText());
-            jsonBody.put("ovcaID", mama);
-            jsonBody.put("ovenID", oce);
-            jsonBody.put("steviloMrtvih", Integer.parseInt(String.valueOf(SteviloMrtvih.getText())));
+            jsonBody.put("ovcaID", "632");
+            jsonBody.put("ovenID", "666");
+            if (SteviloMrtvih.getText().length() == 0)
+                jsonBody.put("steviloMrtvih", 0);
+            else
+                jsonBody.put("steviloMrtvih", SteviloMrtvih.getText());
             jsonBody.put("opombe", Opombe.getText());
 
             final String mRequestBody = jsonBody.toString();
@@ -157,6 +164,7 @@ public class AddKotitevActivity extends AppCompatActivity {
                 {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("ApiKey", "SecretKey");
+                    params.put("Content-Type", "application/json");
                     return params;
                 }
 
@@ -164,6 +172,8 @@ public class AddKotitevActivity extends AppCompatActivity {
 
             requestQueue.add(stringRequest);
             Toast.makeText(this, "Kotitev je bila dodana.", Toast.LENGTH_SHORT).show();
+            addJagenjcka();
+            finish();
 
 
         } catch (JSONException e) {
@@ -171,13 +181,39 @@ public class AddKotitevActivity extends AppCompatActivity {
         }
 
     }
+
+    public void addJagenjcka() {
+        Intent intent = new Intent(this, AddJagenjcekActivity.class);
+        intent.putExtra("kotitevID", kotitevID);
+        startActivity(intent);
+    }
+
+
     public void dodajMame(){
-        JsonArrayRequest request = new JsonArrayRequest(urlOvce, jsonArrayListenerMama, errorListener);
+        JsonArrayRequest request = new JsonArrayRequest(urlOvce, jsonArrayListenerMama, errorListener)
+        {
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ApiKey", "SecretKey");
+                return params;
+            }
+        };
         requestQueue.add(request);
     }
 
     public void dodajOcete(){
-        JsonArrayRequest request = new JsonArrayRequest(urlOvni, jsonArrayListenerOce, errorListener);
+        JsonArrayRequest request = new JsonArrayRequest(urlOvni, jsonArrayListenerOce, errorListener)
+        {
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ApiKey", "SecretKey");
+                return params;
+            }
+        };
         requestQueue.add(request);
     }
 
@@ -234,6 +270,7 @@ public class AddKotitevActivity extends AppCompatActivity {
             Log.d("REST error", error.getMessage());
         }
     };
+
 
 
 
