@@ -1,12 +1,14 @@
 package com.example.eshepherd;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -109,14 +111,36 @@ public class ShowOvenActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.delete:
-                if(gonitve == null || gonitve.length() == 0)
-                    deleteOven();
-                else
-                    moveOven();
+                onClickShowAlert();
                 return true;
             default:
                 return false;
         }
+    }
+
+    public void onClickShowAlert() {
+        AlertDialog.Builder myAlertBuilder = new
+                AlertDialog.Builder(ShowOvenActivity.this);
+        myAlertBuilder.setTitle("Izbrisati želite ovna.");
+        myAlertBuilder.setMessage("Ali ste prepričani, da želite izbrisati ovna?");
+        myAlertBuilder.setPositiveButton("Da, izbriši ovna", new
+                DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User clicked OK button.
+                        if(gonitve == null || gonitve.length() == 0)
+                            deleteOven();
+                        else
+                            moveOven();
+                    }
+                });
+        myAlertBuilder.setNegativeButton("Ne, prekliči", new
+                DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User cancelled the dialog.
+                    }
+                });
+
+        myAlertBuilder.show();
     }
 
     public void deleteOven() {

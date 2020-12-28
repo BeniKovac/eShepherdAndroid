@@ -1,8 +1,10 @@
 package com.example.eshepherd;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -92,14 +94,35 @@ public class ShowCredaActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.delete:
-                if(seznamOvac == null || seznamOvac.length() == 0)
-                    deleteCreda();
-                else
-                    Toast.makeText(this,"Creda vsebuje ovce!", Toast.LENGTH_LONG).show();
+                onClickShowAlert();
                 return true;
             default:
                 return false;
         }
+    }
+
+    public void onClickShowAlert() {
+        AlertDialog.Builder myAlertBuilder = new
+                AlertDialog.Builder(ShowCredaActivity.this);
+        myAlertBuilder.setTitle("Izbrisati želite čredo.");
+        myAlertBuilder.setMessage("Ali ste prepričani, da želite izbrisati čredo?");
+        myAlertBuilder.setPositiveButton("Da, izbriši čredo", new
+                DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(seznamOvac == null || seznamOvac.length() == 0)
+                            deleteCreda();
+                        else
+                            Toast.makeText(getApplicationContext(),"Creda vsebuje ovce!", Toast.LENGTH_LONG).show();
+                    }
+                });
+        myAlertBuilder.setNegativeButton("Ne, prekliči", new
+                DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User cancelled the dialog.
+                    }
+                });
+
+        myAlertBuilder.show();
     }
 
     public void deleteCreda() {

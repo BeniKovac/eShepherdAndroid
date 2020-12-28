@@ -1,7 +1,9 @@
 package com.example.eshepherd;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -79,11 +81,33 @@ public class ShowGonitevActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.delete:
-                deleteGonitev();
+                onClickShowAlert();
                 return true;
             default:
                 return false;
         }
+    }
+
+    public void onClickShowAlert() {
+        AlertDialog.Builder myAlertBuilder = new
+                AlertDialog.Builder(ShowGonitevActivity.this);
+        myAlertBuilder.setTitle("Izbrisati želite gonitev.");
+        myAlertBuilder.setMessage("Ali ste prepričani, da želite izbrisati gonitev?");
+        myAlertBuilder.setPositiveButton("Da, izbriši gonitev", new
+                DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User clicked OK button.
+                        deleteGonitev();
+                    }
+                });
+        myAlertBuilder.setNegativeButton("Ne, prekliči", new
+                DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User cancelled the dialog.
+                    }
+                });
+
+        myAlertBuilder.show();
     }
 
     public void deleteGonitev() {
