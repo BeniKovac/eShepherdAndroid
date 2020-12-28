@@ -11,8 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EShepherd">
-        <activity android:name=".SpecificCredaOvce"></activity>
-        <activity android:name=".SpecificKotitevJagenjcki" />
+        <activity
+            android:name=".SpecificCredaOvce"
+            android:parentActivityName=".ShowCredaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ShowCredaActivity" />
+        </activity>
+        <activity android:name=".SpecificKotitevJagenjcki"
+            android:parentActivityName=".ShowKotitevActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ShowKotitevActivity" />
+        </activity>
         <activity
             android:name=".SpecificOvenGonitve"
             android:parentActivityName=".ShowOvenActivity">

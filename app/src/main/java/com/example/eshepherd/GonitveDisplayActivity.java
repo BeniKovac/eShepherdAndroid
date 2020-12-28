@@ -38,6 +38,7 @@ public class GonitveDisplayActivity extends AppCompatActivity implements ListAda
     ArrayList<Integer> dataID = new ArrayList<>();
     ArrayList<String> dataDatum = new ArrayList<>();
     ArrayList<String> predvidenDatum = new ArrayList<>();
+    ArrayList<String> dataOvcaID = new ArrayList<>();
     ListAdapterGonitve listAdaptergonitve;
     EditText searchView;
     CharSequence search = "";
@@ -52,7 +53,7 @@ public class GonitveDisplayActivity extends AppCompatActivity implements ListAda
         //gonitve = (TextView) findViewById(R.id.gonitve);
         ct = this;
         recyclerView = findViewById(R.id.recycler_view_gonitve);
-        listAdaptergonitve = new ListAdapterGonitve(ct, dataID, dataDatum, predvidenDatum, this);
+        listAdaptergonitve = new ListAdapterGonitve(ct, dataOvcaID, dataDatum, predvidenDatum, this);
 
         searchView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -102,6 +103,7 @@ public class GonitveDisplayActivity extends AppCompatActivity implements ListAda
                     Integer ID  = object.getInt("gonitevID");
                     if(ID == null)
                         continue;
+                    String ovcaID = object.getString("ovcaID");
                     String datumGonitve  = object.getString("datumGonitve");
                     if(!datumGonitve.equals("null"))
                         datumGonitve = datumGonitve.substring(0,10);
@@ -113,6 +115,7 @@ public class GonitveDisplayActivity extends AppCompatActivity implements ListAda
                     else
                         predDatum = "neznan";
                     dataID.add(ID);
+                    dataOvcaID.add(ovcaID);
                     dataDatum.add(datumGonitve);
                     predvidenDatum.add(predDatum);
                     recyclerView.setAdapter(listAdaptergonitve);
