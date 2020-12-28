@@ -150,13 +150,16 @@ public class AddOvcaActivity extends AppCompatActivity {
         try {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("ovcaID", OvcaID.getText());
-            jsonBody.put("credaID", creda);
+            jsonBody.put("credaID", "1");//creda);
 
             jsonBody.put("datumRojstva", DatumRojstva.getText());
             jsonBody.put("pasma", Pasma.getText());
-            jsonBody.put("mamaID", mama);
-            jsonBody.put("oceID", oce);
-            jsonBody.put("steviloSorojencev", SteviloSorojencev.getText());
+            jsonBody.put("mamaID", "/");//mama);
+            jsonBody.put("oceID", "/");//oce);
+            if (SteviloSorojencev.getText().length() == 0)
+                jsonBody.put("steviloSorojencev", 0);
+            else
+                jsonBody.put("steviloSorojencev", SteviloSorojencev.getText());
             jsonBody.put("stanje", Stanje.getText());
             jsonBody.put("opombe", Opombe.getText());
 
@@ -213,6 +216,7 @@ public class AddOvcaActivity extends AppCompatActivity {
                 {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("ApiKey", "SecretKey");
+                    params.put("Content-Type", "application/json");
                     return params;
                 }
 

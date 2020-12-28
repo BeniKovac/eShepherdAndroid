@@ -113,8 +113,8 @@ public class AddGonitevActivity extends AppCompatActivity {
         try {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("datumGonitve", DatumGonitve.getText());
-            jsonBody.put("ovcaID", mama);
-            jsonBody.put("ovenID", oce);
+            jsonBody.put("ovcaID", "680");//mama);
+            jsonBody.put("ovenID", "102");//oce);
             jsonBody.put("opombe", Opombe.getText());
 
             final String mRequestBody = jsonBody.toString();
@@ -160,7 +160,7 @@ public class AddGonitevActivity extends AppCompatActivity {
                 {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("ApiKey", "SecretKey");
-                    params.put("Content-Type","application/x-www-form-urlencoded");
+                    params.put("Content-Type", "application/json");
                     return params;
                 }
 
@@ -178,12 +178,30 @@ public class AddGonitevActivity extends AppCompatActivity {
     }
 
     public void dodajMame(){
-        JsonArrayRequest request = new JsonArrayRequest(urlOvce, jsonArrayListenerMama, errorListener);
+        JsonArrayRequest request = new JsonArrayRequest(urlOvce, jsonArrayListenerMama, errorListener)
+        {
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ApiKey", "SecretKey");
+                return params;
+            }
+        };
         requestQueue.add(request);
     }
 
     public void dodajOcete(){
-        JsonArrayRequest request = new JsonArrayRequest(urlOvni, jsonArrayListenerOce, errorListener);
+        JsonArrayRequest request = new JsonArrayRequest(urlOvni, jsonArrayListenerOce, errorListener)
+        {
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ApiKey", "SecretKey");
+                return params;
+            }
+        };
         requestQueue.add(request);
     }
 

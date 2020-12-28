@@ -133,7 +133,13 @@ public class KotitveDisplayActivity extends AppCompatActivity implements ListAda
     };
 
     public void launchAddKotitev(View view) {
+        int max = 1;
+        for (int i = 0; i < dataID.size(); i++) {
+            if (dataID.get(i) > max)
+                max = dataID.get(i);
+        }
         Intent intent = new Intent(this, AddKotitevActivity.class);
+        intent.putExtra("ID", max + 1); // dobi zadnjo dodano kotitev
         startActivity(intent);
     }
     public void showKotitev(View view) {

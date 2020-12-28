@@ -53,7 +53,9 @@ public class ShowKotitevActivity extends AppCompatActivity {
         intent = getIntent();
         if(intent != null) {
             iskanaKotitev = intent.getIntExtra("ID", 0);
-        }else{
+        }
+        else
+            {
             iskanaKotitev = savedInstanceState.getInt("ID");
         }
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);

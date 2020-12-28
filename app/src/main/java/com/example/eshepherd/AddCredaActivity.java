@@ -42,7 +42,6 @@ public class AddCredaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_creda);
-        url = url.replaceAll(" ", "%20");
 
         CredeID = (EditText) findViewById(R.id.CredaID);
         Opombe = (EditText) findViewById(R.id.Opombe);
@@ -65,8 +64,8 @@ public class AddCredaActivity extends AppCompatActivity {
         try {
             JSONObject jsonBody = new JSONObject();
 
-            jsonBody.put("credeID", CredeID.getText());
-            jsonBody.put("opombe", Opombe.getText());
+            jsonBody.put("credeID", CredeID.getText().toString());
+            jsonBody.put("opombe", Opombe.getText().toString());
 
             final String mRequestBody = jsonBody.toString();
 
@@ -106,12 +105,13 @@ public class AddCredaActivity extends AppCompatActivity {
                     }
                     return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
                 }
+
                 @Override
                 public Map<String,String> getHeaders() throws AuthFailureError
                 {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("ApiKey", "SecretKey");
-                    params.put("Content-Type","application/x-www-form-urlencoded");
+                    params.put("Content-Type", "application/json");
                     return params;
                 }
 

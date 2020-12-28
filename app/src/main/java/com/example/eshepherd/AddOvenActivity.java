@@ -148,16 +148,19 @@ public class AddOvenActivity extends AppCompatActivity {
         try {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("ovenID", OvenID.getText());
-            jsonBody.put("credaID", values[2]);
+            jsonBody.put("credaID", "2");
 
             //Date wrongFormatDate = (Date) DatumRojstva.getText();
             //SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
             jsonBody.put("datumRojstva", DatumRojstva.getText());
             //01.01.2020 --> "2020-01-01"
             jsonBody.put("pasma", Pasma.getText());
-            jsonBody.put("mamaID", values[0]);
-            jsonBody.put("oceID", values[1]);
-            jsonBody.put("steviloSorojencev", Integer.parseInt(String.valueOf(SteviloSorojencev.getText())));
+            jsonBody.put("mamaID", "/");
+            jsonBody.put("oceID", "/");
+            if (SteviloSorojencev.getText().length() == 0)
+                jsonBody.put("steviloSorojencev", 0);
+            else
+                jsonBody.put("steviloSorojencev", SteviloSorojencev.getText());
             jsonBody.put("stanje", Stanje.getText());
             jsonBody.put("opombe", Opombe.getText());
             jsonBody.put("poreklo", Poreklo.getText());
@@ -213,6 +216,7 @@ public class AddOvenActivity extends AppCompatActivity {
                 {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("ApiKey", "SecretKey");
+                    params.put("Content-Type", "application/json");
                     return params;
                 }
 

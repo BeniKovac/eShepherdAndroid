@@ -2,6 +2,7 @@ package com.example.eshepherd;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -40,14 +42,16 @@ public class AddJagenjcekActivity extends AppCompatActivity {
     private Spinner KotitevIDspinner, spolSpinner;
     private EditText JagenjcekID, Stanje, Opombe;
     private String spol, kotitevID;
+    private int kotitev = 2;
     ArrayList<String> kotitevList;
+    private TextView datumRojstvaTv, mamaTv, Kotitev;
 
     TextView statusJagenjcek;
     RequestQueue requestQueue;
     RequestQueue requestQueueKotitevID;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Jagenjcki";
     private String urlKotitve = "https://eshepherd-dev.azurewebsites.net/api/v1/Kotitve";
-
+    Intent getKotitevIntent, getKotitevJagenjcekIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,25 +61,17 @@ public class AddJagenjcekActivity extends AppCompatActivity {
         JagenjcekID = (EditText) findViewById(R.id.JagenjcekID);
         this.Stanje = (EditText) findViewById(R.id.Stanje);
         this.Opombe = (EditText) findViewById(R.id.Opombe);
-        // napolni kotitve spinner
+        this.Kotitev = (TextView) findViewById(R.id.KotitevID);
+        this.datumRojstvaTv = (TextView) findViewById(R.id.DatumRojstva);
+        this.mamaTv = (TextView) findViewById(R.id.mamaID);
+        getKotitevIntent = getIntent();
+        prikaziKotitev();
+        /*if (getKotitevIntent != null) {
+            kotitev = getKotitevIntent.getIntExtra("kotitevID", 0);
 
-        KotitevIDspinner = (Spinner) findViewById(R.id.KotitevID);
-        kotitevList = new ArrayList<>();
-        dodajKotitve();
-        ArrayAdapter<String> adapterKotitev = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, kotitevList);
-        adapterKotitev.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        KotitevIDspinner.setAdapter(adapterKotitev);
-        KotitevIDspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                kotitevID = parent.getItemAtPosition(position).toString();
-            }
+        }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
+         */
 
         spolSpinner = (Spinner) findViewById(R.id.Spol);
         ArrayAdapter<CharSequence> adapterSpol = ArrayAdapter.createFromResource(this, R.array.spol_array, android.R.layout.simple_spinner_item);
@@ -102,18 +98,58 @@ public class AddJagenjcekActivity extends AppCompatActivity {
         return true;
     }
 
+    public void prikaziKotitev() {
+        kotitev = getKotitevIntent.getIntExtra("kotitevID", 16);
+
+        //Kotitev.setText();
+        urlKotitve += "/" + kotitev;
+        JsonObjectRequest request = new JsonObjectRequest(urlKotitve, null, jsonObjectListenerKotitev, errorListener)
+        {
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("ApiKey", "SecretKey");
+                return params;
+            }
+        };
+        requestQueue.add(request);
+    }
+
+    private Response.Listener<JSONObject> jsonObjectListenerKotitev = new Response.Listener<JSONObject>() {
+
+        @Override
+        public void onResponse(JSONObject response) {
+            try {
+                String datumRojstva = response.getString("datumKotitve").substring(0,10);
+                String mamaID = response.getString("ovcaID");
+                int kotitevID = response.getInt("kotitevID");
+
+                datumRojstvaTv.setText(datumRojstva);
+                mamaTv.setText(mamaID);
+                Kotitev.setText(kotitev);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+
+
     public void addJagenjcka(View view) {
         this.statusJagenjcek.setText("Posting to " + url);
         Toast.makeText(this, "Pošiljam podatke", Toast.LENGTH_SHORT).show();
         try {
             JSONObject jsonBody = new JSONObject();
-            jsonBody.put("kotitevID", kotitevID);
+            jsonBody.put("kotitevID", kotitev);
             jsonBody.put("idJagenjcka", JagenjcekID.getText());
             jsonBody.put("spol", spol);
             jsonBody.put("stanje", Stanje.getText());
             jsonBody.put("opombe", Opombe.getText());
 
             final String mRequestBody = jsonBody.toString();
+            Log.d("Body", mRequestBody);
 
             statusJagenjcek.setText(mRequestBody);
 
@@ -158,7 +194,7 @@ public class AddJagenjcekActivity extends AppCompatActivity {
                 {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("ApiKey", "SecretKey");
-                    params.put("Content-Type","application/x-www-form-urlencoded");
+                    params.put("Content-Type", "application/json");
                     return params;
                 }
 

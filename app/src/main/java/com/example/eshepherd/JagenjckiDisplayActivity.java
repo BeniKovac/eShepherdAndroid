@@ -31,6 +31,7 @@ import java.text.SimpleDateFormat;
 import java.time.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -65,6 +66,7 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
         dataDrugiID = new ArrayList<>();
         dataID = new ArrayList<>();
         NapisID = findViewById(R.id.textView_IDtitle);
+
         listAdapterJagenjcki = new ListAdapterJagenjcki(ct, dataDrugiID, spolArray, this);
 
         searchView.addTextChangedListener(new TextWatcher() {
@@ -100,6 +102,7 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
             {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("ApiKey", "SecretKey");
+                params.put("Content-Type","application/x-www-form-urlencoded");
                 return params;
             }
         };
@@ -129,12 +132,6 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
                 bubbleSort(dataDrugiID, spolArray, dataID);
             recyclerView.setAdapter(listAdapterJagenjcki);
             recyclerView.setLayoutManager(new LinearLayoutManager(ct));
-            /*                                                              DISPLAY Z TextView-om
-            for(String row : data){
-                String currentText = jagenjcki.getText().toString();
-                jagenjcki.setText(currentText + "\n\n" + row);
-            }
-             */
         }
     };
 
@@ -150,6 +147,8 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
     public void bubbleSort(ArrayList<String> s1, ArrayList<String> s2, ArrayList<Integer> s3){
         String t;
         Integer tInt;
+        System.out.println(s1.toString());
+        System.out.println(s3.toString());
         int n = s1.size();
         boolean swapped = false;
         int lastswap = 0;
@@ -157,9 +156,6 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
         for (int j = 0; j < n; j++) {
             int i = n-1;
             while(i > urejeniDel) {
-                int test=1;
-                String str = s1.get(i);
-                String str2 = s1.get(i-1);
                 if (compare(s1.get(i),s1.get(i - 1)) * order > 0) {
                     t = s1.get(i);
                     s1.set(i, s1.get(i - 1));
@@ -173,7 +169,10 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
                     swapped = true;
                     lastswap = i;
                 }
+                System.out.println(s1.toString());
+                System.out.println(s3.toString());
                 i--;
+
             }
             if(!swapped)
                 break;
@@ -197,21 +196,17 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
     }
 
     public void ChangeDirection(View view) {
+        order *= -1;
         if(view.getId() != NapisID.getId())
             sortByDate = true;
-        order *= -1;
         if(sortByDate)
             bubbleSort(spolArray, dataDrugiID, dataID);
         else
+
             bubbleSort(dataDrugiID, spolArray, dataID);
         ListAdapterJagenjcki listAdapterJagenjcki = new ListAdapterJagenjcki(ct, dataDrugiID, spolArray, this);
         recyclerView.setAdapter(listAdapterJagenjcki);
         recyclerView.setLayoutManager(new LinearLayoutManager(ct));
-    }
-
-    public void launchAddOvca(View view) {
-        Intent intent = new Intent(this, AddOvcaActivity.class);
-        startActivity(intent);
     }
 
     public void launchAddJagenjcek(View view) {
@@ -231,6 +226,7 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
     protected void onResume() {
         super.onResume();
         listAdapterJagenjcki.Clear();
+        dataID.clear();
         prikaziJagenjcki();
     }
 }
