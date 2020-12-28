@@ -14,16 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListAdapterGonitve  extends RecyclerView.Adapter<ListAdapterGonitve.MyViewHolder>{
-    ArrayList<Integer> arrayListID;
+    ArrayList<String> arrayListOvcaID;
     ArrayList<String> arrayListDatum;
     ArrayList<String> arrayListPredviden;
     Context context;
     private OnClickListener mOnClickListener;
     List<String> filteredUserDataList;
 
-    public ListAdapterGonitve(Context ct, ArrayList<Integer> dataID, ArrayList<String> dataDatum, ArrayList<String> predvidenDatum, OnClickListener onClickListener){
+    public ListAdapterGonitve(Context ct, ArrayList<String> dataID, ArrayList<String> dataDatum, ArrayList<String> predvidenDatum, OnClickListener onClickListener){
         context=ct;
-        arrayListID = dataID;
+        arrayListOvcaID = dataID;
         arrayListDatum = dataDatum;
         arrayListPredviden = predvidenDatum;
         this.filteredUserDataList = dataDatum;
@@ -40,7 +40,7 @@ public class ListAdapterGonitve  extends RecyclerView.Adapter<ListAdapterGonitve
 
     @Override
     public void onBindViewHolder(@NonNull ListAdapterGonitve.MyViewHolder holder, int position) {
-        holder.textView1.setText(arrayListID.get(position).toString());
+        holder.textView1.setText(arrayListOvcaID.get(position).toString());
         holder.textView2.setText(filteredUserDataList.get(position));
         holder.textView3.setText(arrayListPredviden.get(position));
     }
@@ -106,7 +106,7 @@ public class ListAdapterGonitve  extends RecyclerView.Adapter<ListAdapterGonitve
     }
     public void Clear(){
         arrayListDatum.clear();
-        arrayListID.clear();
+        arrayListOvcaID.clear();
         filteredUserDataList.clear();
         arrayListPredviden.clear();
     }

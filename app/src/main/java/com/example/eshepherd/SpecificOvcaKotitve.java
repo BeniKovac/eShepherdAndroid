@@ -33,6 +33,7 @@ public class SpecificOvcaKotitve extends AppCompatActivity implements ListAdapte
     Context ct;
     ArrayList<Integer> dataID;
     ArrayList<String> dataDatum;
+    ArrayList<String> dataOvcaID;
     ListAdapterKotitve listAdapterkotitve;
     Intent intent;
     String specificOvcaID;
@@ -46,11 +47,12 @@ public class SpecificOvcaKotitve extends AppCompatActivity implements ListAdapte
         recyclerView = findViewById(R.id.recycler_view_kotitve);
         dataID = new ArrayList<>();
         dataDatum = new ArrayList<>();
+        dataOvcaID = new ArrayList<>();
 
         intent = getIntent();
         specificOvcaID = intent.getStringExtra("SpecificID");
 
-        listAdapterkotitve = new ListAdapterKotitve(ct, dataID, dataDatum, this);
+        listAdapterkotitve = new ListAdapterKotitve(ct, dataID, dataOvcaID, dataDatum, this);
         prikaziKotitve();
     }
 
@@ -91,8 +93,10 @@ public class SpecificOvcaKotitve extends AppCompatActivity implements ListAdapte
                         datumRojstva = datumRojstva.substring(0,10);
                     else
                         datumRojstva = "neznan";
+                    String OvcaID = object.getString("ovcaID");
                     dataID.add(ID);
                     dataDatum.add(datumRojstva);
+                    dataOvcaID.add(OvcaID);
                     recyclerView.setAdapter(listAdapterkotitve);
                     recyclerView.setLayoutManager(new LinearLayoutManager(ct));
                 }catch (JSONException e){
@@ -100,12 +104,6 @@ public class SpecificOvcaKotitve extends AppCompatActivity implements ListAdapte
                     return;
                 }
             }
-            /*                                                              DISPLAY Z TextView-om
-            for(String row : data){
-                String currentText = kotitve.getText().toString();
-                kotitve.setText(currentText + "\n\n" + row);
-            }
-             */
         }
     };
 

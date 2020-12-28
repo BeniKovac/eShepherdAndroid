@@ -35,6 +35,7 @@ public class SpecificOvenGonitve extends AppCompatActivity implements ListAdapte
     ArrayList<Integer> dataID = new ArrayList<>();
     ArrayList<String> dataDatum = new ArrayList<>();
     ArrayList<String> predvidenDatum = new ArrayList<>();
+    ArrayList<String> dataOvenID = new ArrayList<>();
     ListAdapterGonitve listAdaptergonitve;
     Intent intent;
     String specificOvenID;
@@ -46,7 +47,7 @@ public class SpecificOvenGonitve extends AppCompatActivity implements ListAdapte
         //gonitve = (TextView) findViewById(R.id.gonitve);
         ct = this;
         recyclerView = findViewById(R.id.recycler_view_gonitve);
-        listAdaptergonitve = new ListAdapterGonitve(ct, dataID, dataDatum, predvidenDatum,this);
+        listAdaptergonitve = new ListAdapterGonitve(ct, dataOvenID, dataDatum, predvidenDatum,this);
         intent = getIntent();
         specificOvenID = intent.getStringExtra("SpecificID");
         prikaziGonitve();
@@ -84,6 +85,7 @@ public class SpecificOvenGonitve extends AppCompatActivity implements ListAdapte
                     Integer ID  = object.getInt("gonitevID");
                     if(ID == null)
                         continue;
+                    String ovenID = object.getString("ovenID");
                     String datumRojstva  = object.getString("datumGonitve");
                     if(!datumRojstva.equals("null"))
                         datumRojstva = datumRojstva.substring(0,10);
@@ -97,6 +99,7 @@ public class SpecificOvenGonitve extends AppCompatActivity implements ListAdapte
                     dataID.add(ID);
                     dataDatum.add(datumRojstva);
                     predvidenDatum.add(predDatum);
+                    dataOvenID.add(ovenID);
                     recyclerView.setAdapter(listAdaptergonitve);
                     recyclerView.setLayoutManager(new LinearLayoutManager(ct));
                 }catch (JSONException e){

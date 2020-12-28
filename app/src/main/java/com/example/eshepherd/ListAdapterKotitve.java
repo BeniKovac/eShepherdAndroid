@@ -16,14 +16,16 @@ import java.util.List;
 public class ListAdapterKotitve extends RecyclerView.Adapter<ListAdapterKotitve.MyViewHolder> {
     ArrayList<Integer> arrayListID;
     ArrayList<String> arrayListDatum;
+    ArrayList<String> arrayListOvcaID;
     Context context;
     private OnClickListener mOnClickListener;
     List<String> filteredUserDataList;
 
-    public ListAdapterKotitve(Context ct, ArrayList<Integer> dataID, ArrayList<String> dataDatum, OnClickListener onClickListener){
+    public ListAdapterKotitve(Context ct, ArrayList<Integer> dataID, ArrayList<String> dataOvcaID, ArrayList<String> dataDatum, OnClickListener onClickListener){
         context=ct;
         arrayListID = dataID;
         arrayListDatum = dataDatum;
+        arrayListOvcaID = dataOvcaID;
         this.filteredUserDataList = dataDatum;
         this.mOnClickListener = onClickListener;
     }
@@ -40,6 +42,7 @@ public class ListAdapterKotitve extends RecyclerView.Adapter<ListAdapterKotitve.
     public void onBindViewHolder(@NonNull ListAdapterKotitve.MyViewHolder holder, int position) {
         holder.textView1.setText(arrayListID.get(position).toString());
         holder.textView2.setText(filteredUserDataList.get(position).toString());
+        holder.textView3.setText(arrayListOvcaID.get(position));
     }
 
     @Override
@@ -49,7 +52,7 @@ public class ListAdapterKotitve extends RecyclerView.Adapter<ListAdapterKotitve.
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView textView1, textView2;
+        TextView textView1, textView2, textView3;
         ImageView myImage;
         OnClickListener onClickListener;
 
@@ -57,6 +60,7 @@ public class ListAdapterKotitve extends RecyclerView.Adapter<ListAdapterKotitve.
             super(itemView);
             textView1 = itemView.findViewById(R.id.textView_ID);
             textView2 = itemView.findViewById(R.id.textView_Datum);
+            textView3 = itemView.findViewById(R.id.textView_OvcaID);
             myImage = itemView.findViewById(R.id.kotitev_img);
             this.onClickListener = onClickListener;
 
@@ -105,6 +109,7 @@ public class ListAdapterKotitve extends RecyclerView.Adapter<ListAdapterKotitve.
     public void Clear(){
         arrayListDatum.clear();
         arrayListID.clear();
+        arrayListOvcaID.clear();
         filteredUserDataList.clear();
     }
 

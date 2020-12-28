@@ -36,6 +36,7 @@ public class KotitveDisplayActivity extends AppCompatActivity implements ListAda
     Context ct;
     ArrayList<Integer> dataID;
     ArrayList<String> dataDatum;
+    ArrayList<String> dataOvcaID;
     ListAdapterKotitve listAdapterkotitve;
     EditText searchView;
     CharSequence search = "";
@@ -52,7 +53,9 @@ public class KotitveDisplayActivity extends AppCompatActivity implements ListAda
         recyclerView = findViewById(R.id.recycler_view_kotitve);
         dataID = new ArrayList<>();
         dataDatum = new ArrayList<>();
-        listAdapterkotitve = new ListAdapterKotitve(ct, dataID, dataDatum, this);
+        dataOvcaID = new ArrayList<>();
+
+        listAdapterkotitve = new ListAdapterKotitve(ct, dataID, dataOvcaID, dataDatum, this);
 
         searchView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -107,8 +110,10 @@ public class KotitveDisplayActivity extends AppCompatActivity implements ListAda
                         datumRojstva = datumRojstva.substring(0,10);
                     else
                         datumRojstva = "neznan";
+                    String OvcaID = object.getString("ovcaID");
                     dataID.add(ID);
                     dataDatum.add(datumRojstva);
+                    dataOvcaID.add(OvcaID);
                     recyclerView.setAdapter(listAdapterkotitve);
                     recyclerView.setLayoutManager(new LinearLayoutManager(ct));
                 }catch (JSONException e){
@@ -116,12 +121,6 @@ public class KotitveDisplayActivity extends AppCompatActivity implements ListAda
                     return;
                 }
             }
-            /*                                                              DISPLAY Z TextView-om
-            for(String row : data){
-                String currentText = kotitve.getText().toString();
-                kotitve.setText(currentText + "\n\n" + row);
-            }
-             */
         }
     };
 
@@ -159,6 +158,7 @@ public class KotitveDisplayActivity extends AppCompatActivity implements ListAda
     protected void onResume() {
         super.onResume();
         listAdapterkotitve.Clear();
+        listAdapterkotitve = new ListAdapterKotitve(ct, dataID, dataOvcaID, dataDatum, this);
         prikaziKotitve();
     }
 }
