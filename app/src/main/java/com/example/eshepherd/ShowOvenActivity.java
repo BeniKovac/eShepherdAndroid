@@ -109,7 +109,7 @@ public class ShowOvenActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.delete:
-                if(gonitve == null)
+                if(gonitve == null || gonitve.length() == 0)
                     deleteOven();
                 else
                     moveOven();

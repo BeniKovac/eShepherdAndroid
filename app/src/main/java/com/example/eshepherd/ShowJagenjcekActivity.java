@@ -89,10 +89,7 @@ public class ShowJagenjcekActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.delete:
-                //if (steviloMladihTv.getText().length() == 0)
                 deleteJagenjcek();
-                //        else
-                //          Toast.makeText(getApplicationContext(), "Kotitev ne more biti izbrisana, ker že ima jagenjčke", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return false;

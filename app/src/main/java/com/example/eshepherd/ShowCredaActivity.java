@@ -92,7 +92,7 @@ public class ShowCredaActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.delete:
-                if(seznamOvac == null)
+                if(seznamOvac == null || seznamOvac.length() == 0)
                     deleteCreda();
                 else
                     Toast.makeText(this,"Creda vsebuje ovce!", Toast.LENGTH_LONG).show();

@@ -147,7 +147,7 @@ public class ShowOvcaActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.delete:
-                if(kotitve == null)
+                if(kotitve == null || kotitve.length() == 0)
                     deleteOvca();
                 else
                     moveOvca();
