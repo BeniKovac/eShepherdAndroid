@@ -92,7 +92,7 @@ public class SpecificCredaOvce extends AppCompatActivity implements ListAdapterO
                     JSONObject object = response.getJSONObject(i);
                     String ID  = object.getString("ovcaID");
                     String CredaID  = object.getString("credaID");
-                    if(CredaID.equals("0") || !CredaID.equals(specificCredaID))
+                    if(ID.equals("/") || !CredaID.equals(specificCredaID))
                         continue;
                     String datumRojstva  = object.getString("datumRojstva");
                     if(!datumRojstva.equals("null"))
@@ -152,9 +152,9 @@ public class SpecificCredaOvce extends AppCompatActivity implements ListAdapterO
     }
 
     public int compare(String str1, String str2){
-        if(str1.equals("neznan"))
+        if(str1.equals("neznan") || str1.equals("/"))
             return -1;
-        if(str2.equals("neznan"))
+        if(str2.equals("neznan") || str2.equals("/"))
             return 1;
         if (date.isValidDate(str1)) {
             try {
