@@ -239,4 +239,10 @@ public class ShowKotitevActivity extends AppCompatActivity {
         resume = true;
         prikaziKotitev(iskanaKotitev, resume);
     }
+
+    public void addJagenjcka(View view) {
+        Intent intent = new Intent(this, AddJagenjcekActivity.class);
+        intent.putExtra("kotitevID", iskanaKotitev);
+        startActivity(intent);
+    }
 }

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ShowKotitevActivity"
     tools:ignore="MissingDefaultResource">
 
@@ -17,94 +16,85 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/DatumKotitveTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/datum_kotitve"
-            android:textStyle="bold"
-            android:textSize="8pt"/>
+            android:textSize="8pt"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/DatumKotitve"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/SteviloMladihTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/stevilo_mladih"
-            android:textStyle="bold"
-            android:textSize="8pt"/>
+            android:textSize="8pt"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/SteviloMladih"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/OvcaIDtv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/id_ovce"
-            android:textStyle="bold"
-            android:textSize="8pt"/>
+            android:textSize="8pt"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/OvcaID"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/OvenIDtv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/id_ovna"
-            android:textStyle="bold"
-            android:textSize="8pt" />
+            android:textSize="8pt"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/OvenID"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/SteviloMrtvihTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tevilo_mrtvorojenih"
-            android:textStyle="bold"
-            android:textSize="8pt"/>
+            android:textSize="8pt"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/SteviloMrtvih"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/OpombeTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:text="@string/opombe"
-            android:textSize="8pt"/>
+            android:textSize="8pt"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/Opombe"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            />
-
-
+            android:layout_height="wrap_content" />
 
 
     </LinearLayout>
@@ -124,7 +114,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            app:menu="@menu/bottom_nav_menu_kotitve"/>
+            app:menu="@menu/bottom_nav_menu_kotitve" />
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
@@ -132,8 +122,30 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="40dp"
+        android:onClick="editKotitev"
         android:src="@drawable/edit_icon"
-        app:layout_anchor="@id/bottomAppBar"
-        android:onClick="editKotitev"/>
+        app:layout_insetEdge="right"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="end|bottom"
+        android:onClick="addJagenjcka"
+        android:src="@drawable/plus_no_bg"
+        app:fabSize="mini"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="@id/fab"
+        app:layout_constraintEnd_toStartOf="@id/fab"
+        app:layout_constraintTop_toTopOf="@id/fab"
+        app:layout_constraintBottom_toTopOf="@id/fab"
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
