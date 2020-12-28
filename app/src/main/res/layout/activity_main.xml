@@ -35,8 +35,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/ovca_img"
-            android:layout_marginLeft="30dp"
-            android:text="Seznam ovac"
+            android:layout_marginLeft="70dp"
+            android:text="Ovce"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -58,9 +58,9 @@
             android:layout_below="@id/textintro"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="157dp"
-            android:layout_marginRight="38dp"
-            android:text="Seznam ovnov"
+            android:layout_marginTop="147dp"
+            android:layout_marginRight="86dp"
+            android:text="Ovni"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -79,9 +79,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/dodaj_ovco_text"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="68dp"
             android:layout_marginTop="129dp"
-            android:text="Seznam kotitev"
+            android:text="Kotitve"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -105,8 +105,8 @@
             android:layout_below="@id/gonitev_img"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="30dp"
-            android:text="Seznam gonitev"
+            android:layout_marginRight="70dp"
+            android:text="Gonitve"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -128,8 +128,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/crede_img"
-            android:layout_marginLeft="42dp"
-            android:text="Seznam čred"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="74dp"
+            android:layout_marginLeft="74dp"
+            android:text="Črede"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -153,10 +156,10 @@
             android:layout_below="@id/crede_img"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginEnd="18dp"
-            android:layout_marginRight="18dp"
-            android:text="Seznam jagenjckov"
-            android:textSize="19dp"
+            android:layout_marginEnd="62dp"
+            android:layout_marginRight="62dp"
+            android:text="Jagenjčki"
+            android:textSize="20dp"
             android:textStyle="bold" />
     </RelativeLayout>
 
