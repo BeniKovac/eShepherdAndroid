@@ -44,6 +44,8 @@ public class OvceDisplayActivity extends AppCompatActivity implements ListAdapte
     int order = 1;
     ArrayList<String> dataID;
     ArrayList<String> dataDatum;
+    TextView StevilkaOvceTv;
+    TextView DatumRojstvaTv;
     boolean sortByDate = false;
     TextView NapisID;
     ListAdapterOvce listAdapterOvce;
@@ -56,6 +58,8 @@ public class OvceDisplayActivity extends AppCompatActivity implements ListAdapte
         setContentView(R.layout.activity_ovce_display);
 
         searchView = findViewById(R.id.editText);
+        StevilkaOvceTv = findViewById(R.id.textView_IDtitle);
+        DatumRojstvaTv = findViewById(R.id.textView_DatumTitle);
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
@@ -200,7 +204,25 @@ public class OvceDisplayActivity extends AppCompatActivity implements ListAdapte
     public void ChangeDirection(View view) {
         if(view.getId() != NapisID.getId())
             sortByDate = true;
+        else
+            sortByDate = false;
         order *= -1;
+        if(!sortByDate && order == 1) {
+            StevilkaOvceTv.setText("Številka ovce ▼");
+            DatumRojstvaTv.setText("Datum Rojstva ⇄");
+        }
+        else if(!sortByDate) {
+            StevilkaOvceTv.setText("Številka ovce ▲");
+            DatumRojstvaTv.setText("Datum Rojstva ⇄");
+        }
+        else if (sortByDate && order == 1) {
+            StevilkaOvceTv.setText("Številka ovce ⇄");
+            DatumRojstvaTv.setText("Datum Rojstva ▼");
+        }
+        else if (sortByDate) {
+            StevilkaOvceTv.setText("Številka ovce ⇄");
+            DatumRojstvaTv.setText("Datum Rojstva ▲");
+        }
         if(sortByDate)
             bubbleSort(dataDatum, dataID);
         else

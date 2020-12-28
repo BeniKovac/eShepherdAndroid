@@ -40,6 +40,8 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
     private RequestQueue requestQueue;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Jagenjcki";
     RecyclerView recyclerView;
+    TextView StevilkaJagenjckaTv;
+    TextView SpolTv;
     Context ct;
     int order = 1;
     ArrayList<Integer> dataID, kotitevID;
@@ -55,6 +57,9 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jagenjcki_display);
+
+        StevilkaJagenjckaTv = findViewById(R.id.textView_IDtitle);
+        SpolTv = findViewById(R.id.textView_SpolTitle);
 
         searchView = findViewById(R.id.editText);
 
@@ -202,6 +207,24 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
         order *= -1;
         if(view.getId() != NapisID.getId())
             sortByDate = true;
+        else
+            sortByDate = false;
+        if(!sortByDate && order == 1) {
+            StevilkaJagenjckaTv.setText("Številka jagenjcka ▼");
+            SpolTv.setText("Spol ⇄");
+        }
+        else if(!sortByDate) {
+            StevilkaJagenjckaTv.setText("Številka jagenjcka ▲");
+            SpolTv.setText("Spol ⇄");
+        }
+        else if (sortByDate && order == 1) {
+            StevilkaJagenjckaTv.setText("Številka jagenjcka ⇄");
+            SpolTv.setText("Spol ▼");
+        }
+        else if (sortByDate) {
+            StevilkaJagenjckaTv.setText("Številka jagenjcka ⇄");
+            SpolTv.setText("Spol ▲");
+        }
         if(sortByDate)
             bubbleSort(spolArray, dataDrugiID, dataID);
         else

@@ -49,7 +49,7 @@
         android:layout_marginLeft="110dp"
         android:layout_marginTop="10dp"
         android:textStyle="bold"
-        android:text="Številka ovce"
+        android:text="Številka ovce ▼"
         android:onClick="ChangeDirection"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
@@ -59,10 +59,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="17dp"
         android:layout_marginTop="10dp"
         android:onClick="ChangeDirection"
-        android:text="Datum Rojstva"
+        android:text="Datum Rojstva ⇄"
         app:layout_constraintStart_toEndOf="@+id/textView_IDtitle"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
 
