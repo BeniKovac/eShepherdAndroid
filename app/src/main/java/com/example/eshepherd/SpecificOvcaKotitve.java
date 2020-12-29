@@ -52,7 +52,7 @@ public class SpecificOvcaKotitve extends AppCompatActivity implements ListAdapte
         intent = getIntent();
         specificOvcaID = intent.getStringExtra("SpecificID");
 
-        listAdapterkotitve = new ListAdapterKotitve(ct, dataID, dataOvcaID, dataDatum, this);
+        listAdapterkotitve = new ListAdapterKotitve(ct, dataOvcaID, dataDatum, this);
         prikaziKotitve();
     }
 
