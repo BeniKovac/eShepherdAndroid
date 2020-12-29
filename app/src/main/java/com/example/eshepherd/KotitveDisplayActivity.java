@@ -55,7 +55,7 @@ public class KotitveDisplayActivity extends AppCompatActivity implements ListAda
         dataDatum = new ArrayList<>();
         dataOvcaID = new ArrayList<>();
 
-        listAdapterkotitve = new ListAdapterKotitve(ct, dataID, dataOvcaID, dataDatum, this);
+        listAdapterkotitve = new ListAdapterKotitve(ct, dataOvcaID, dataDatum, this);
 
         searchView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -158,7 +158,7 @@ public class KotitveDisplayActivity extends AppCompatActivity implements ListAda
     protected void onResume() {
         super.onResume();
         listAdapterkotitve.Clear();
-        listAdapterkotitve = new ListAdapterKotitve(ct, dataID, dataOvcaID, dataDatum, this);
+        listAdapterkotitve = new ListAdapterKotitve(ct, dataOvcaID, dataDatum, this);
         prikaziKotitve();
     }
 }
