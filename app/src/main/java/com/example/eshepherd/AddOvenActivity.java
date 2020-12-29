@@ -38,7 +38,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddOvenActivity extends AppCompatActivity {
+public class AddOvenActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private EditText OvenID, DatumRojstva, Pasma, SteviloSorojencev, Stanje, Opombe,Poreklo;
 
@@ -46,7 +46,8 @@ public class AddOvenActivity extends AppCompatActivity {
     private static String mama;
     private String oce, creda;
     String[] values;
-    private ArrayList<String> mamaList, oceList, credeList;
+    private ArrayList<String> mamaList, oceList;
+    public ArrayList<String> credeList = new ArrayList<>();
 
 
 
@@ -76,64 +77,35 @@ public class AddOvenActivity extends AppCompatActivity {
         values = new String[]{"/", "/", "0"}; // mama, oce, creda
         mamaSpinner = (Spinner) findViewById(R.id.mamaID);
         mamaList = new ArrayList<>();
-        dodajMame();
-        ArrayAdapter<String> adapterMama = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, mamaList) ;
+        mamaList.add("a");
+        mamaList.add("b");
+        mamaList.add("c");
+
+        ArrayAdapter<String> adapterMama = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mamaList);
+        //Log.d("mama", mamaList.get(0));
         adapterMama.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mamaSpinner.setOnItemSelectedListener(this);
         mamaSpinner.setAdapter(adapterMama);
-        mamaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("pred izbranim", "!!!");
-                mama = mamaList.get(position);
-                values[0] = mama;
-                Toast.makeText(getApplicationContext(), mama, Toast.LENGTH_SHORT).show();
-                Log.d("mama", mama);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                mama ="/";
-            }
-
-        });
 
 
         oceSpinner = (Spinner) findViewById(R.id.oceID);
         oceList = new ArrayList<>();
         dodajOcete();
+        //Log.d("oce", oceList.get(0));
         ArrayAdapter<String> adapterOce = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, oceList);
         adapterOce.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        oceSpinner.setOnItemSelectedListener(this);
         oceSpinner.setAdapter(adapterOce);
-        oceSpinner.setSelection(0, true);
-        oceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                oce = parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
 
         credaSpinner = (Spinner) findViewById(R.id.CredaID);
-        credeList = new ArrayList<>();
         dodajCrede();
+
+        //Log.d("creda", credeList.get(0));
         ArrayAdapter<String> adapterCreda = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, credeList);
         adapterCreda.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        credaSpinner.setOnItemSelectedListener(this);
         credaSpinner.setAdapter(adapterCreda);
-        credaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                creda = parent.getItemAtPosition(position).toString();
-                ((TextView) view).setTextColor(Color.BLACK);
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
 
     }
 
@@ -148,15 +120,15 @@ public class AddOvenActivity extends AppCompatActivity {
         try {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("ovenID", OvenID.getText());
-            jsonBody.put("credaID", "2");
+            jsonBody.put("credaID", creda);
 
             //Date wrongFormatDate = (Date) DatumRojstva.getText();
             //SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
             jsonBody.put("datumRojstva", DatumRojstva.getText());
             //01.01.2020 --> "2020-01-01"
             jsonBody.put("pasma", Pasma.getText());
-            jsonBody.put("mamaID", "/");
-            jsonBody.put("oceID", "/");
+            jsonBody.put("mamaID", mama);
+            jsonBody.put("oceID", oce);
             if (SteviloSorojencev.getText().length() == 0)
                 jsonBody.put("steviloSorojencev", 0);
             else
@@ -290,10 +262,11 @@ public class AddOvenActivity extends AppCompatActivity {
 
                 }
             }
-            for (String row : data){
-                mamaList.add(row);
-                Log.d("mamaList", row);
+            for (int i = 0; i < data.size(); i++) {
+                mamaList.add(data.get(i));
+                //Log.d("mamaList", mamaList.get(i));
             }
+
         }
     };
 
@@ -313,9 +286,9 @@ public class AddOvenActivity extends AppCompatActivity {
 
                 }
             }
-            for (String row : data){
-                oceList.add(row);
-                Log.d("oceList", row);
+            for (int i = 0; i < data.size(); i++) {
+                oceList.add(data.get(i));
+                //Log.d("oceList", oceList.get(i));
             }
         }
     };
@@ -336,9 +309,9 @@ public class AddOvenActivity extends AppCompatActivity {
 
                 }
             }
-            for (String row : data){
-                credeList.add(row);
-                Log.d("credaList", row);
+            for (int i = 0; i < data.size(); i++) {
+                credeList.add(data.get(i));
+                Log.d("credeList", credeList.get(i));
             }
         }
     };
@@ -351,4 +324,15 @@ public class AddOvenActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        //creda = credaSpinner.getItemAtPosition(position).toString();
+        //mama = mamaSpinner.getItemAtPosition(position).toString();
+        //oce = oceSpinner.getItemAtPosition(position).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
