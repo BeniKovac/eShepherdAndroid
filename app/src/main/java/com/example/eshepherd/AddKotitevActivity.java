@@ -38,7 +38,7 @@ import java.util.Map;
 public class AddKotitevActivity extends AppCompatActivity {
     private EditText DatumKotitve, SteviloMrtvih, Opombe;
     private Spinner mamaSpinner, oceSpinner;
-    String mama, oce;
+    private static String mama, oce;
     private TextView statusKotitev; // za status - dodajam
     private RequestQueue requestQueue;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Kotitve";
@@ -65,17 +65,15 @@ public class AddKotitevActivity extends AppCompatActivity {
         mamaSpinner = (Spinner) findViewById(R.id.OvcaID);
         mamaList = new ArrayList<>();
         dodajMame();
-        ArrayAdapter<String> adapterMama = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mamaList);
-        adapterMama.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mamaSpinner.setAdapter(adapterMama);
         mamaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mama = parent.getItemAtPosition(position).toString();
+                mama = parent.getSelectedItem().toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
@@ -83,19 +81,18 @@ public class AddKotitevActivity extends AppCompatActivity {
         oceSpinner = (Spinner) findViewById(R.id.OvenID);
         oceList = new ArrayList<>();
         dodajOcete();
-        ArrayAdapter<String> adapterOce = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, oceList);
-        adapterOce.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        oceSpinner.setAdapter(adapterOce);
         oceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                oce = parent.getItemAtPosition(position).toString();
+                oce = parent.getSelectedItem().toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
+
         intentGetKotitev = getIntent();
         if (intentGetKotitev != null)
             kotitevID = intentGetKotitev.getIntExtra("ID", 0);
@@ -113,8 +110,8 @@ public class AddKotitevActivity extends AppCompatActivity {
         try {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("datumKotitve", DatumKotitve.getText());
-            jsonBody.put("ovcaID", "632");
-            jsonBody.put("ovenID", "666");
+            jsonBody.put("ovcaID", mama);
+            jsonBody.put("ovenID", oce);
             if (SteviloMrtvih.getText().length() == 0)
                 jsonBody.put("steviloMrtvih", 0);
             else
@@ -239,6 +236,9 @@ public class AddKotitevActivity extends AppCompatActivity {
                 mamaList.add(row);
                 Log.d("mamaList", row);
             }
+            ArrayAdapter<String> adapterMama = new ArrayAdapter<String>(AddKotitevActivity.this, android.R.layout.simple_spinner_item, mamaList);
+            adapterMama.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mamaSpinner.setAdapter(adapterMama);
         }
     };
 
@@ -262,6 +262,9 @@ public class AddKotitevActivity extends AppCompatActivity {
                 oceList.add(row);
                 Log.d("oceList", row);
             }
+            ArrayAdapter<String> adapterOce = new ArrayAdapter<String>(AddKotitevActivity.this, android.R.layout.simple_spinner_item, oceList);
+            adapterOce.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            oceSpinner.setAdapter(adapterOce);
         }
     };
     private Response.ErrorListener errorListener = new Response.ErrorListener() {
@@ -270,7 +273,6 @@ public class AddKotitevActivity extends AppCompatActivity {
             Log.d("REST error", error.getMessage());
         }
     };
-
 
 
 

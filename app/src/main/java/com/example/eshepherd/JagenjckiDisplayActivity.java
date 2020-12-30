@@ -242,7 +242,7 @@ public class JagenjckiDisplayActivity extends AppCompatActivity implements ListA
                 max = kotitevID.get(i);
         }
         Intent intent = new Intent(this, AddJagenjcekActivity.class);
-        intent.putExtra("kotitevID", max + 1); // avtomatsko dodaj zadnji kotitvi
+        intent.putExtra("kotitevID", max); // avtomatsko dodaj zadnji kotitvi
         startActivity(intent);
     }
 

@@ -38,16 +38,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddOvenActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class AddOvenActivity extends AppCompatActivity {
 
     private EditText OvenID, DatumRojstva, Pasma, SteviloSorojencev, Stanje, Opombe,Poreklo;
 
     private Spinner mamaSpinner, oceSpinner, credaSpinner, CredaID;
     private static String mama;
     private String oce, creda;
-    String[] values;
     private ArrayList<String> mamaList, oceList;
-    public ArrayList<String> credeList = new ArrayList<>();
+    public ArrayList<String> credeList;
 
 
 
@@ -74,37 +73,53 @@ public class AddOvenActivity extends AppCompatActivity implements AdapterView.On
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-        values = new String[]{"/", "/", "0"}; // mama, oce, creda
         mamaSpinner = (Spinner) findViewById(R.id.mamaID);
         mamaList = new ArrayList<>();
-        mamaList.add("a");
-        mamaList.add("b");
-        mamaList.add("c");
+        dodajMame();
+        mamaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mama = parent.getSelectedItem().toString();
+            }
 
-        ArrayAdapter<String> adapterMama = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mamaList);
-        //Log.d("mama", mamaList.get(0));
-        adapterMama.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mamaSpinner.setOnItemSelectedListener(this);
-        mamaSpinner.setAdapter(adapterMama);
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         oceSpinner = (Spinner) findViewById(R.id.oceID);
         oceList = new ArrayList<>();
         dodajOcete();
-        //Log.d("oce", oceList.get(0));
-        ArrayAdapter<String> adapterOce = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, oceList);
-        adapterOce.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        oceSpinner.setOnItemSelectedListener(this);
-        oceSpinner.setAdapter(adapterOce);
+        oceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                oce = parent.getSelectedItem().toString();
+                Log.d("oce", oce);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         credaSpinner = (Spinner) findViewById(R.id.CredaID);
+        credeList = new ArrayList<>();
         dodajCrede();
+        credaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                creda = parent.getSelectedItem().toString();
+            }
 
-        //Log.d("creda", credeList.get(0));
-        ArrayAdapter<String> adapterCreda = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, credeList);
-        adapterCreda.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        credaSpinner.setOnItemSelectedListener(this);
-        credaSpinner.setAdapter(adapterCreda);
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
     }
@@ -244,6 +259,7 @@ public class AddOvenActivity extends AppCompatActivity implements AdapterView.On
             }
         };
         requestQueue.add(request);
+
     }
 
     private Response.Listener<JSONArray> jsonArrayListenerMama = new Response.Listener<JSONArray>() {
@@ -253,8 +269,10 @@ public class AddOvenActivity extends AppCompatActivity implements AdapterView.On
             for (int i = 0; i < response.length(); i++){
                 try {
                     JSONObject object =response.getJSONObject(i);
+                    String creda = object.getString("credaID");
                     String ovca = object.getString("ovcaID");
-                    data.add(ovca);
+                    if (! creda.equals("0"))
+                        data.add(ovca);
 
                 } catch (JSONException e){
                     e.printStackTrace();
@@ -266,7 +284,10 @@ public class AddOvenActivity extends AppCompatActivity implements AdapterView.On
                 mamaList.add(data.get(i));
                 //Log.d("mamaList", mamaList.get(i));
             }
+            ArrayAdapter<String> adapterMama = new ArrayAdapter<String>(AddOvenActivity.this, android.R.layout.simple_spinner_item, mamaList);
+            adapterMama.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+            mamaSpinner.setAdapter(adapterMama);
         }
     };
 
@@ -277,8 +298,10 @@ public class AddOvenActivity extends AppCompatActivity implements AdapterView.On
             for (int i = 0; i < response.length(); i++){
                 try {
                     JSONObject object =response.getJSONObject(i);
-                    String ovca = object.getString("ovenID");
-                    data.add(ovca);
+                    String creda = object.getString("credaID");
+                    String oven = object.getString("ovenID");
+                    if (! creda.equals("0"))
+                        data.add(oven);
 
                 } catch (JSONException e){
                     e.printStackTrace();
@@ -290,6 +313,10 @@ public class AddOvenActivity extends AppCompatActivity implements AdapterView.On
                 oceList.add(data.get(i));
                 //Log.d("oceList", oceList.get(i));
             }
+
+            ArrayAdapter<String> adapterOce = new ArrayAdapter<String>(AddOvenActivity.this, android.R.layout.simple_spinner_item, oceList);
+            adapterOce.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            oceSpinner.setAdapter(adapterOce);
         }
     };
 
@@ -301,7 +328,8 @@ public class AddOvenActivity extends AppCompatActivity implements AdapterView.On
                 try {
                     JSONObject object =response.getJSONObject(i);
                     String creda = object.getString("credeID");
-                    data.add(creda);
+                    if (! creda.equals("0"))
+                        data.add(creda);
 
                 } catch (JSONException e){
                     e.printStackTrace();
@@ -313,7 +341,15 @@ public class AddOvenActivity extends AppCompatActivity implements AdapterView.On
                 credeList.add(data.get(i));
                 Log.d("credeList", credeList.get(i));
             }
+
+            ArrayAdapter<String> adapterCreda = new ArrayAdapter<String>(AddOvenActivity.this, android.R.layout.simple_spinner_item, credeList);
+            adapterCreda.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            credaSpinner.setAdapter(adapterCreda);
+
+
         }
+
     };
 
 
@@ -324,15 +360,6 @@ public class AddOvenActivity extends AppCompatActivity implements AdapterView.On
         }
     };
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //creda = credaSpinner.getItemAtPosition(position).toString();
-        //mama = mamaSpinner.getItemAtPosition(position).toString();
-        //oce = oceSpinner.getItemAtPosition(position).toString();
-    }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
 
-    }
 }
