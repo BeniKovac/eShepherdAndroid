@@ -77,64 +77,49 @@ public class AddOvcaActivity extends AppCompatActivity {
         mamaSpinner = (Spinner) findViewById(R.id.mamaID);
         mamaList = new ArrayList<>();
         dodajMame();
-        ArrayAdapter<String> adapterMama = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mamaList);
-        adapterMama.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mamaSpinner.setAdapter(adapterMama);
         mamaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mama = parent.getItemAtPosition(position).toString();
-                ((TextView) view).setTextColor(Color.BLACK);
-                mamaSpinner.setSelection(position);
+                mama = parent.getSelectedItem().toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mama = "/";
+
             }
         });
-        mamaSpinner.setSelection(0);
+
 
         oceSpinner = (Spinner) findViewById(R.id.oceID);
         oceList = new ArrayList<>();
         dodajOcete();
-        ArrayAdapter<String> adapterOce = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, oceList);
-        adapterOce.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        oceSpinner.setAdapter(adapterOce);
-
         oceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                oce = parent.getItemAtPosition(position).toString();
-                Log.d("OCE", oce);
-                oceSpinner.setSelection(position);
+                oce = parent.getSelectedItem().toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                oce  = "/";
+
             }
         });
+
 
         credaSpinner = (Spinner) findViewById(R.id.CredaID);
         credeList = new ArrayList<>();
         dodajCrede();
-        ArrayAdapter<String> adapterCreda = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, credeList);
-        adapterCreda.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        credaSpinner.setAdapter(adapterCreda);
         credaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                creda = parent.getItemAtPosition(position).toString();
-                credaSpinner.setSelection(position);
+                creda = parent.getSelectedItem().toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                creda  = "1";
+
             }
         });
-
 
 
     }
@@ -281,8 +266,10 @@ public class AddOvcaActivity extends AppCompatActivity {
             for (int i = 0; i < response.length(); i++) {
                 try {
                     JSONObject object = response.getJSONObject(i);
+                    String creda = object.getString("credaID");
                     String ovca = object.getString("ovcaID");
-                    data.add(ovca);
+                    if (! creda.equals("0"))
+                        data.add(ovca);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -294,6 +281,9 @@ public class AddOvcaActivity extends AppCompatActivity {
                 mamaList.add(row);
                 Log.d("mamaList", row);
             }
+            ArrayAdapter<String> adapterMama = new ArrayAdapter<String>(AddOvcaActivity.this, android.R.layout.simple_spinner_item, mamaList);
+            adapterMama.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mamaSpinner.setAdapter(adapterMama);
         }
     };
 
@@ -304,8 +294,10 @@ public class AddOvcaActivity extends AppCompatActivity {
             for (int i = 0; i < response.length(); i++) {
                 try {
                     JSONObject object = response.getJSONObject(i);
+                    String creda = object.getString("credaID");
                     String oven = object.getString("ovenID");
-                    data.add(oven);
+                    if (! creda.equals("0"))
+                        data.add(oven);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -317,6 +309,9 @@ public class AddOvcaActivity extends AppCompatActivity {
                 oceList.add(row);
                 Log.d("oceList", row);
             }
+            ArrayAdapter<String> adapterOce = new ArrayAdapter<String>(AddOvcaActivity.this, android.R.layout.simple_spinner_item, oceList);
+            adapterOce.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            oceSpinner.setAdapter(adapterOce);
         }
     };
 
@@ -342,6 +337,10 @@ public class AddOvcaActivity extends AppCompatActivity {
                 credeList.add(row);
                 Log.d("credaList", row);
             }
+            ArrayAdapter<String> adapterCreda = new ArrayAdapter<String>(AddOvcaActivity.this, android.R.layout.simple_spinner_item, credeList);
+            adapterCreda.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            credaSpinner.setAdapter(adapterCreda);
         }
     };
     private Response.ErrorListener errorListener = new Response.ErrorListener() {
@@ -350,6 +349,7 @@ public class AddOvcaActivity extends AppCompatActivity {
             Log.d("REST error", error.getMessage());
         }
     };
+
 
 
 }

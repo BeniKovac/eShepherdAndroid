@@ -45,8 +45,8 @@ public class AddOvenActivity extends AppCompatActivity {
     private Spinner mamaSpinner, oceSpinner, credaSpinner, CredaID;
     private static String mama;
     private String oce, creda;
-    String[] values;
-    private ArrayList<String> mamaList, oceList, credeList;
+    private ArrayList<String> mamaList, oceList;
+    public ArrayList<String> credeList;
 
 
 
@@ -73,67 +73,54 @@ public class AddOvenActivity extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-        values = new String[]{"/", "/", "0"}; // mama, oce, creda
         mamaSpinner = (Spinner) findViewById(R.id.mamaID);
         mamaList = new ArrayList<>();
         dodajMame();
-        ArrayAdapter<String> adapterMama = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, mamaList) ;
-        adapterMama.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mamaSpinner.setAdapter(adapterMama);
         mamaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("pred izbranim", "!!!");
-                mama = mamaList.get(position);
-                values[0] = mama;
-                Toast.makeText(getApplicationContext(), mama, Toast.LENGTH_SHORT).show();
-                Log.d("mama", mama);
-
+                mama = parent.getSelectedItem().toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mama ="/";
-            }
 
+            }
         });
 
 
         oceSpinner = (Spinner) findViewById(R.id.oceID);
         oceList = new ArrayList<>();
         dodajOcete();
-        ArrayAdapter<String> adapterOce = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, oceList);
-        adapterOce.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        oceSpinner.setAdapter(adapterOce);
-        oceSpinner.setSelection(0, true);
         oceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                oce = parent.getItemAtPosition(position).toString();
+                oce = parent.getSelectedItem().toString();
+                Log.d("oce", oce);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
+
 
         credaSpinner = (Spinner) findViewById(R.id.CredaID);
         credeList = new ArrayList<>();
         dodajCrede();
-        ArrayAdapter<String> adapterCreda = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, credeList);
-        adapterCreda.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        credaSpinner.setAdapter(adapterCreda);
         credaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                creda = parent.getItemAtPosition(position).toString();
-                ((TextView) view).setTextColor(Color.BLACK);
+                creda = parent.getSelectedItem().toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
+
 
     }
 
@@ -148,15 +135,15 @@ public class AddOvenActivity extends AppCompatActivity {
         try {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("ovenID", OvenID.getText());
-            jsonBody.put("credaID", "2");
+            jsonBody.put("credaID", creda);
 
             //Date wrongFormatDate = (Date) DatumRojstva.getText();
             //SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
             jsonBody.put("datumRojstva", DatumRojstva.getText());
             //01.01.2020 --> "2020-01-01"
             jsonBody.put("pasma", Pasma.getText());
-            jsonBody.put("mamaID", "/");
-            jsonBody.put("oceID", "/");
+            jsonBody.put("mamaID", mama);
+            jsonBody.put("oceID", oce);
             if (SteviloSorojencev.getText().length() == 0)
                 jsonBody.put("steviloSorojencev", 0);
             else
@@ -272,6 +259,7 @@ public class AddOvenActivity extends AppCompatActivity {
             }
         };
         requestQueue.add(request);
+
     }
 
     private Response.Listener<JSONArray> jsonArrayListenerMama = new Response.Listener<JSONArray>() {
@@ -281,8 +269,10 @@ public class AddOvenActivity extends AppCompatActivity {
             for (int i = 0; i < response.length(); i++){
                 try {
                     JSONObject object =response.getJSONObject(i);
+                    String creda = object.getString("credaID");
                     String ovca = object.getString("ovcaID");
-                    data.add(ovca);
+                    if (! creda.equals("0"))
+                        data.add(ovca);
 
                 } catch (JSONException e){
                     e.printStackTrace();
@@ -290,10 +280,14 @@ public class AddOvenActivity extends AppCompatActivity {
 
                 }
             }
-            for (String row : data){
-                mamaList.add(row);
-                Log.d("mamaList", row);
+            for (int i = 0; i < data.size(); i++) {
+                mamaList.add(data.get(i));
+                //Log.d("mamaList", mamaList.get(i));
             }
+            ArrayAdapter<String> adapterMama = new ArrayAdapter<String>(AddOvenActivity.this, android.R.layout.simple_spinner_item, mamaList);
+            adapterMama.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            mamaSpinner.setAdapter(adapterMama);
         }
     };
 
@@ -304,8 +298,10 @@ public class AddOvenActivity extends AppCompatActivity {
             for (int i = 0; i < response.length(); i++){
                 try {
                     JSONObject object =response.getJSONObject(i);
-                    String ovca = object.getString("ovenID");
-                    data.add(ovca);
+                    String creda = object.getString("credaID");
+                    String oven = object.getString("ovenID");
+                    if (! creda.equals("0"))
+                        data.add(oven);
 
                 } catch (JSONException e){
                     e.printStackTrace();
@@ -313,10 +309,14 @@ public class AddOvenActivity extends AppCompatActivity {
 
                 }
             }
-            for (String row : data){
-                oceList.add(row);
-                Log.d("oceList", row);
+            for (int i = 0; i < data.size(); i++) {
+                oceList.add(data.get(i));
+                //Log.d("oceList", oceList.get(i));
             }
+
+            ArrayAdapter<String> adapterOce = new ArrayAdapter<String>(AddOvenActivity.this, android.R.layout.simple_spinner_item, oceList);
+            adapterOce.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            oceSpinner.setAdapter(adapterOce);
         }
     };
 
@@ -328,7 +328,8 @@ public class AddOvenActivity extends AppCompatActivity {
                 try {
                     JSONObject object =response.getJSONObject(i);
                     String creda = object.getString("credeID");
-                    data.add(creda);
+                    if (! creda.equals("0"))
+                        data.add(creda);
 
                 } catch (JSONException e){
                     e.printStackTrace();
@@ -336,11 +337,19 @@ public class AddOvenActivity extends AppCompatActivity {
 
                 }
             }
-            for (String row : data){
-                credeList.add(row);
-                Log.d("credaList", row);
+            for (int i = 0; i < data.size(); i++) {
+                credeList.add(data.get(i));
+                Log.d("credeList", credeList.get(i));
             }
+
+            ArrayAdapter<String> adapterCreda = new ArrayAdapter<String>(AddOvenActivity.this, android.R.layout.simple_spinner_item, credeList);
+            adapterCreda.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            credaSpinner.setAdapter(adapterCreda);
+
+
         }
+
     };
 
 
@@ -350,5 +359,7 @@ public class AddOvenActivity extends AppCompatActivity {
             Log.d("REST error", error.getMessage());
         }
     };
+
+
 
 }

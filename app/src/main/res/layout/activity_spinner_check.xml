@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SpinnerCheck">
+
+    <TextView
+        android:id="@+id/credaIDTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/trenutna_creda"
+        android:textSize="8pt"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/CredaID"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/CredaID"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="-85dp" />
+
+    <TextView
+        android:id="@+id/showCreda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Najdi credo"
+        android:textSize="8pt"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CredaID" />
+
+    <TextView
+        android:id="@+id/mamaIDTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/id_mame"
+        android:textSize="8pt"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showCreda"
+        app:layout_constraintVertical_bias="0.611" />
+
+    <Spinner
+        android:id="@+id/mamaID"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/showCreda"
+        app:layout_constraintTop_toBottomOf="@+id/CredaID"
+        tools:layout_editor_absoluteX="44dp"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/showMama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Najdi mamo"
+        android:textSize="8pt"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CredaID"
+        app:layout_constraintVertical_bias="0.592" />
+</androidx.constraintlayout.widget.ConstraintLayout>

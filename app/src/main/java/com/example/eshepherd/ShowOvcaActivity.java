@@ -70,7 +70,6 @@ import java.util.Map;
 import static android.widget.Toast.LENGTH_LONG;
 
 public class ShowOvcaActivity extends AppCompatActivity {
-    public static ShowOvcaActivity instance;
     private String iskanaOvca;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Ovce";
     private RequestQueue requestQueue;

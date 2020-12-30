@@ -65,18 +65,15 @@ public class AddGonitevActivity extends AppCompatActivity {
         mamaSpinner = (Spinner) findViewById(R.id.OvcaID);
         mamaList = new ArrayList<>();
         dodajMame();
-        ArrayAdapter<String> adapterMama = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mamaList);
-        adapterMama.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mamaSpinner.setAdapter(adapterMama);
         mamaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mama = parent.getItemAtPosition(position).toString();
-                ((TextView) view).setTextColor(Color.BLACK);
+                mama = parent.getSelectedItem().toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
@@ -84,18 +81,15 @@ public class AddGonitevActivity extends AppCompatActivity {
         oceSpinner = (Spinner) findViewById(R.id.OvenID);
         oceList = new ArrayList<>();
         dodajOcete();
-        ArrayAdapter<String> adapterOce = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, oceList);
-        adapterOce.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        oceSpinner.setAdapter(adapterOce);
-        oceSpinner.setSelection(0, true);
         oceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                oce = parent.getItemAtPosition(position).toString();
+                oce = parent.getSelectedItem().toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
@@ -113,8 +107,8 @@ public class AddGonitevActivity extends AppCompatActivity {
         try {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("datumGonitve", DatumGonitve.getText());
-            jsonBody.put("ovcaID", "680");//mama);
-            jsonBody.put("ovenID", "102");//oce);
+            jsonBody.put("ovcaID", mama);//mama);
+            jsonBody.put("ovenID", oce);//oce);
             jsonBody.put("opombe", Opombe.getText());
 
             final String mRequestBody = jsonBody.toString();
@@ -227,6 +221,9 @@ public class AddGonitevActivity extends AppCompatActivity {
                 mamaList.add(row);
                 Log.d("mamaList", row);
             }
+            ArrayAdapter<String> adapterMama = new ArrayAdapter<String>(AddGonitevActivity.this, android.R.layout.simple_spinner_item, mamaList);
+            adapterMama.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mamaSpinner.setAdapter(adapterMama);
         }
     };
 
@@ -250,6 +247,9 @@ public class AddGonitevActivity extends AppCompatActivity {
                 oceList.add(row);
                 Log.d("oceList", row);
             }
+            ArrayAdapter<String> adapterOce = new ArrayAdapter<String>(AddGonitevActivity.this, android.R.layout.simple_spinner_item, oceList);
+            adapterOce.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            oceSpinner.setAdapter(adapterOce);
         }
     };
     private Response.ErrorListener errorListener = new Response.ErrorListener() {
@@ -258,6 +258,7 @@ public class AddGonitevActivity extends AppCompatActivity {
             Log.d("REST error", error.getMessage());
         }
     };
+
 
 
 }

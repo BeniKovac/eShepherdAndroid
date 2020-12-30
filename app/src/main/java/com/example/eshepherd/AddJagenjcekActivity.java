@@ -42,10 +42,9 @@ public class AddJagenjcekActivity extends AppCompatActivity {
     private Spinner spolSpinner;
     private EditText JagenjcekID, Stanje, Opombe;
     private String spol;
-    private int kotitev = 2;
+    private int kotitev;
     ArrayList<String> kotitevList;
     private TextView datumRojstvaTv, mamaTv, Kotitev;
-
     TextView statusJagenjcek;
     RequestQueue requestQueue;
     private String url = "https://eshepherd-dev.azurewebsites.net/api/v1/Jagenjcki";
@@ -83,7 +82,6 @@ public class AddJagenjcekActivity extends AppCompatActivity {
         });
 
         statusJagenjcek = (TextView) findViewById(R.id.status);
-
     }
 
     @Override
@@ -94,9 +92,6 @@ public class AddJagenjcekActivity extends AppCompatActivity {
 
     public void prikaziKotitev() {
         kotitev = getKotitevIntent.getIntExtra("kotitevID", 7);
-        //kotitev = 2;
-        //Kotitev.setText();
-        //kotitev = 7;
         urlKotitve += "/" + kotitev;
         JsonObjectRequest request = new JsonObjectRequest(urlKotitve, null, jsonObjectListenerKotitev, errorListener)
         {
@@ -196,6 +191,7 @@ public class AddJagenjcekActivity extends AppCompatActivity {
 
             requestQueue.add(stringRequest);
             Toast.makeText(this, "Jagenjček je bil dodan.", Toast.LENGTH_SHORT).show();
+            addJagenjcka();
             finish();
 
 
@@ -252,7 +248,10 @@ public class AddJagenjcekActivity extends AppCompatActivity {
         }
     };
 
-
-
+    public void addJagenjcka() {
+        Intent intent = new Intent(this, AddJagenjcekActivity.class);
+        intent.putExtra("kotitevID", kotitev);
+        startActivity(intent);
+    }
 
 }
