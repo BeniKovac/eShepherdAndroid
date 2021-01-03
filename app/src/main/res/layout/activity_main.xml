@@ -19,6 +19,7 @@
             android:layout_marginTop="20dp"
             android:text="eShepherd"
             android:textSize="60dp"
+            android:textColor="#B5A7A7"
             android:textStyle="bold" />
 
         <ImageView
@@ -169,7 +170,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="27dp"
         android:fallbackLineSpacing="false"
-        android:text="Brought to you by Tinkara Končan\n      and Benjamin Kovač Keber"
+        android:text="Tinkara Končan in Benjamin Kovač Keber"
         android:textColor="#C5C0C0"
         android:textStyle="italic" />
 </LinearLayout>

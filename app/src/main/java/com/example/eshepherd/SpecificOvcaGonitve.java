@@ -85,7 +85,7 @@ public class SpecificOvcaGonitve extends AppCompatActivity implements ListAdapte
                     Integer ID  = object.getInt("gonitevID");
                     if(ID == null)
                         continue;
-                    String ovcaID = object.getString("ovcaID");
+                    String ovenID = object.getString("ovenID");
                     String datumRojstva  = object.getString("datumGonitve");
                     if(!datumRojstva.equals("null"))
                         datumRojstva = datumRojstva.substring(0,10);
@@ -98,7 +98,7 @@ public class SpecificOvcaGonitve extends AppCompatActivity implements ListAdapte
                         predDatum = "neznan";
                     dataID.add(ID);
                     dataDatum.add(datumRojstva);
-                    dataOvcaID.add(ovcaID);
+                    dataOvcaID.add(ovenID);
                     predvidenDatum.add(predDatum);
                     recyclerView.setAdapter(listAdaptergonitve);
                     recyclerView.setLayoutManager(new LinearLayoutManager(ct));

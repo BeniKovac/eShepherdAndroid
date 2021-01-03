@@ -11,9 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Jagenjcki izbrane kotitve"
+        android:text="Skoteni jagenjčki"
         android:textColor="#B5A7A7"
-        android:textSize="60dp"
+        android:textSize="50dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
         android:layout_marginLeft="110dp"
         android:layout_marginTop="12dp"
         android:textStyle="bold"
-        android:text="Številka jagenjcka"
+        android:text="Številka jagenjčka"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jagenjcki_title" />
 
