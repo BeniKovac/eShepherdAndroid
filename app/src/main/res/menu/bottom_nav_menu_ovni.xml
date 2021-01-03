@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/gonitev_icon"
-        android:title="Seznam gonitev tega ovna"
+        android:title="Gonitve"
         android:icon="@drawable/gonitev_icon"/>
 
 </menu>

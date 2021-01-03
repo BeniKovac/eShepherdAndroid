@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/id_jagenj_ka"
             android:inputType="number"/>
-        <TextView
+        <!--<TextView
             android:id="@+id/KotitevIDtv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,21 +84,21 @@
             android:id="@+id/KotitevID"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"/>
-
+-->
         <TextView
-        android:id="@+id/SpolTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/spol"
-        android:textStyle="bold"
-        android:textSize="8pt"/>
+            android:id="@+id/SpolTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/spol"
+            android:textStyle="bold"
+            android:textSize="8pt"/>
 
         <Spinner
-        android:id="@+id/Spol"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:prompt="@id/Spol"
-        />
+            android:id="@+id/Spol"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@id/Spol"
+            />
 
         <TextView
             android:id="@+id/StanjeTv"

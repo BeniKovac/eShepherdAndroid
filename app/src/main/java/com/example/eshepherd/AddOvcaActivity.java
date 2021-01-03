@@ -139,8 +139,8 @@ public class AddOvcaActivity extends AppCompatActivity {
 
             jsonBody.put("datumRojstva", DatumRojstva.getText());
             jsonBody.put("pasma", Pasma.getText());
-            jsonBody.put("mamaID", "/");//mama);
-            jsonBody.put("oceID", "/");//oce);
+            jsonBody.put("mamaID", mama);
+            jsonBody.put("oceID", oce);
             if (SteviloSorojencev.getText().length() == 0)
                 jsonBody.put("steviloSorojencev", 0);
             else
@@ -268,7 +268,7 @@ public class AddOvcaActivity extends AppCompatActivity {
                     JSONObject object = response.getJSONObject(i);
                     String creda = object.getString("credaID");
                     String ovca = object.getString("ovcaID");
-                    if (! creda.equals("0"))
+                    if (! creda.equals("0") || ovca.equals("/"))
                         data.add(ovca);
 
                 } catch (JSONException e) {
@@ -296,7 +296,7 @@ public class AddOvcaActivity extends AppCompatActivity {
                     JSONObject object = response.getJSONObject(i);
                     String creda = object.getString("credaID");
                     String oven = object.getString("ovenID");
-                    if (! creda.equals("0"))
+                    if (! creda.equals("0") || oven.equals("/"))
                         data.add(oven);
 
                 } catch (JSONException e) {

@@ -271,7 +271,7 @@ public class AddOvenActivity extends AppCompatActivity {
                     JSONObject object =response.getJSONObject(i);
                     String creda = object.getString("credaID");
                     String ovca = object.getString("ovcaID");
-                    if (! creda.equals("0"))
+                    if (! creda.equals("0") && !ovca.equals("/"))
                         data.add(ovca);
 
                 } catch (JSONException e){
@@ -300,7 +300,7 @@ public class AddOvenActivity extends AppCompatActivity {
                     JSONObject object =response.getJSONObject(i);
                     String creda = object.getString("credaID");
                     String oven = object.getString("ovenID");
-                    if (! creda.equals("0"))
+                    if (! creda.equals("0") && !oven.equals("/"))
                         data.add(oven);
 
                 } catch (JSONException e){

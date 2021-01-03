@@ -33,6 +33,7 @@ public class SpecificOvcaKotitve extends AppCompatActivity implements ListAdapte
     Context ct;
     ArrayList<Integer> dataID;
     ArrayList<String> dataDatum;
+    ArrayList<String> dataStMladih;
     ArrayList<String> dataOvcaID;
     ListAdapterKotitve listAdapterkotitve;
     Intent intent;
@@ -46,13 +47,14 @@ public class SpecificOvcaKotitve extends AppCompatActivity implements ListAdapte
         ct = this;
         recyclerView = findViewById(R.id.recycler_view_kotitve);
         dataID = new ArrayList<>();
+        dataStMladih = new ArrayList<>();
         dataDatum = new ArrayList<>();
         dataOvcaID = new ArrayList<>();
 
         intent = getIntent();
         specificOvcaID = intent.getStringExtra("SpecificID");
 
-        listAdapterkotitve = new ListAdapterKotitve(ct, dataOvcaID, dataDatum, this);
+        listAdapterkotitve = new ListAdapterKotitve(ct, dataStMladih, dataDatum, this);
         prikaziKotitve();
     }
 
@@ -86,6 +88,7 @@ public class SpecificOvcaKotitve extends AppCompatActivity implements ListAdapte
                     if(!ovcaID.equals(specificOvcaID))
                         continue;
                     Integer ID  = object.getInt("kotitevID");
+
                     if(ID.equals("/"))
                         continue;
                     String datumRojstva  = object.getString("datumKotitve");
@@ -94,8 +97,10 @@ public class SpecificOvcaKotitve extends AppCompatActivity implements ListAdapte
                     else
                         datumRojstva = "neznan";
                     String OvcaID = object.getString("ovcaID");
+                    Integer stMladih  = object.getInt("steviloMladih");
                     dataID.add(ID);
                     dataDatum.add(datumRojstva);
+                    dataStMladih.add(Integer.toString(stMladih));
                     dataOvcaID.add(OvcaID);
                     recyclerView.setAdapter(listAdapterkotitve);
                     recyclerView.setLayoutManager(new LinearLayoutManager(ct));

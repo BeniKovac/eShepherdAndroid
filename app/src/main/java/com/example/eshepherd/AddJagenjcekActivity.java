@@ -59,7 +59,7 @@ public class AddJagenjcekActivity extends AppCompatActivity {
         this.JagenjcekID = (EditText) findViewById(R.id.JagenjcekID);
         this.Stanje = (EditText) findViewById(R.id.Stanje);
         this.Opombe = (EditText) findViewById(R.id.Opombe);
-        this.Kotitev = (TextView) findViewById(R.id.KotitevID);
+        //this.Kotitev = (TextView) findViewById(R.id.KotitevID);
         this.datumRojstvaTv = (TextView) findViewById(R.id.DatumRojstva);
         this.mamaTv = (TextView) findViewById(R.id.mamaID);
         getKotitevIntent = getIntent(); // dobi pravo kotitevID
@@ -116,7 +116,7 @@ public class AddJagenjcekActivity extends AppCompatActivity {
 
                 datumRojstvaTv.setText(datumRojstva);
                 mamaTv.setText(mamaID);
-                Kotitev.setText(String.valueOf(kotitev));
+                //Kotitev.setText(String.valueOf(kotitev));
 
             } catch (JSONException e) {
                 e.printStackTrace();

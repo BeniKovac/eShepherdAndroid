@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Gonitve"
+        android:text="Gonitve ovna"
         android:textColor="#B5A7A7"
         android:textSize="60dp"
         android:textStyle="bold"
@@ -60,7 +60,7 @@
         android:layout_marginLeft="100dp"
         android:layout_marginTop="12dp"
         android:textStyle="bold"
-        android:text="    Št.\n  ovce"
+        android:text="\nID ovce"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gonitve_title" />
 

@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Ovce izbrane črede"
+        android:text="Ovce v čredi"
         android:textColor="#B5A7A7"
         android:textSize="50dp"
         android:textStyle="bold"
@@ -35,7 +35,7 @@
         android:layout_marginLeft="110dp"
         android:layout_marginTop="12dp"
         android:textStyle="bold"
-        android:text="Številka ovce"
+        android:text="ID ovce"
         android:onClick="ChangeDirection"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ovce_title" />
