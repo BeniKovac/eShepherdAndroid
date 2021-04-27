@@ -101,9 +101,9 @@ public class ShowJagenjcekActivity extends AppCompatActivity {
     public void onClickShowAlert() {
         AlertDialog.Builder myAlertBuilder = new
                 AlertDialog.Builder(ShowJagenjcekActivity.this);
-        myAlertBuilder.setTitle("Izbrisati želite jagenjčka.");
-        myAlertBuilder.setMessage("Ali ste prepričani, da želite izbrisati jagenjčka?");
-        myAlertBuilder.setPositiveButton("Da, izbriši jagenjčka", new
+        myAlertBuilder.setTitle("Odjaviti želite jagenjčka.");
+        myAlertBuilder.setMessage("Ali ste prepričani, da želite odjaviti jagenjčka?");
+        myAlertBuilder.setPositiveButton("Da, odjaviti jagenjčka", new
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // User clicked OK button.
@@ -121,7 +121,7 @@ public class ShowJagenjcekActivity extends AppCompatActivity {
     }
 
     public void deleteJagenjcek() {
-        Toast.makeText(this, "Brišem jagenjčka", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Odjavljam jagenjčka", Toast.LENGTH_SHORT).show();
         try {
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("skritIdJagenjcka", iskanJagenjcek);
@@ -175,7 +175,7 @@ public class ShowJagenjcekActivity extends AppCompatActivity {
             };
 
             requestQueue.add(stringRequest);
-            Toast.makeText(this, "Jagenjček je bil izbrisan.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Jagenjček je bil odjavljen.", Toast.LENGTH_SHORT).show();
             finish();
 
         } catch (JSONException e) {

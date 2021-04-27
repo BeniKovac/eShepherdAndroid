@@ -190,7 +190,7 @@ public class AddJagenjcekActivity extends AppCompatActivity {
             };
 
             requestQueue.add(stringRequest);
-            Toast.makeText(this, "Jagenjček je bil dodan.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Jagenjček je bil prijavljen v sistem Volos..", Toast.LENGTH_SHORT).show();
             addJagenjcka();
             finish();
 

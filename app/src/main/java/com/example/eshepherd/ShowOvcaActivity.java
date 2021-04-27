@@ -159,9 +159,9 @@ public class ShowOvcaActivity extends AppCompatActivity {
     public void onClickShowAlert() {
         AlertDialog.Builder myAlertBuilder = new
                 AlertDialog.Builder(ShowOvcaActivity.this);
-        myAlertBuilder.setTitle("Izbrisati želite ovco.");
-        myAlertBuilder.setMessage("Ali ste prepričani, da želite izbrisati ovco?");
-        myAlertBuilder.setPositiveButton("Da, izbriši ovco", new
+        myAlertBuilder.setTitle("Odjaviti želite ovco.");
+        myAlertBuilder.setMessage("Ali ste prepričani, da želite odjaviti ovco?");
+        myAlertBuilder.setPositiveButton("Da, odjavi ovco", new
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // User clicked OK button.
@@ -286,7 +286,7 @@ public class ShowOvcaActivity extends AppCompatActivity {
     }
 
     public void deleteOvca() {
-        Toast.makeText(this, "Brišem ovco", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Odjavljam ovco iz sistema Volos", Toast.LENGTH_SHORT).show();
         try {
             JSONObject jsonBody = new JSONObject();
 
@@ -356,7 +356,7 @@ public class ShowOvcaActivity extends AppCompatActivity {
             };
 
             this.requestQueue.add(stringRequest);
-            Toast.makeText(this, "Ovca je bila izbrisana.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ovca je bila odjavljena.", Toast.LENGTH_SHORT).show();
             finish();
         } catch (JSONException e) {
             e.printStackTrace();

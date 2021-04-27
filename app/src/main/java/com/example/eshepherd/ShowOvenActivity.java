@@ -121,9 +121,9 @@ public class ShowOvenActivity extends AppCompatActivity {
     public void onClickShowAlert() {
         AlertDialog.Builder myAlertBuilder = new
                 AlertDialog.Builder(ShowOvenActivity.this);
-        myAlertBuilder.setTitle("Izbrisati želite ovna.");
-        myAlertBuilder.setMessage("Ali ste prepričani, da želite izbrisati ovna?");
-        myAlertBuilder.setPositiveButton("Da, izbriši ovna", new
+        myAlertBuilder.setTitle("Odjaviti želite ovna.");
+        myAlertBuilder.setMessage("Ali ste prepričani, da želite odjaviti ovna?");
+        myAlertBuilder.setPositiveButton("Da, odjaviti ovna", new
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // User clicked OK button.
@@ -144,7 +144,7 @@ public class ShowOvenActivity extends AppCompatActivity {
     }
 
     public void deleteOven() {
-        Toast.makeText(this, "Brišem ovna", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Odjavljam ovna", Toast.LENGTH_SHORT).show();
         try {
             JSONObject jsonBody = new JSONObject();
 
@@ -214,7 +214,7 @@ public class ShowOvenActivity extends AppCompatActivity {
             };
 
             this.requestQueue.add(stringRequest);
-            Toast.makeText(this, "Oven je bil izbrisan.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Oven je bil odjavljen.", Toast.LENGTH_SHORT).show();
             finish();
         } catch (JSONException e) {
             e.printStackTrace();
