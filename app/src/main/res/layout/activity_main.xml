@@ -162,6 +162,7 @@
             android:text="Jagenjčki"
             android:textSize="20dp"
             android:textStyle="bold" />
+
     </RelativeLayout>
 
     <TextView
@@ -170,7 +171,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="27dp"
         android:fallbackLineSpacing="false"
-        android:text="Tinkara Končan in Benjamin Kovač Keber"
+        android:text="Povezan s sistemom Volos"
         android:textColor="#C5C0C0"
         android:textStyle="italic" />
 </LinearLayout>
