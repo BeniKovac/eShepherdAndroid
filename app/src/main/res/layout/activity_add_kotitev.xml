@@ -41,7 +41,7 @@
             android:id="@+id/DatumKotitve"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/datum_kotitve"
+            android:hint="@string/datum_kotitve_format"
             android:inputType="date"/>
 
         <TextView

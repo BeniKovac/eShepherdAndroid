@@ -71,7 +71,7 @@
             android:id="@+id/DatumRojstva"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/datum_rojstva"
+            android:hint="@string/datum_rojstva_format"
             android:inputType="date"/>
 
         <TextView

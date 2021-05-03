@@ -3,6 +3,7 @@
     <string name="id_ovce">ID ovce</string>
     <string name="vpisite_id_ovce">Vpišite ID ovce</string>
     <string name="trenutna_creda">Trenutna čreda</string>
+    <string name="datum_rojstva_format">LLLL-DD-MM</string>
     <string name="datum_rojstva">Datum rojstva</string>
     <string name="pasma">Pasma</string>
     <string name="id_oceta">ID očeta</string>
@@ -16,7 +17,9 @@
     <string name="dodaj_ovna">Dodaj ovna</string>
     <string name="dodaj_redo">Dodaj čredo</string>
     <string name="datum_gonitve">Datum gonitve</string>
+    <string name="datum_gonitve_format">LLLL-DD-MM</string>
     <string name="datum_kotitve">Datum kotitve</string>
+    <string name="datum_kotitve_format">LLLL-DD-MM</string>
     <string name="tevilo_mrtvorojenih">Število mrtvorojenih</string>
     <string name="dodaj_kotitev">Dodaj kotitev</string>
     <string name="id_jagenj_ka">ID jagenjčka</string>

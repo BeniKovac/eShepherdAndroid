@@ -41,7 +41,7 @@
             android:id="@+id/DatumGonitve"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/datum_gonitve"
+            android:hint="@string/datum_gonitve_format"
             android:inputType="date"/>
 
         <TextView
